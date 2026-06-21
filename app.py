@@ -6,6 +6,8 @@ Run with:
 
 import streamlit as st
 
+from src.ai_helper import generate_ai_explanation
+
 from src.recommender import (
     COMMUTE_OPTIONS,
     HOUSEHOLD_OPTIONS,
