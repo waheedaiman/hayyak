@@ -3,10 +3,6 @@ from groq import Groq
 
 
 def get_groq_client():
-    """
-    Creates a Groq client using the GROQ_API_KEY environment variable.
-    The API key should never be hardcoded in the code.
-    """
     api_key = os.getenv("GROQ_API_KEY")
 
     if not api_key:
@@ -16,27 +12,37 @@ def get_groq_client():
 
 
 def build_relocation_prompt(user_profile, top_recommendations):
-    """
-    Builds the prompt that will be sent to Groq.
-    """
-
     profile_text = f"""
-Budget: AED {user_profile.get("budget")}
-Workplace/University Area: {user_profile.get("workplace")}
-Lifestyle Preference: {user_profile.get("lifestyle")}
-Household Type: {user_profile.get("household_type")}
-Needs Metro Access: {user_profile.get("needs_metro")}
-Main Priority: {user_profile.get("priority")}
+Monthly budget: AED {user_profile.get("monthly_budget_aed")}
+Commute target: {user_profile.get("commute_target")}
+Lifestyle preference: {user_profile.get("lifestyle")}
+Household type: {user_profile.get("household_type")}
+Needs metro access: {user_profile.get("needs_metro")}
+Main priority: {user_profile.get("priority")}
 """
 
     recommendations_text = ""
 
     for index, area in enumerate(top_recommendations, start=1):
+        reasons = area.get("reasons", [])
+        cautions = area.get("cautions", [])
+        first_steps = area.get("first_steps", [])
+
+        reasons_text = "\n".join([f"- {reason}" for reason in reasons]) or "- No specific reasons listed."
+        cautions_text = "\n".join([f"- {caution}" for caution in cautions]) or "- No cautions listed."
+        steps_text = "\n".join([f"- {step}" for step in first_steps]) or "- No first steps listed."
+
         recommendations_text += f"""
-{index}. {area["name"]}
-Match Score: {area["score"]}
-Why it matched: {area["match_reason"]}
-Possible downside: {area["downside"]}
+{index}. {area.get("name", "Unknown area")}
+Match percentage: {area.get("match_percent", "N/A")}%
+Summary: {area.get("summary", "No summary provided.")}
+Why it fits:
+{reasons_text}
+Cautions:
+{cautions_text}
+Possible downside: {area.get("downside", "No downside listed.")}
+First move-in steps:
+{steps_text}
 """
 
     prompt = f"""
@@ -44,7 +50,7 @@ You are Hayyak, an AI relocation assistant for people moving to Dubai.
 
 Your job is to explain neighbourhood recommendations in a practical, beginner-friendly way.
 
-Use the user's profile and the scored neighbourhood results provided below.
+Use only the user's profile and the scored neighbourhood results provided below.
 Do not invent official legal, visa, rent, or government information.
 If something requires official confirmation, tell the user to verify it with the relevant official Dubai/UAE source.
 
@@ -69,10 +75,6 @@ Keep the tone helpful, clear, and concise.
 
 
 def generate_ai_explanation(user_profile, top_recommendations):
-    """
-    Sends the relocation prompt to Groq and returns the AI-generated explanation.
-    """
-
     client = get_groq_client()
 
     if client is None:
