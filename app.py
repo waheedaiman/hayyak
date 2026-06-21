@@ -126,3 +126,12 @@ if "recommendations" in st.session_state:
     st.code(build_llm_context(profile, recommendations), language="markdown")
 else:
     st.info("Complete the quiz above to generate your first recommendation results.")
+
+
+    st.subheader("AI Relocation Explanation")
+
+    if st.button("Generate AI Explanation"):
+        with st.spinner("Hayyak is preparing your relocation explanation..."):
+            ai_response = generate_ai_explanation(user_profile, top_3)
+
+        st.write(ai_response)
