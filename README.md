@@ -17,3 +17,14 @@ Hayyak helps people moving to Dubai choose where to live, avoid relocation mista
 
 ## Status
 In development — Building AI Application Challenge 2026
+
+## Day 2 Progress
+- Set up GitHub repository.
+- Created initial project folder structure.
+- Tested a Groq API request using Google Colab.
+- Started initial LLM/API integration work.
+
+## Planned Folders
+- `data/` — will hold neighbourhood datasets later.
+- `notebooks/` — will hold experiments and API testing notebooks.
+- `src/` — will hold the main application code later.
