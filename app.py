@@ -7,7 +7,6 @@ Run with:
 import streamlit as st
 
 from src.ai_helper import generate_ai_explanation
-
 from src.recommender import (
     COMMUTE_OPTIONS,
     HOUSEHOLD_OPTIONS,
@@ -119,19 +118,25 @@ if "recommendations" in st.session_state:
                 st.markdown(f"- {step}")
 
     st.divider()
+    st.subheader("AI Relocation Explanation")
+
+    st.caption(
+        "Generate a more natural explanation and checklist using Groq. "
+        "This requires GROQ_API_KEY to be set in your environment."
+    )
+
+    if st.button("Generate AI Explanation"):
+        with st.spinner("Hayyak is preparing your relocation explanation..."):
+            ai_response = generate_ai_explanation(profile, recommendations)
+
+        st.write(ai_response)
+
+    st.divider()
     st.subheader("Developer output for the future Groq prompt")
     st.caption(
         "This text can later be passed to the Groq API so the chatbot can explain the results more naturally."
     )
     st.code(build_llm_context(profile, recommendations), language="markdown")
+
 else:
     st.info("Complete the quiz above to generate your first recommendation results.")
-
-
-    st.subheader("AI Relocation Explanation")
-
-    if st.button("Generate AI Explanation"):
-        with st.spinner("Hayyak is preparing your relocation explanation..."):
-            ai_response = generate_ai_explanation(user_profile, top_3)
-
-        st.write(ai_response)
