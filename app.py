@@ -55,7 +55,7 @@ def show_ai_result_modal(ai_text):
 
 # ---------------- HERO ----------------
 
-logo_path = Path("assets/hayyak-logo.png")
+hero_image_path = Path("assets/hayyak-main.png")
 
 st.markdown(
     """
@@ -73,18 +73,20 @@ st.markdown(
                     <span class="soft-note">Start with a short quiz. Get your top 3 matches.</span>
                 </div>
             </div>
-            <div class="brand-card">
+            <div class="hero-art-card">
     """,
     unsafe_allow_html=True,
 )
 
-if logo_path.exists():
-    st.image(str(logo_path), use_container_width=True)
+st.markdown('<div class="fade-in-brand">', unsafe_allow_html=True)
+
+if hero_image_path.exists():
+    st.image(str(hero_image_path), use_container_width=True)
 else:
     st.markdown(
         """
         <div style="
-            border: 1px solid rgba(100,42,22,0.18);
+            border: 1px solid rgba(140,138,103,0.25);
             border-radius: 24px;
             padding: 2.5rem 1rem;
             background: #FFF9F0;
@@ -96,6 +98,8 @@ else:
         """,
         unsafe_allow_html=True,
     )
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown(
     """
