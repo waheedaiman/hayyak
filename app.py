@@ -1,8 +1,10 @@
-"""Hayyak quiz app.
+"""Hayyak home and quiz page.
 
 Run with:
     streamlit run app.py
 """
+
+from pathlib import Path
 
 import streamlit as st
 
@@ -13,173 +15,157 @@ from src.recommender import (
     LIFESTYLE_OPTIONS,
     METRO_OPTIONS,
     PRIORITY_OPTIONS,
-    build_llm_context,
     score_neighbourhoods,
 )
+from src.ui import apply_hayyak_theme, arabic_divider, render_nav
 
 
 st.set_page_config(
-    page_title="Hayyak - Dubai relocation quiz",
-    page_icon="🏙️",
-    layout="centered",
+    page_title="Hayyak | Dubai neighbourhood matching",
+    page_icon="🏡",
+    layout="wide",
 )
 
+apply_hayyak_theme()
+render_nav(active="home")
+
+
+@st.dialog("Your Hayyak relocation brief")
+def show_ai_result_modal(ai_text):
+    st.caption("Based on your quiz preferences and neighbourhood matches.")
+    arabic_divider()
+
+    if isinstance(ai_text, dict):
+        if ai_text.get("ok"):
+            st.success(
+                f"Generated with Groq in {ai_text.get('latency_seconds', 'N/A')} seconds."
+            )
+        else:
+            st.warning("Showing fallback guidance because the AI response was unavailable.")
+
+        st.write(ai_text.get("message", "No explanation was generated."))
+    else:
+        st.write(ai_text)
+
+    st.caption(
+        "Note: Always verify official housing, tenancy, visa, and utility setup details "
+        "through the relevant UAE or Dubai authority."
+    )
+
+
+# ---------------- HERO ----------------
+
+logo_path = Path("assets/hayyak-logo.png")
 
 st.markdown(
     """
-    <style>
-    .top-navbar {
-        position: sticky;
-        top: 0;
-        z-index: 999;
-        margin: -1rem auto 2rem auto;
-        padding: 0.75rem 1rem;
-        max-width: 950px;
-        border: 1px solid rgba(255, 255, 255, 0.20);
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
-    }
+    <section class="hero-shell">
+        <div class="hero-grid">
+            <div>
+                <div class="eyebrow">MENA-focused neighbourhood matching</div>
+                <h1 class="hero-title">Welcome to Hayyak</h1>
+                <p class="hero-copy">
+                    Find the Dubai neighbourhood that fits your lifestyle, budget,
+                    commute, and move-in priorities. Hayyak helps newcomers make
+                    relocation decisions with more clarity and less guesswork.
+                </p>
+                <div class="hero-actions">
+                    <span class="soft-note">Start with a short quiz. Get your top 3 matches.</span>
+                </div>
+            </div>
+            <div class="brand-card">
+    """,
+    unsafe_allow_html=True,
+)
 
-    .top-navbar-inner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .brand {
-        font-weight: 800;
-        font-size: 1.05rem;
-        letter-spacing: 0.03em;
-        color: #ffffff;
-        white-space: nowrap;
-    }
-
-    .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 0.35rem;
-        flex-wrap: wrap;
-    }
-
-    .nav-link {
-        text-decoration: none !important;
-        color: rgba(255, 255, 255, 0.88) !important;
-        font-size: 0.88rem;
-        padding: 0.45rem 0.75rem;
-        border-radius: 999px;
-        transition: all 0.2s ease;
-    }
-
-    .nav-link:hover {
-        background: rgba(255, 255, 255, 0.18);
-        color: #ffffff !important;
-    }
-
-    .nav-cta {
-        background: linear-gradient(135deg, #ff9f43, #ff7a45);
-        color: #ffffff !important;
-        font-weight: 700;
-    }
-
-    .nav-cta:hover {
-        background: linear-gradient(135deg, #ffb366, #ff8c5a);
-    }
-
-    @media (max-width: 700px) {
-        .top-navbar {
+if logo_path.exists():
+    st.image(str(logo_path), use_container_width=True)
+else:
+    st.markdown(
+        """
+        <div style="
+            border: 1px solid rgba(100,42,22,0.18);
             border-radius: 24px;
-        }
+            padding: 2.5rem 1rem;
+            background: #FFF9F0;
+            text-align: center;
+        ">
+            <h2 style="margin:0;color:#642A16;">Hayyak</h2>
+            <p style="color:#735A4C;margin-top:.5rem;">Your neighbourhood, perfectly matched.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
-        .top-navbar-inner {
-            align-items: flex-start;
-        }
-
-        .nav-links {
-            width: 100%;
-        }
-    }
-    </style>
-
-    <div class="top-navbar">
-        <div class="top-navbar-inner">
-            <div class="brand">Hayyak</div>
-            <div class="nav-links">
-                <a class="nav-link" href="#home-profile">Home / Profile</a>
-                <a class="nav-link" href="#quiz">Quiz</a>
-                <a class="nav-link" href="#ai-chatbot">AI Chatbot</a>
-                <a class="nav-link" href="#utilities">Utilities</a>
-                <a class="nav-link" href="#checklist">Checklist</a>
-                <a class="nav-link nav-cta" href="#dubai-guide">Dubai Guide</a>
+st.markdown(
+    """
             </div>
         </div>
-    </div>
+    </section>
     """,
     unsafe_allow_html=True,
 )
 
 
-st.markdown('<div id="home-profile"></div>', unsafe_allow_html=True)
-st.title("Hayyak")
-st.subheader("Dubai relocation assistant")
+# ---------------- QUIZ ----------------
 
-st.write(
-    "Hayyak helps newcomers moving to Dubai compare neighbourhoods, "
-    "understand setup steps, and generate personalised move-in guidance."
+st.markdown(
+    """
+    <div class="section-card">
+        <div class="section-heading">
+            <div>
+                <h2>Find your Dubai neighbourhood</h2>
+                <p>Answer a few questions so Hayyak can understand your relocation style.</p>
+            </div>
+        </div>
+    """,
+    unsafe_allow_html=True,
 )
-
-st.markdown('<div id="quiz"></div>', unsafe_allow_html=True)
-st.subheader("Dubai relocation quiz")
-
-st.write(
-    "Answer a few questions and Hayyak will suggest the top 3 neighbourhoods "
-    "to consider for your move."
-)
-
 
 with st.form("hayyak_quiz"):
-    monthly_budget_aed = st.slider(
-        "Monthly rent budget in AED",
-        min_value=3000,
-        max_value=25000,
-        value=7500,
-        step=500,
-        help="Use an approximate monthly rent budget. This is only for early matching logic.",
-    )
+    col1, col2 = st.columns(2)
 
-    commute_target = st.selectbox(
-        "Where will you commute most often?",
-        COMMUTE_OPTIONS,
-    )
+    with col1:
+        monthly_budget_aed = st.slider(
+            "Monthly rent budget in AED",
+            min_value=3000,
+            max_value=25000,
+            value=7500,
+            step=500,
+        )
 
-    lifestyle = st.radio(
-        "What kind of area do you prefer?",
-        LIFESTYLE_OPTIONS,
-        horizontal=True,
-    )
+        commute_target = st.selectbox(
+            "Where will you commute most often?",
+            COMMUTE_OPTIONS,
+        )
 
-    household_type = st.selectbox(
-        "Who are you moving as?",
-        HOUSEHOLD_OPTIONS,
-    )
+        lifestyle = st.radio(
+            "What kind of area do you prefer?",
+            LIFESTYLE_OPTIONS,
+            horizontal=True,
+        )
 
-    needs_metro = st.radio(
-        "Do you need metro access?",
-        METRO_OPTIONS,
-        index=1,
-        horizontal=True,
-    )
+    with col2:
+        household_type = st.selectbox(
+            "Who are you moving as?",
+            HOUSEHOLD_OPTIONS,
+        )
 
-    priority = st.selectbox(
-        "What matters most to you?",
-        PRIORITY_OPTIONS,
-    )
+        needs_metro = st.radio(
+            "Do you need metro access?",
+            METRO_OPTIONS,
+            index=1,
+            horizontal=True,
+        )
 
-    submitted = st.form_submit_button("Find my top 3 neighbourhoods")
+        priority = st.selectbox(
+            "What matters most to you?",
+            PRIORITY_OPTIONS,
+        )
+
+    submitted = st.form_submit_button("Find my neighbourhoods")
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 
 if submitted:
@@ -196,99 +182,76 @@ if submitted:
     st.session_state["recommendations"] = score_neighbourhoods(user_profile)
 
 
+# ---------------- RESULTS ----------------
+
 if "recommendations" in st.session_state:
     profile = st.session_state["user_profile"]
     recommendations = st.session_state["recommendations"]
 
-    st.divider()
-    st.subheader("Your top 3 neighbourhood matches")
+    st.markdown(
+        """
+        <div class="section-card">
+            <div class="section-heading">
+                <div>
+                    <h2>Your top neighbourhood matches</h2>
+                    <p>These are your strongest matches based on your quiz profile.</p>
+                </div>
+            </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     for rank, rec in enumerate(recommendations, start=1):
-        with st.expander(
-            f"{rank}. {rec['name']} - {rec['match_percent']}% match",
-            expanded=True,
-        ):
-            st.progress(rec["match_percent"] / 100)
-            st.write(rec["summary"])
+        reasons = rec.get("reasons", [])
+        cautions = rec.get("cautions", [])
 
-            st.markdown("**Why it fits:**")
-            if rec["reasons"]:
-                for reason in rec["reasons"]:
-                    st.markdown(f"- {reason.capitalize()}.")
-            else:
-                st.markdown("- This area is a possible match, but it needs more user details.")
+        reasons_html = "".join(
+            [f"<li>{reason.capitalize()}.</li>" for reason in reasons[:3]]
+        ) or "<li>This area is a possible match, but more detail would improve the recommendation.</li>"
 
-            if rec["cautions"]:
-                st.markdown("**Cautions:**")
-                for caution in rec["cautions"]:
-                    st.markdown(f"- {caution.capitalize()}.")
+        cautions_html = "".join(
+            [f"<li>{caution.capitalize()}.</li>" for caution in cautions[:2]]
+        )
 
-            st.markdown(f"**Possible downside:** {rec['downside']}")
+        caution_block = ""
+        if cautions_html:
+            caution_block = f"""
+            <p style="margin:.7rem 0 .25rem 0;"><strong>Cautions</strong></p>
+            <ul>{cautions_html}</ul>
+            """
 
-            st.markdown("**First move-in steps:**")
-            for step in rec["first_steps"]:
-                st.markdown(f"- {step}")
+        st.markdown(
+            f"""
+            <div class="result-card">
+                <div class="result-topline">
+                    <h3 class="result-title">{rank}. {rec.get("name")}</h3>
+                    <span class="match-pill">{rec.get("match_percent")}% match</span>
+                </div>
+                <p class="muted-text">{rec.get("summary")}</p>
+                <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
+                <ul>{reasons_html}</ul>
+                {caution_block}
+                <p><strong>Possible downside:</strong> {rec.get("downside")}</p>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
-    st.divider()
-    st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
-    st.subheader("AI Relocation Explanation")
-    
-    st.caption(
-        "Generate a more natural explanation and checklist using Groq. "
-        "The API connection now includes status handling, fallback output, and feedback buttons."
-    )
+    st.markdown("</div>", unsafe_allow_html=True)
 
-    if st.button("Generate AI Explanation"):
-        with st.spinner("Hayyak is preparing your relocation explanation..."):
-            ai_response = generate_ai_explanation(profile, recommendations)
+    col_a, col_b = st.columns([1, 2])
 
-        if ai_response["ok"]:
-            st.success(
-                f"AI explanation generated with Groq in "
-                f"{ai_response['latency_seconds']} seconds."
-            )
-        else:
-            st.warning("Using fallback explanation because the Groq API response was unavailable.")
+    with col_a:
+        if st.button("Generate relocation brief"):
+            with st.spinner("Preparing your Hayyak relocation brief..."):
+                ai_response = generate_ai_explanation(profile, recommendations)
 
-        st.write(ai_response["message"])
+            show_ai_result_modal(ai_response)
 
-        st.markdown("**Was this explanation useful?**")
-        col1, col2 = st.columns(2)
-
-        with col1:
-            if st.button("👍 Useful"):
-                st.session_state["ai_feedback"] = "useful"
-                st.success("Thanks for the feedback.")
-
-        with col2:
-            if st.button("👎 Needs improvement"):
-                st.session_state["ai_feedback"] = "needs_improvement"
-                st.info("Thanks. This will help improve Hayyak's recommendations.")
-
-    st.divider()
-    st.subheader("Developer output for the future Groq prompt")
-    st.caption(
-        "This text can later be passed to the Groq API so the chatbot can explain the results more naturally."
-    )
-    st.code(build_llm_context(profile, recommendations), language="markdown")
+    with col_b:
+        st.caption(
+            "The relocation brief opens as a modal so users do not need to scroll away from their results."
+        )
 
 else:
-    st.info("Complete the quiz above to generate your first recommendation results.")
-
-
-st.divider()
-
-st.markdown('<div id="utilities"></div>', unsafe_allow_html=True)
-st.subheader("Utilities")
-st.write("Coming next: DEWA, Ejari, e&, du, internet setup, and move-in service guidance.")
-
-st.markdown('<div id="checklist"></div>', unsafe_allow_html=True)
-st.subheader("Checklist")
-st.write("Coming next: a personalised relocation checklist based on your quiz answers.")
-
-st.markdown('<div id="dubai-guide"></div>', unsafe_allow_html=True)
-st.subheader("Dubai Guide")
-st.write(
-    "Coming next: an A-Z guide for moving to Dubai, "
-    "from pre-arrival planning to first-month setup."
-)
+    st.info("Complete the quiz to generate your first neighbourhood matches.")
