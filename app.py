@@ -221,34 +221,37 @@ if "recommendations" in st.session_state:
 
     st.divider()
     st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
-    st.subheader("AI Relocation Explanation")
-
-    st.caption(
+    st.subheader("AI Relocation Explanation")    st.caption(
         "Generate a more natural explanation and checklist using Groq. "
         "This requires GROQ_API_KEY to be set in your environment."
-    )if st.button("Generate AI Explanation"):
-    with st.spinner("Hayyak is preparing your relocation explanation..."):
-        ai_response = generate_ai_explanation(profile, recommendations)
+    )
 
-    if ai_response["ok"]:
-        st.success(f"AI explanation generated with Groq in {ai_response['latency_seconds']} seconds.")
-    else:
-        st.warning("Using fallback explanation because the Groq API response was unavailable.")
+    if st.button("Generate AI Explanation"):
+        with st.spinner("Hayyak is preparing your relocation explanation..."):
+            ai_response = generate_ai_explanation(profile, recommendations)
 
-    st.write(ai_response["message"])
+        if ai_response["ok"]:
+            st.success(
+                f"AI explanation generated with Groq in "
+                f"{ai_response['latency_seconds']} seconds."
+            )
+        else:
+            st.warning("Using fallback explanation because the Groq API response was unavailable.")
 
-    st.markdown("**Was this explanation useful?**")
-    col1, col2 = st.columns(2)
+        st.write(ai_response["message"])
 
-    with col1:
-        if st.button("👍 Useful"):
-            st.session_state["ai_feedback"] = "useful"
-            st.success("Thanks for the feedback.")
+        st.markdown("**Was this explanation useful?**")
+        col1, col2 = st.columns(2)
 
-    with col2:
-        if st.button("👎 Needs improvement"):
-            st.session_state["ai_feedback"] = "needs_improvement"
-            st.info("Thanks. This will help improve Hayyak's recommendations.")
+        with col1:
+            if st.button("👍 Useful"):
+                st.session_state["ai_feedback"] = "useful"
+                st.success("Thanks for the feedback.")
+
+        with col2:
+            if st.button("👎 Needs improvement"):
+                st.session_state["ai_feedback"] = "needs_improvement"
+                st.info("Thanks. This will help improve Hayyak's recommendations.")
 
     st.divider()
     st.subheader("Developer output for the future Groq prompt")
