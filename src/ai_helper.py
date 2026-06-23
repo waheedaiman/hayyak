@@ -1,4 +1,6 @@
 import os
+import time
+
 from groq import Groq
 
 
@@ -74,31 +76,94 @@ Keep the tone helpful, clear, and concise.
     return prompt
 
 
-def generate_ai_explanation(user_profile, top_recommendations):
+def build_fallback_explanation(user_profile, top_recommendations):
+    lines = []
+
+    lines.append("Hayyak could not reach the AI explanation service right now, so here is a basic fallback summary.\n")
+    lines.append(
+        f"Your profile suggests a budget of around AED {user_profile.get('monthly_budget_aed')} "
+        f"with commute focus around {user_profile.get('commute_target')}."
+    )
+
+    lines.append("\nTop neighbourhood matches:")
+
+    for index, area in enumerate(top_recommendations, start=1):
+        lines.append(f"\n{index}. {area.get('name', 'Unknown area')} - {area.get('match_percent', 'N/A')}% match")
+        lines.append(area.get("summary", "No summary available."))
+
+        reasons = area.get("reasons", [])
+        if reasons:
+            lines.append("Why it fits:")
+            for reason in reasons[:3]:
+                lines.append(f"- {reason.capitalize()}.")
+
+        lines.append(f"Possible downside: {area.get('downside', 'No downside listed.')}")
+
+    lines.append("\nFirst-week checklist:")
+    lines.append("- Confirm your rental budget and shortlisted neighbourhoods.")
+    lines.append("- Check commute time during peak hours.")
+    lines.append("- Prepare documents for tenancy and Ejari.")
+    lines.append("- Plan DEWA, internet, and mobile setup.")
+    lines.append("- Visit shortlisted areas before signing.")
+
+    return "\n".join(lines)
+
+
+def generate_ai_explanation(user_profile, top_recommendations, max_retries=2):
     client = get_groq_client()
 
     if client is None:
-        return (
-            "Groq API key is not configured yet. "
-            "Set GROQ_API_KEY as an environment variable to enable AI explanations."
-        )
+        return {
+            "ok": False,
+            "source": "fallback",
+            "message": (
+                "Groq API key is not configured yet. "
+                "Set GROQ_API_KEY as an environment variable to enable AI explanations."
+            ),
+        }
 
     prompt = build_relocation_prompt(user_profile, top_recommendations)
 
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[
-            {
-                "role": "system",
-                "content": "You are Hayyak, a Dubai relocation assistant.",
-            },
-            {
-                "role": "user",
-                "content": prompt,
-            },
-        ],
-        temperature=0.4,
-        max_tokens=900,
-    )
+    last_error = None
 
-    return response.choices[0].message.content
+    for attempt in range(max_retries + 1):
+        try:
+            start_time = time.time()
+
+            response = client.chat.completions.create(
+                model="llama-3.1-8b-instant",
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are Hayyak, a Dubai relocation assistant.",
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt,
+                    },
+                ],
+                temperature=0.4,
+                max_tokens=900,
+            )
+
+            latency = round(time.time() - start_time, 2)
+
+            return {
+                "ok": True,
+                "source": "groq",
+                "latency_seconds": latency,
+                "message": response.choices[0].message.content,
+            }
+
+        except Exception as error:
+            last_error = error
+            time.sleep(1)
+
+    fallback_message = build_fallback_explanation(user_profile, top_recommendations)
+
+    return {
+        "ok": False,
+        "source": "fallback",
+        "error": str(last_error),
+        "message": fallback_message,
+    }
