@@ -232,7 +232,7 @@ if "recommendations" in st.session_state:
     st.divider()
     st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
     st.subheader("AI Relocation Explanation")
-
+    
     st.caption(
         "Generate a more natural explanation and checklist using Groq. "
         "The API connection now includes status handling, fallback output, and feedback buttons."
