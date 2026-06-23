@@ -528,7 +528,7 @@ def render_nav(active="home"):
     links = [
         ("home", "Home / Quiz", "/"),
         ("utilities", "Utilities", "/Utilities"),
-        ("checklist", "Dubai Checklist", "/Dubai_Checklist"),
+        ("checklist", "Dubai Checklist", "/Checklist"),
         ("guide", "Dubai Guide", "/Dubai_Guide"),
     ]
 
