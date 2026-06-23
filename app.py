@@ -18,6 +18,13 @@ from src.recommender import (
 )
 
 
+st.set_page_config(
+    page_title="Hayyak - Dubai relocation quiz",
+    page_icon="🏙️",
+    layout="centered",
+)
+
+
 st.markdown(
     """
     <style>
@@ -115,9 +122,15 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+
 st.markdown('<div id="home-profile"></div>', unsafe_allow_html=True)
 st.title("Hayyak")
 st.subheader("Dubai relocation assistant")
+
+st.write(
+    "Hayyak helps newcomers moving to Dubai compare neighbourhoods, "
+    "understand setup steps, and generate personalised move-in guidance."
+)
 
 st.markdown('<div id="quiz"></div>', unsafe_allow_html=True)
 st.subheader("Dubai relocation quiz")
@@ -126,6 +139,7 @@ st.write(
     "Answer a few questions and Hayyak will suggest the top 3 neighbourhoods "
     "to consider for your move."
 )
+
 
 with st.form("hayyak_quiz"):
     monthly_budget_aed = st.slider(
@@ -167,6 +181,7 @@ with st.form("hayyak_quiz"):
 
     submitted = st.form_submit_button("Find my top 3 neighbourhoods")
 
+
 if submitted:
     user_profile = {
         "monthly_budget_aed": monthly_budget_aed,
@@ -179,6 +194,7 @@ if submitted:
 
     st.session_state["user_profile"] = user_profile
     st.session_state["recommendations"] = score_neighbourhoods(user_profile)
+
 
 if "recommendations" in st.session_state:
     profile = st.session_state["user_profile"]
@@ -215,13 +231,13 @@ if "recommendations" in st.session_state:
 
     st.divider()
     st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
-    st.subheader("AI Relocation Explanation")    st.caption(
+    st.subheader("AI Relocation Explanation")
+
+    st.caption(
         "Generate a more natural explanation and checklist using Groq. "
-        "This requires GROQ_API_KEY to be set in your environment."
+        "The API connection now includes status handling, fallback output, and feedback buttons."
     )
 
-st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
-    
     if st.button("Generate AI Explanation"):
         with st.spinner("Hayyak is preparing your relocation explanation..."):
             ai_response = generate_ai_explanation(profile, recommendations)
@@ -251,7 +267,6 @@ st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
 
     st.divider()
     st.subheader("Developer output for the future Groq prompt")
-    
     st.caption(
         "This text can later be passed to the Groq API so the chatbot can explain the results more naturally."
     )
@@ -259,6 +274,7 @@ st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
 
 else:
     st.info("Complete the quiz above to generate your first recommendation results.")
+
 
 st.divider()
 
@@ -272,4 +288,7 @@ st.write("Coming next: a personalised relocation checklist based on your quiz an
 
 st.markdown('<div id="dubai-guide"></div>', unsafe_allow_html=True)
 st.subheader("Dubai Guide")
-st.write("Coming next: an A–Z guide for moving to Dubai, from pre-arrival planning to first-month setup.")
+st.write(
+    "Coming next: an A-Z guide for moving to Dubai, "
+    "from pre-arrival planning to first-month setup."
+)
