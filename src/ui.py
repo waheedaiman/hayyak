@@ -31,6 +31,10 @@ def _image_to_data_uri(path):
     return f"data:image/{suffix};base64,{encoded}"
 
 
+def get_image_data_uri(path):
+    return _image_to_data_uri(path)
+
+
 def apply_hayyak_theme():
     st.markdown(
         """
@@ -53,7 +57,7 @@ def apply_hayyak_theme():
         html, body, [data-testid="stAppViewContainer"] {
             background:
                 radial-gradient(circle at top left, rgba(140, 138, 103, 0.16), transparent 30%),
-                radial-gradient(circle at top right, rgba(188, 134, 83, 0.11), transparent 28%),
+                radial-gradient(circle at top right, rgba(188, 134, 83, 0.10), transparent 28%),
                 linear-gradient(180deg, #F6EFE5 0%, #EFE1D1 100%);
             color: var(--ink);
         }
@@ -68,7 +72,7 @@ def apply_hayyak_theme():
 
         .block-container {
             max-width: 1120px;
-            padding-top: 1.1rem;
+            padding-top: 1rem;
             padding-bottom: 2.5rem;
         }
 
@@ -88,8 +92,8 @@ def apply_hayyak_theme():
             top: 0.75rem;
             z-index: 999;
             width: 100%;
-            margin-bottom: 1.05rem;
-            padding: 0.55rem 0.7rem;
+            margin-bottom: 0.85rem;
+            padding: 0.52rem 0.7rem;
             border: 1px solid rgba(140, 138, 103, 0.28);
             border-radius: 999px;
             background: rgba(255, 249, 240, 0.90);
@@ -155,102 +159,140 @@ def apply_hayyak_theme():
             color: var(--paper) !important;
         }
 
-        /* HERO */
+        /* BRAND INTRO */
 
-        .hero-shell {
-            border: 1px solid rgba(140, 138, 103, 0.25);
-            border-radius: 32px;
-            background:
-                linear-gradient(135deg, rgba(255, 249, 240, 0.96), rgba(239, 225, 209, 0.78));
-            box-shadow: 0 22px 52px rgba(100, 42, 22, 0.10);
-            padding: 1.65rem;
-            margin-bottom: 0.65rem;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .hero-shell:before {
-            content: "حيّاك";
-            position: absolute;
-            right: 1.7rem;
-            top: 0.45rem;
-            font-size: 5.1rem;
-            color: rgba(140, 138, 103, 0.075);
-            font-weight: 800;
-            line-height: 1;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
-            gap: 1.2rem;
-            align-items: center;
-        }
-
-        .eyebrow {
-            display: inline-flex;
-            width: fit-content;
-            align-items: center;
-            gap: 0.45rem;
-            border: 1px solid var(--green-line);
-            background: var(--green-soft);
-            color: var(--olive);
-            border-radius: 999px;
-            padding: 0.35rem 0.7rem;
-            font-size: 0.76rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            margin-bottom: 0.75rem;
-        }
-
-        .hero-title {
-            font-size: clamp(2.3rem, 5.5vw, 4.65rem);
-            line-height: 0.95;
-            margin: 0 0 0.85rem 0;
-            color: var(--deep-brown);
-        }
-
-        .hero-copy {
-            max-width: 620px;
-            color: var(--muted);
-            font-size: 1.03rem;
-            line-height: 1.65;
-            margin-bottom: 1rem;
-        }
-
-        .soft-note {
-            color: var(--olive);
-            font-size: 0.92rem;
-            font-weight: 650;
-        }
-
-        .hero-art-card {
-            border: 1px solid rgba(140, 138, 103, 0.28);
-            background: rgba(255, 249, 240, 0.70);
-            border-radius: 28px;
-            padding: 0.85rem;
+        .hayyak-brand-intro {
             text-align: center;
-            box-shadow: inset 0 0 0 1px rgba(255, 249, 240, 0.55);
+            padding: 0.35rem 1rem 0.95rem 1rem;
+            margin: 0 auto 0.45rem auto;
+            max-width: 980px;
         }
 
-        .hero-art-card img,
-        .fade-in-brand img {
-            animation: hayyakFadeIn 900ms ease-out both;
+        .brand-arabic {
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(4.7rem, 13vw, 9.4rem);
+            line-height: 0.88;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(
+                90deg,
+                var(--deep-brown),
+                var(--terracotta),
+                var(--clay)
+            );
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.08em;
+            animation: hayyakFadeUp 900ms ease-out both;
         }
 
-        @keyframes hayyakFadeIn {
+        .brand-english {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: clamp(0.35rem, 1.6vw, 1.3rem);
+            margin-top: 0.25rem;
+            font-family: Georgia, "Times New Roman", serif;
+            font-size: clamp(3.1rem, 8vw, 6.7rem);
+            line-height: 1;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            animation: hayyakFadeUp 950ms ease-out 180ms both;
+        }
+
+        .brand-english span:nth-child(1) { color: var(--deep-brown); }
+        .brand-english span:nth-child(2) { color: var(--terracotta); }
+        .brand-english span:nth-child(3) { color: var(--deep-brown); }
+        .brand-english span:nth-child(4) { color: var(--olive); }
+        .brand-english span:nth-child(5) { color: var(--clay); }
+        .brand-english span:nth-child(6) { color: #A8793B; }
+
+        .brand-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0.65rem auto 0.85rem auto;
+            animation: hayyakFadeUp 850ms ease-out 320ms both;
+        }
+
+        .brand-divider-line {
+            width: 82px;
+            height: 1px;
+            background: rgba(100, 42, 22, 0.36);
+        }
+
+        .brand-divider-diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--clay);
+            transform: rotate(45deg);
+        }
+
+        .brand-tagline {
+            margin: 0;
+            color: var(--deep-brown);
+            font-size: clamp(0.78rem, 1.4vw, 1rem);
+            font-weight: 700;
+            letter-spacing: 0.32em;
+            text-transform: uppercase;
+            animation: hayyakFadeUp 900ms ease-out 440ms both;
+        }
+
+        .brand-lower-row {
+            margin: 1.3rem auto 0 auto;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            gap: 1.15rem;
+            max-width: 520px;
+            animation: hayyakFadeUp 900ms ease-out 560ms both;
+        }
+
+        .brand-side-label {
+            color: var(--olive);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+
+        .brand-side-line {
+            height: 44px;
+            width: 1px;
+            background: rgba(188, 134, 83, 0.75);
+        }
+
+        .brand-emblem {
+            width: 86px;
+            height: 116px;
+            border: 1px solid rgba(188, 134, 83, 0.75);
+            border-radius: 999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 249, 240, 0.36);
+        }
+
+        .brand-emblem img {
+            width: 64px;
+            height: 88px;
+            object-fit: contain;
+            animation: hayyakFadeUp 900ms ease-out 620ms both;
+        }
+
+        @keyframes hayyakFadeUp {
             from {
                 opacity: 0;
-                transform: translateY(8px) scale(0.985);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
-                transform: translateY(0) scale(1);
+                transform: translateY(0);
             }
         }
 
-        /* CARDS */
+        /* SECTION CARDS */
 
         .section-card {
             border: 1px solid rgba(140, 138, 103, 0.24);
@@ -258,7 +300,7 @@ def apply_hayyak_theme():
             background: rgba(255, 249, 240, 0.91);
             box-shadow: 0 16px 38px rgba(100, 42, 22, 0.075);
             padding: 1.25rem;
-            margin: 0.65rem 0 1rem 0;
+            margin: 0.45rem 0 1rem 0;
         }
 
         .section-heading {
@@ -298,6 +340,8 @@ def apply_hayyak_theme():
             top: -4px;
             margin-left: -4px;
         }
+
+        /* RESULTS */
 
         .result-card {
             border: 1px solid rgba(140, 138, 103, 0.24);
@@ -483,19 +527,31 @@ def apply_hayyak_theme():
                 width: 100%;
             }
 
-            .hero-shell {
-                padding: 1.2rem;
-                border-radius: 26px;
-                margin-bottom: 0.55rem;
+            .hayyak-brand-intro {
+                padding-top: 0.15rem;
             }
 
-            .hero-grid {
+            .brand-english {
+                gap: 0.25rem;
+                letter-spacing: 0.04em;
+            }
+
+            .brand-tagline {
+                letter-spacing: 0.18em;
+                line-height: 1.6;
+            }
+
+            .brand-lower-row {
                 grid-template-columns: 1fr;
+                gap: 0.65rem;
             }
 
-            .hero-shell:before {
-                font-size: 3.5rem;
-                right: 1rem;
+            .brand-side-line {
+                display: none;
+            }
+
+            .brand-emblem {
+                margin: 0 auto;
             }
 
             .section-card {
