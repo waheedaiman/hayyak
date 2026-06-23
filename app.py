@@ -255,6 +255,7 @@ if "recommendations" in st.session_state:
 
     st.divider()
     st.subheader("Developer output for the future Groq prompt")
+    
     st.caption(
         "This text can later be passed to the Groq API so the chatbot can explain the results more naturally."
     )
