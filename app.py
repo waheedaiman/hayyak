@@ -4,8 +4,6 @@ Run with:
     streamlit run app.py
 """
 
-from pathlib import Path
-
 import streamlit as st
 
 from src.ai_helper import generate_ai_explanation
@@ -17,7 +15,7 @@ from src.recommender import (
     PRIORITY_OPTIONS,
     score_neighbourhoods,
 )
-from src.ui import apply_hayyak_theme, arabic_divider, render_nav
+from src.ui import apply_hayyak_theme, arabic_divider, get_image_data_uri, render_nav
 
 
 st.set_page_config(
@@ -53,57 +51,47 @@ def show_ai_result_modal(ai_text):
     )
 
 
-# ---------------- HERO ----------------
+# ---------------- BRAND INTRO ----------------
 
-hero_image_path = Path("assets/hayyak-main.png")
+emblem_uri = get_image_data_uri("assets/hayyak-logo.png")
 
-st.markdown(
-    """
-    <section class="hero-shell">
-        <div class="hero-grid">
-            <div>
-                <div class="eyebrow">MENA-focused neighbourhood matching</div>
-                <h1 class="hero-title">Welcome to Hayyak</h1>
-                <p class="hero-copy">
-                    Find the Dubai neighbourhood that fits your lifestyle, budget,
-                    commute, and move-in priorities. Hayyak helps newcomers make
-                    relocation decisions with more clarity and less guesswork.
-                </p>
-                <div class="hero-actions">
-                    <span class="soft-note">Start with a short quiz. Get your top 3 matches.</span>
-                </div>
-            </div>
-            <div class="hero-art-card">
-    """,
-    unsafe_allow_html=True,
-)
-
-st.markdown('<div class="fade-in-brand">', unsafe_allow_html=True)
-
-if hero_image_path.exists():
-    st.image(str(hero_image_path), use_container_width=True)
+if emblem_uri:
+    emblem_html = f'<img src="{emblem_uri}" alt="Hayyak emblem" />'
 else:
-    st.markdown(
-        """
-        <div style="
-            border: 1px solid rgba(140,138,103,0.25);
-            border-radius: 24px;
-            padding: 2.5rem 1rem;
-            background: #FFF9F0;
-            text-align: center;
-        ">
-            <h2 style="margin:0;color:#642A16;">Hayyak</h2>
-            <p style="color:#735A4C;margin-top:.5rem;">Your neighbourhood, perfectly matched.</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-
-st.markdown("</div>", unsafe_allow_html=True)
+    emblem_html = '<span style="font-size:2rem;color:#642A16;font-weight:800;">H</span>'
 
 st.markdown(
-    """
+    f"""
+    <section class="hayyak-brand-intro">
+        <h1 class="brand-arabic">حيّاك</h1>
+
+        <div class="brand-english" aria-label="Hayyak">
+            <span>H</span>
+            <span>A</span>
+            <span>Y</span>
+            <span>Y</span>
+            <span>A</span>
+            <span>K</span>
+        </div>
+
+        <div class="brand-divider">
+            <div class="brand-divider-line"></div>
+            <div class="brand-divider-diamond"></div>
+            <div class="brand-divider-line"></div>
+        </div>
+
+        <p class="brand-tagline">Your neighbourhood, perfectly matched.</p>
+
+        <div class="brand-lower-row">
+            <div class="brand-side-label">MENA<br>Focused</div>
+            <div style="display:flex;align-items:center;gap:1.15rem;justify-content:center;">
+                <div class="brand-side-line"></div>
+                <div class="brand-emblem">
+                    {emblem_html}
+                </div>
+                <div class="brand-side-line"></div>
             </div>
+            <div class="brand-side-label">People<br>First</div>
         </div>
     </section>
     """,
