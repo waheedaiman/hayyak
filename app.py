@@ -18,12 +18,6 @@ from src.recommender import (
 )
 
 
-st.set_page_config(
-    page_title="Hayyak - Dubai relocation quiz",
-    page_icon="🏙️",
-    layout="centered",
-)
-
 st.markdown(
     """
     <style>
@@ -34,12 +28,12 @@ st.markdown(
         margin: -1rem auto 2rem auto;
         padding: 0.75rem 1rem;
         max-width: 950px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.20);
         border-radius: 999px;
-        background: rgba(255, 255, 255, 0.10);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.18);
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
     }
 
     .top-navbar-inner {
@@ -53,7 +47,7 @@ st.markdown(
     .brand {
         font-weight: 800;
         font-size: 1.05rem;
-        letter-spacing: 0.02em;
+        letter-spacing: 0.03em;
         color: #ffffff;
         white-space: nowrap;
     }
@@ -67,7 +61,7 @@ st.markdown(
 
     .nav-link {
         text-decoration: none !important;
-        color: rgba(255, 255, 255, 0.86) !important;
+        color: rgba(255, 255, 255, 0.88) !important;
         font-size: 0.88rem;
         padding: 0.45rem 0.75rem;
         border-radius: 999px;
@@ -75,7 +69,7 @@ st.markdown(
     }
 
     .nav-link:hover {
-        background: rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.18);
         color: #ffffff !important;
     }
 
@@ -226,6 +220,8 @@ if "recommendations" in st.session_state:
         "This requires GROQ_API_KEY to be set in your environment."
     )
 
+st.markdown('<div id="ai-chatbot"></div>', unsafe_allow_html=True)
+    
     if st.button("Generate AI Explanation"):
         with st.spinner("Hayyak is preparing your relocation explanation..."):
             ai_response = generate_ai_explanation(profile, recommendations)
