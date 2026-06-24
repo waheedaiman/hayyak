@@ -1,6 +1,5 @@
 from pathlib import Path
 import base64
-
 import streamlit as st
 
 PALETTE = {
@@ -31,7 +30,6 @@ def apply_hayyak_theme():
     st.markdown(
         f"""
         <style>
-        /* ----- RESET / BASE ----- */
         :root {{
             --deep-brown: #642A16;
             --olive: #8C8A67;
@@ -52,7 +50,7 @@ def apply_hayyak_theme():
             padding-bottom: 2.5rem;
         }}
 
-        /* ----- NAVBAR (unchanged) ----- */
+        /* NAVBAR */
         .hayyak-navbar {{
             position: sticky;
             top: 0.75rem;
@@ -66,12 +64,7 @@ def apply_hayyak_theme():
             box-shadow: 0 12px 28px rgba(100, 42, 22, 0.09);
             backdrop-filter: blur(12px);
         }}
-        .hayyak-navbar-inner {{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1rem;
-        }}
+        .hayyak-navbar-inner {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem; }}
         .hayyak-brand {{ display: flex; align-items: center; min-width: 72px; }}
         .hayyak-logo {{ width: 54px; height: 54px; object-fit: contain; }}
         .hayyak-links {{ display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }}
@@ -86,7 +79,7 @@ def apply_hayyak_theme():
         .hayyak-links a:hover {{ background: rgba(140, 138, 103, 0.14); }}
         .hayyak-links a.active {{ background: var(--olive); color: white !important; }}
 
-        /* ----- HERO IMAGE ----- */
+        /* HERO IMAGE – no shadow, no border */
         .hero-image-container {{
             width: 100%;
             max-width: 980px;
@@ -99,15 +92,16 @@ def apply_hayyak_theme():
             height: auto;
             max-height: 400px;
             object-fit: contain;
-            border-radius: 24px;
-            box-shadow: 0 12px 32px rgba(100, 42, 22, 0.10);
+            display: block;
+            box-shadow: none !important;   /* removed */
+            border-radius: 0 !important;    /* removed */
         }}
         @keyframes fadeIn {{
             from {{ opacity: 0; transform: translateY(8px); }}
             to {{ opacity: 1; transform: translateY(0); }}
         }}
 
-        /* ----- SECTION CARDS (unchanged) ----- */
+        /* SECTION CARDS */
         .section-card {{
             border: 1px solid rgba(140, 138, 103, 0.24);
             border-radius: 28px;
@@ -141,18 +135,52 @@ def apply_hayyak_theme():
         }}
         .muted-text {{ color: #735A4C; }}
 
-        /* ----- FORM WIDGET OVERRIDES (AGGRESSIVE) ----- */
-
-        /* Form container */
-        div[data-testid="stForm"] {{
-            border: 1px solid rgba(140, 138, 103, 0.20) !important;
-            background: rgba(246, 239, 229, 0.38) !important;
-            border-radius: 24px !important;
-            padding: 1rem 1rem 0.65rem 1rem !important;
+        /* CUSTOM SLIDER WRAPPER */
+        .custom-slider-wrapper {{
+            background: rgba(255, 249, 240, 0.76);
+            border: 1px solid rgba(140, 138, 103, 0.18);
+            border-radius: 18px;
+            padding: 0.85rem 0.9rem;
+            margin-bottom: 0.75rem;
+        }}
+        .custom-slider-wrapper label {{
+            color: var(--deep-brown) !important;
+            font-weight: 800 !important;
+            display: block;
+            margin-bottom: 0.4rem;
+        }}
+        .custom-slider-wrapper input[type="range"] {{
+            width: 100%;
+            height: 6px;
+            background: var(--olive);
+            border-radius: 3px;
+            outline: none;
+            -webkit-appearance: none;
+        }}
+        .custom-slider-wrapper input[type="range"]::-webkit-slider-thumb {{
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--deep-brown);
+            cursor: pointer;
+            border: 2px solid var(--paper);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }}
+        .custom-slider-wrapper input[type="range"]::-moz-range-thumb {{
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--deep-brown);
+            cursor: pointer;
+            border: 2px solid var(--paper);
+        }}
+        /* Hide the Streamlit text input for the slider value */
+        div[data-testid="stTextInput"] {{
+            display: none !important;
         }}
 
-        /* Each widget container */
-        div[data-testid="stSlider"],
+        /* OTHER WIDGETS (select, radio, buttons) – same as before */
         div[data-testid="stSelectbox"],
         div[data-testid="stRadio"] {{
             background: rgba(255, 249, 240, 0.76) !important;
@@ -162,21 +190,15 @@ def apply_hayyak_theme():
             margin-bottom: 0.75rem !important;
         }}
 
-        /* Labels */
-        div[data-testid="stSlider"] label,
         div[data-testid="stSelectbox"] label,
         div[data-testid="stRadio"] label {{
             color: var(--deep-brown) !important;
             font-weight: 800 !important;
         }}
 
-        /* ---------- RADIO BUTTONS ---------- */
-        /* Force accent colour on the native input */
         input[type="radio"] {{
             accent-color: var(--olive) !important;
         }}
-
-        /* Also style the radio label backgrounds */
         div[role="radiogroup"] label {{
             background: rgba(140, 138, 103, 0.09) !important;
             border: 1px solid rgba(140, 138, 103, 0.18) !important;
@@ -189,40 +211,7 @@ def apply_hayyak_theme():
             background: rgba(140, 138, 103, 0.16) !important;
         }}
 
-        /* ---------- SLIDER ---------- */
-        /* Force the track and thumb with webkit and moz */
-        div[data-testid="stSlider"] input[type="range"] {{
-            accent-color: var(--olive) !important; /* fallback */
-        }}
-        div[data-testid="stSlider"] input[type="range"]::-webkit-slider-runnable-track {{
-            background: var(--olive) !important;
-            height: 4px !important;
-        }}
-        div[data-testid="stSlider"] input[type="range"]::-webkit-slider-thumb {{
-            -webkit-appearance: none !important;
-            background: var(--deep-brown) !important;
-            width: 16px !important;
-            height: 16px !important;
-            border-radius: 50% !important;
-            border: 2px solid var(--paper) !important;
-            margin-top: -6px !important;
-            cursor: pointer !important;
-        }}
-        div[data-testid="stSlider"] input[type="range"]::-moz-range-track {{
-            background: var(--olive) !important;
-            height: 4px !important;
-        }}
-        div[data-testid="stSlider"] input[type="range"]::-moz-range-thumb {{
-            background: var(--deep-brown) !important;
-            width: 16px !important;
-            height: 16px !important;
-            border-radius: 50% !important;
-            border: 2px solid var(--paper) !important;
-            cursor: pointer !important;
-        }}
-
-        /* ---------- SELECTBOX ---------- */
-        /* Main input field */
+        /* SELECTBOX */
         div[data-baseweb="select"] > div {{
             background-color: #FFF9F0 !important;
             border-color: rgba(140, 138, 103, 0.35) !important;
@@ -230,10 +219,7 @@ def apply_hayyak_theme():
             color: var(--ink) !important;
             box-shadow: none !important;
         }}
-        div[data-baseweb="select"] span {{
-            color: var(--ink) !important;
-        }}
-        /* Dropdown list */
+        div[data-baseweb="select"] span {{ color: var(--ink) !important; }}
         div[data-baseweb="popover"] div[role="listbox"] {{
             background-color: #FFF9F0 !important;
             border: 1px solid rgba(140, 138, 103, 0.24) !important;
@@ -247,15 +233,7 @@ def apply_hayyak_theme():
             background-color: rgba(140, 138, 103, 0.14) !important;
         }}
 
-        /* ---------- TEXT INPUTS ---------- */
-        input, textarea, .stTextInput > div > div > input {{
-            background: #FFF9F0 !important;
-            color: var(--ink) !important;
-            border: 1px solid rgba(140, 138, 103, 0.35) !important;
-            border-radius: 16px !important;
-        }}
-
-        /* ---------- BUTTONS ---------- */
+        /* BUTTONS */
         div[data-testid="stButton"] > button,
         div[data-testid="stFormSubmitButton"] > button {{
             background: var(--olive) !important;
@@ -268,12 +246,12 @@ def apply_hayyak_theme():
         }}
         div[data-testid="stButton"] > button:hover,
         div[data-testid="stFormSubmitButton"] > button:hover {{
-            background: #6F7A52 !important;  /* darker olive */
+            background: #6F7A52 !important;
             border-color: #6F7A52 !important;
             transform: translateY(-1px);
         }}
 
-        /* ---------- MODAL (st.dialog) ---------- */
+        /* MODAL */
         [data-testid="stDialog"] > div {{
             background: rgba(255, 249, 240, 0.92) !important;
             backdrop-filter: blur(4px);
@@ -282,14 +260,13 @@ def apply_hayyak_theme():
             box-shadow: 0 20px 48px rgba(100, 42, 22, 0.12) !important;
         }}
 
-        /* ---------- ALERTS ---------- */
+        /* ALERTS */
         div[data-testid="stAlert"] {{
             background: rgba(140, 138, 103, 0.12) !important;
             border: 1px solid rgba(140, 138, 103, 0.24) !important;
             color: var(--deep-brown) !important;
         }}
 
-        /* Responsive (abbreviated) */
         @media (max-width: 820px) {{
             .hayyak-navbar {{ border-radius: 24px; position: relative; top: 0; }}
             .hayyak-navbar-inner {{ flex-direction: column; align-items: flex-start; }}
