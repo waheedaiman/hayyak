@@ -51,52 +51,21 @@ def show_ai_result_modal(ai_text):
     )
 
 
-# ---------------- BRAND INTRO ----------------
+# ---------------- HERO IMAGE ----------------
 
-emblem_uri = get_image_data_uri("assets/hayyak-logo.png")
+hero_uri = get_image_data_uri("assets/hayyak-main-trans.png")
 
-if emblem_uri:
-    emblem_html = f'<img src="{emblem_uri}" alt="Hayyak emblem" />'
+if hero_uri:
+    st.markdown(
+        f"""
+        <div class="hero-image-container">
+            <img src="{hero_uri}" alt="Hayyak – your neighbourhood, perfectly matched" />
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 else:
-    emblem_html = '<span style="font-size:2rem;color:#642A16;font-weight:800;">H</span>'
-
-st.markdown(
-    f"""
-    <section class="hayyak-brand-intro">
-        <h1 class="brand-arabic">حيّاك</h1>
-
-        <div class="brand-english" aria-label="Hayyak">
-            <span>H</span>
-            <span>A</span>
-            <span>Y</span>
-            <span>Y</span>
-            <span>A</span>
-            <span>K</span>
-        </div>
-
-        <div class="brand-divider">
-            <div class="brand-divider-line"></div>
-            <div class="brand-divider-diamond"></div>
-            <div class="brand-divider-line"></div>
-        </div>
-
-        <p class="brand-tagline">Your neighbourhood, perfectly matched.</p>
-
-        <div class="brand-lower-row">
-            <div class="brand-side-label">MENA<br>Focused</div>
-            <div style="display:flex;align-items:center;gap:1.15rem;justify-content:center;">
-                <div class="brand-side-line"></div>
-                <div class="brand-emblem">
-                    {emblem_html}
-                </div>
-                <div class="brand-side-line"></div>
-            </div>
-            <div class="brand-side-label">People<br>First</div>
-        </div>
-    </section>
-    """,
-    unsafe_allow_html=True,
-)
+    st.warning("Hero image not found. Please ensure assets/hayyak-main-trans.png exists.")
 
 
 # ---------------- QUIZ ----------------
