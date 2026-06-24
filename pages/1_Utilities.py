@@ -15,436 +15,489 @@ render_nav(active="utilities")
 
 UTILITIES = {
     "DEWA": {
-        "icon": "💡",
-        "gradient": "linear-gradient(135deg, #F6EFE5 0%, #E8D9C8 100%)",
-        "description": "Electricity & water setup for your new home.",
+        "number": "01",
+        "tag": "Electricity & Water",
+        "description": "Power and water activation for your new Dubai home — the essential first step.",
         "steps": [
-            "Prepare tenancy contract and Emirates ID.",
-            "Confirm premises number and property details.",
-            "Submit activation via DEWA official channel.",
-            "Pay deposit and activation fees.",
-            "Save confirmation for landlord and building management.",
+            "Prepare tenancy contract and Emirates ID once available.",
+            "Confirm the premises number or property details.",
+            "Submit activation request through the official DEWA channel.",
+            "Pay deposit and activation fees where applicable.",
+            "Save confirmation details for your landlord or building management.",
         ],
+        "accent": "#BC8653",
+        "motif": "M 0,20 Q 30,0 60,20 Q 90,40 120,20",
     },
     "Ejari": {
-        "icon": "📝",
-        "gradient": "linear-gradient(135deg, #EFE1D1 0%, #DCCBB5 100%)",
-        "description": "Rental contract registration – essential for many processes.",
+        "number": "02",
+        "tag": "Rental Registration",
+        "description": "Your tenancy contract, made official — required before almost everything else.",
         "steps": [
-            "Confirm signed tenancy contract.",
+            "Confirm your signed tenancy contract.",
             "Prepare landlord and tenant documents.",
-            "Register through the approved Ejari system.",
-            "Download your Ejari certificate.",
-            "Use it for utilities and other move‑in needs.",
+            "Register the contract through the approved Ejari process.",
+            "Download or save your Ejari certificate.",
+            "Use the certificate for utilities and other move-in requirements.",
         ],
+        "accent": "#8C8A67",
+        "motif": "M 0,10 L 20,30 L 40,10 L 60,30 L 80,10 L 100,30 L 120,10",
     },
     "du / e&": {
-        "icon": "📱",
-        "gradient": "linear-gradient(135deg, #E8D9C8 0%, #D4C0A8 100%)",
-        "description": "Mobile connection and SIM setup after arrival.",
+        "number": "03",
+        "tag": "Mobile & SIM",
+        "description": "Stay connected from day one — your first local number sets everything else in motion.",
         "steps": [
-            "Compare prepaid vs postpaid plans.",
-            "Have passport, Emirates ID, or visa ready.",
-            "Choose data plan based on usage.",
-            "Activate SIM or eSIM.",
-            "Save customer support contacts.",
+            "Compare prepaid and postpaid plans.",
+            "Prepare passport, Emirates ID, or valid identification.",
+            "Choose mobile data based on commute and daily usage.",
+            "Activate SIM or eSIM where supported.",
+            "Save customer support details in case activation fails.",
         ],
+        "accent": "#B27960",
+        "motif": "M 0,15 C 20,0 40,30 60,15 C 80,0 100,30 120,15",
     },
     "Internet": {
-        "icon": "🌐",
-        "gradient": "linear-gradient(135deg, #DCCBB5 0%, #C8B39A 100%)",
-        "description": "Home internet for your apartment or villa.",
+        "number": "04",
+        "tag": "Home Broadband",
+        "description": "Fast, reliable internet — book early, because installation takes time.",
         "steps": [
-            "Check available providers in your building.",
+            "Check which providers are available in the building.",
             "Compare speed, contract length, and installation time.",
             "Book installation after tenancy confirmation.",
-            "Keep router and account details safe.",
+            "Keep router and account details safely stored.",
             "Test speed after installation.",
         ],
+        "accent": "#B59275",
+        "motif": "M 0,20 L 30,5 L 60,20 L 90,5 L 120,20",
     },
     "Move-in Documents": {
-        "icon": "📂",
-        "gradient": "linear-gradient(135deg, #C8B39A 0%, #B59D82 100%)",
-        "description": "Documents needed during early relocation steps.",
+        "number": "05",
+        "tag": "Document Checklist",
+        "description": "The paperwork that underpins everything — keep these within reach at all times.",
         "steps": [
             "Passport copy.",
-            "Visa or entry permit.",
+            "Visa or entry permit where applicable.",
             "Emirates ID or application details.",
             "Tenancy contract.",
             "Payment receipts and confirmation emails.",
         ],
+        "accent": "#642A16",
+        "motif": "M 10,25 A 20,20 0 0 1 50,5 A 20,20 0 0 1 90,25 A 20,20 0 0 1 50,45 A 20,20 0 0 1 10,25",
     },
 }
 
 
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
-    # Decorative header
     st.markdown(
         f"""
-        <div style="text-align:center; padding:0.5rem 0 0.5rem 0;">
-            <span style="font-size:3rem; line-height:1;">{item["icon"]}</span>
-            <h2 style="margin:0.2rem 0 0 0; color:#642A16;">{name}</h2>
-            <p style="color:#735A4C; margin:0.2rem 0 0 0;">{item["description"]}</p>
+        <div style="margin-bottom:0.25rem;">
+            <span style="
+                font-size:0.72rem;
+                font-weight:800;
+                letter-spacing:0.22em;
+                text-transform:uppercase;
+                color:{item['accent']};
+            ">{item['tag']}</span>
         </div>
         """,
         unsafe_allow_html=True,
     )
+    st.subheader(name)
+    st.caption(item["description"])
     arabic_divider()
 
-    st.markdown("**✅ Setup checklist**")
-    for step in item["steps"]:
-        st.markdown(f"- {step}")
-
-    st.caption(
-        "Official links can be added here later as natural inline links inside the setup text."
-    )
-
-
-# ---- HERO SECTION (full-width, animated) ----
-st.markdown(
-    """
-    <div class="utilities-hero">
-        <div class="hero-pattern"></div>
-        <div class="hero-content">
-            <div class="hero-icon">⚡</div>
-            <h1>Utilities</h1>
-            <p>Your essential guide to setting up services in Dubai – clear, calm, and built for newcomers.</p>
-            <div class="hero-underline"></div>
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-# ---- QUICK TIP CARD (between hero and grid) ----
-st.markdown(
-    """
-    <div class="tip-card">
-        <div class="tip-icon">💡</div>
-        <div class="tip-text">
-            <strong>Pro tip:</strong> Start with DEWA and Ejari – they unlock everything else. Many buildings require these before you can activate internet or move in.
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-# ---- UTILITY CARDS (masonry-like grid) ----
-st.markdown(
-    """
-    <div class="utility-grid-container">
-        <div class="grid-header">
-            <h2>Choose a setup area</h2>
-            <span class="grid-badge">5 essentials</span>
-        </div>
-        <div class="utility-grid">
-    """,
-    unsafe_allow_html=True,
-)
-
-cols = st.columns(3)
-for idx, (name, item) in enumerate(UTILITIES.items()):
-    with cols[idx % 3]:
+    st.markdown("**Setup checklist**")
+    for i, step in enumerate(item["steps"], 1):
         st.markdown(
             f"""
-            <div class="utility-card" style="background: {item['gradient']}; cursor:pointer;" onclick="document.getElementById('util_btn_{idx}').click();">
-                <div class="card-icon">{item["icon"]}</div>
-                <h3>{name}</h3>
-                <p>{item["description"]}</p>
-                <div class="card-footer">
-                    <span class="card-link">Explore →</span>
-                </div>
+            <div style="
+                display:flex;
+                align-items:flex-start;
+                gap:0.75rem;
+                padding:0.6rem 0;
+                border-bottom:1px solid rgba(140,138,103,0.14);
+            ">
+                <span style="
+                    min-width:24px;
+                    height:24px;
+                    border-radius:50%;
+                    background:rgba(140,138,103,0.14);
+                    border:1px solid rgba(140,138,103,0.28);
+                    display:inline-flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:0.72rem;
+                    font-weight:800;
+                    color:{item['accent']};
+                ">{i}</span>
+                <span style="color:#2B1B14;line-height:1.55;">{step}</span>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        # Hidden button – label is a space, but it's hidden via CSS
-        if st.button(" ", key=f"util_btn_{idx}"):
-            show_utility_modal(name, item)
 
-st.markdown("</div></div>", unsafe_allow_html=True)
-
-
-# ---- QUOTE FOOTER ----
-st.markdown(
-    """
-    <div class="quote-footer">
-        <span class="quote-mark">"</span>
-        <p>Moving to a new city is a journey – we're here to make the utility part feel like a gentle step.</p>
-        <span class="quote-attribution">– Hayyak</span>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+    st.markdown(
+        """
+        <p style="margin-top:1.1rem;font-size:0.8rem;color:#735A4C;">
+            Official links will be added as inline references within each step as the guide develops.
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
 
 
-# ---- CUSTOM STYLES (completely new) ----
+# ── ADDITIONAL PAGE-LEVEL CSS ──────────────────────────────────────────────
+
 st.markdown(
     """
     <style>
-    /* ---- HERO ---- */
-    .utilities-hero {
+    .util-hero {
         position: relative;
-        padding: 2.5rem 1.5rem 2rem 1.5rem;
-        margin-bottom: 1.5rem;
-        border-radius: 32px;
-        background: linear-gradient(135deg, #F6EFE5 0%, #E8D9C8 100%);
-        text-align: center;
         overflow: hidden;
-        box-shadow: 0 8px 24px rgba(100,42,22,0.06);
-    }
-    .hero-pattern {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(circle at 20% 30%, rgba(140,138,103,0.08) 0%, transparent 50%),
-                          radial-gradient(circle at 80% 70%, rgba(140,138,103,0.06) 0%, transparent 50%);
-        pointer-events: none;
-    }
-    .hero-content {
-        position: relative;
-        z-index: 1;
-        max-width: 640px;
-        margin: 0 auto;
-        animation: fadeUp 0.8s ease-out both;
-    }
-    .hero-icon {
-        font-size: 3.2rem;
-        line-height: 1;
-        margin-bottom: 0.2rem;
-    }
-    .hero-content h1 {
-        font-size: 2.8rem;
-        margin: 0.2rem 0 0.2rem 0;
-        color: #642A16;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-    }
-    .hero-content p {
-        font-size: 1.1rem;
-        color: #735A4C;
-        max-width: 460px;
-        margin: 0 auto;
-        line-height: 1.5;
-    }
-    .hero-underline {
-        width: 50px;
-        height: 3px;
-        background: #8C8A67;
-        border-radius: 2px;
-        margin: 0.7rem auto 0 auto;
+        border-radius: 32px;
+        background: linear-gradient(135deg, #2B1B14 0%, #642A16 55%, #BC8653 100%);
+        padding: 4rem 3.5rem;
+        margin-bottom: 2.5rem;
+        display: flex;
+        align-items: flex-end;
+        min-height: 320px;
     }
 
-    /* ---- TIP CARD ---- */
-    .tip-card {
+    .util-hero-svg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.13;
+        pointer-events: none;
+    }
+
+    .util-hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 560px;
+    }
+
+    .util-hero-eyebrow {
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: #BC8653;
+        margin-bottom: 0.85rem;
+        display: block;
+    }
+
+    .util-hero-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(3rem, 7vw, 5.2rem);
+        font-weight: 700;
+        line-height: 0.92;
+        letter-spacing: -0.04em;
+        color: #FFF9F0 !important;
+        margin: 0 0 1.1rem 0;
+    }
+
+    .util-hero-copy {
+        font-size: 1.05rem;
+        line-height: 1.65;
+        color: rgba(246, 239, 229, 0.78);
+        max-width: 440px;
+        margin: 0;
+    }
+
+    .util-hero-badge {
+        position: absolute;
+        top: 2.2rem;
+        right: 2.5rem;
+        z-index: 3;
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        border: 1px solid rgba(181, 146, 117, 0.38);
+        background: rgba(255, 249, 240, 0.07);
+        backdrop-filter: blur(4px);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0;
+    }
+
+    .util-hero-badge-num {
+        font-family: Georgia, serif;
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: #F6EFE5;
+        line-height: 1;
+    }
+
+    .util-hero-badge-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: #B59275;
+        font-weight: 700;
+    }
+
+    /* ── SECTION LABEL ── */
+    .util-section-label {
         display: flex;
         align-items: center;
         gap: 1rem;
-        background: rgba(255,249,240,0.7);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(140,138,103,0.18);
-        border-radius: 20px;
-        padding: 0.8rem 1.2rem;
-        margin: 0 0 1.5rem 0;
-        box-shadow: 0 4px 12px rgba(100,42,22,0.04);
-        animation: fadeUp 0.9s ease-out 0.15s both;
-    }
-    .tip-icon {
-        font-size: 2rem;
-        line-height: 1;
-        flex-shrink: 0;
-    }
-    .tip-text {
-        color: #2B1B14;
-        font-size: 0.95rem;
+        margin-bottom: 1.75rem;
     }
 
-    /* ---- GRID ---- */
-    .utility-grid-container {
-        animation: fadeUp 0.9s ease-out 0.3s both;
-        margin: 1rem 0 1.5rem 0;
-    }
-    .grid-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.2rem;
-    }
-    .grid-header h2 {
-        margin: 0;
-        font-size: 1.6rem;
-        color: #642A16;
-    }
-    .grid-badge {
-        background: rgba(140,138,103,0.12);
-        color: #8C8A67;
-        padding: 0.2rem 0.8rem;
-        border-radius: 999px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        border: 1px solid rgba(140,138,103,0.15);
-    }
-    .utility-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.2rem;
-    }
-    /* Streamlit columns will be placed inside the grid, but we'll use the existing column divs */
-    /* We need to style the actual column divs to be part of the grid */
-    /* We'll use a wrapper div around the columns – we'll inject a class via st.markdown */
-    /* We'll just rely on the existing column layout, but we can style the column containers */
-    div[data-testid="column"] {
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* ---- CARD ---- */
-    .utility-card {
-        border-radius: 24px;
-        padding: 1.5rem 1.2rem 1rem 1.2rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        transition: all 0.25s ease;
-        border: 1px solid rgba(140,138,103,0.12);
-        box-shadow: 0 4px 12px rgba(100,42,22,0.04);
-        position: relative;
-        overflow: hidden;
-    }
-    .utility-card::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, transparent 60%, rgba(255,255,255,0.2) 100%);
-        pointer-events: none;
-    }
-    .utility-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 16px 36px rgba(100,42,22,0.10);
-        border-color: rgba(140,138,103,0.3);
-    }
-    .card-icon {
-        font-size: 2.8rem;
-        line-height: 1;
-        margin-bottom: 0.3rem;
-    }
-    .utility-card h3 {
-        margin: 0 0 0.2rem 0;
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #642A16;
-    }
-    .utility-card p {
-        margin: 0 0 0.8rem 0;
-        color: #735A4C;
-        font-size: 0.9rem;
+    .util-section-label-line {
         flex: 1;
-    }
-    .card-footer {
-        text-align: right;
-        margin-top: auto;
-    }
-    .card-link {
-        display: inline-block;
-        background: rgba(255,255,255,0.4);
-        backdrop-filter: blur(4px);
-        padding: 0.2rem 1rem;
-        border-radius: 999px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #642A16;
-        border: 1px solid rgba(140,138,103,0.15);
-        transition: 0.2s ease;
-    }
-    .utility-card:hover .card-link {
-        background: #8C8A67;
-        color: white;
-        border-color: #8C8A67;
+        height: 1px;
+        background: linear-gradient(90deg, rgba(100,42,22,0.18), transparent);
     }
 
-    /* Hide the actual Streamlit button */
-    div[data-testid="column"] > div[data-testid="stButton"] {
-        display: none;
-    }
-
-    /* ---- QUOTE ---- */
-    .quote-footer {
-        text-align: center;
-        padding: 1.5rem 0 0.5rem 0;
-        margin-top: 1.5rem;
-        border-top: 1px solid rgba(140,138,103,0.12);
-        animation: fadeUp 1s ease-out 0.6s both;
-    }
-    .quote-mark {
-        font-size: 3rem;
-        color: rgba(140,138,103,0.25);
-        line-height: 1;
-        display: block;
-        font-family: Georgia, serif;
-    }
-    .quote-footer p {
-        font-size: 1.05rem;
-        color: #735A4C;
-        max-width: 500px;
-        margin: 0.2rem auto 0.3rem auto;
-        font-style: italic;
-        line-height: 1.5;
-    }
-    .quote-attribution {
-        font-size: 0.85rem;
+    .util-section-label-text {
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
         color: #8C8A67;
-        font-weight: 600;
-        letter-spacing: 0.05em;
+        white-space: nowrap;
     }
 
-    /* ---- ANIMATIONS ---- */
-    @keyframes fadeUp {
-        from {
-            opacity: 0;
-            transform: translateY(12px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* ── PINTEREST CARD ── */
+    .util-pin-card {
+        background: #FFF9F0;
+        border: 1px solid rgba(140, 138, 103, 0.20);
+        border-radius: 24px;
+        overflow: hidden;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+        cursor: pointer;
+        box-shadow: 0 4px 18px rgba(100, 42, 22, 0.06);
+        margin-bottom: 0.85rem;
     }
 
-    /* ---- RESPONSIVE ---- */
+    .util-pin-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 18px 44px rgba(100, 42, 22, 0.13);
+    }
+
+    .util-pin-top {
+        padding: 1.5rem 1.5rem 0.6rem 1.5rem;
+        position: relative;
+    }
+
+    .util-pin-number {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 4.2rem;
+        font-weight: 700;
+        line-height: 0.85;
+        letter-spacing: -0.06em;
+        opacity: 0.08;
+        position: absolute;
+        bottom: -0.1rem;
+        right: 1.1rem;
+        pointer-events: none;
+        color: #642A16;
+    }
+
+    .util-pin-tag {
+        display: inline-block;
+        font-size: 0.66rem;
+        font-weight: 800;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        padding: 0.28rem 0.7rem;
+        border-radius: 999px;
+        background: rgba(140, 138, 103, 0.12);
+        border: 1px solid rgba(140, 138, 103, 0.22);
+        color: #8C8A67;
+        margin-bottom: 0.9rem;
+    }
+
+    .util-pin-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.38rem;
+        font-weight: 700;
+        color: #642A16 !important;
+        line-height: 1.15;
+        letter-spacing: -0.03em;
+        margin: 0 0 0.6rem 0;
+    }
+
+    .util-pin-desc {
+        font-size: 0.88rem;
+        line-height: 1.6;
+        color: #735A4C;
+        margin: 0;
+    }
+
+    .util-pin-motif {
+        width: 100%;
+        height: 36px;
+        display: block;
+        margin-top: 1rem;
+        opacity: 0.45;
+    }
+
+    .util-pin-footer {
+        padding: 0.85rem 1.5rem 1.25rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-top: 1px solid rgba(140, 138, 103, 0.12);
+    }
+
+    .util-pin-count {
+        font-size: 0.75rem;
+        color: #8C8A67;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+    }
+
+    .util-pin-arrow {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(140, 138, 103, 0.1);
+        border: 1px solid rgba(140, 138, 103, 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #642A16;
+        font-size: 0.9rem;
+        transition: background 0.18s;
+    }
+
+    .util-pin-card:hover .util-pin-arrow {
+        background: #642A16;
+        border-color: #642A16;
+        color: #FFF9F0;
+    }
+
+    /* hide streamlit buttons inside card columns — they show below the HTML card */
+    div[data-testid="stButton"] > button {
+        width: 100%;
+        margin-top: -0.4rem;
+        margin-bottom: 0.5rem;
+        border-radius: 18px !important;
+        font-size: 0.83rem !important;
+        padding: 0.55rem 1rem !important;
+        letter-spacing: 0.03em;
+    }
+
     @media (max-width: 820px) {
-        .utility-grid {
-            grid-template-columns: repeat(2, 1fr);
+        .util-hero {
+            padding: 2.5rem 1.75rem;
+            min-height: 240px;
         }
-        .hero-content h1 {
-            font-size: 2.2rem;
-        }
-        .tip-card {
-            flex-direction: column;
-            text-align: center;
-            gap: 0.3rem;
-        }
-        .grid-header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.3rem;
-        }
-    }
-    @media (max-width: 480px) {
-        .utility-grid {
-            grid-template-columns: 1fr;
-        }
-        .hero-content h1 {
-            font-size: 1.8rem;
+        .util-hero-badge {
+            display: none;
         }
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
+
+
+# ── HERO ──────────────────────────────────────────────────────────────────
+
+st.markdown(
+    """
+    <div class="util-hero">
+        <!-- Geometric tile SVG background -->
+        <svg class="util-hero-svg" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
+            <!-- Islamic-inspired geometric repeat -->
+            <defs>
+                <pattern id="tile" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+                    <rect width="80" height="80" fill="none"/>
+                    <!-- outer diamond -->
+                    <polygon points="40,2 78,40 40,78 2,40" fill="none" stroke="#F6EFE5" stroke-width="0.8"/>
+                    <!-- inner octagon -->
+                    <polygon points="40,14 54,26 66,40 54,54 40,66 26,54 14,40 26,26" fill="none" stroke="#B59275" stroke-width="0.6"/>
+                    <!-- center star cross -->
+                    <line x1="40" y1="2" x2="40" y2="78" stroke="#F6EFE5" stroke-width="0.4"/>
+                    <line x1="2" y1="40" x2="78" y2="40" stroke="#F6EFE5" stroke-width="0.4"/>
+                    <line x1="14" y1="14" x2="66" y2="66" stroke="#F6EFE5" stroke-width="0.3"/>
+                    <line x1="66" y1="14" x2="14" y2="66" stroke="#F6EFE5" stroke-width="0.3"/>
+                    <!-- corner roses -->
+                    <circle cx="0" cy="0" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
+                    <circle cx="80" cy="0" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
+                    <circle cx="0" cy="80" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
+                    <circle cx="80" cy="80" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
+                </pattern>
+            </defs>
+            <rect width="800" height="320" fill="url(#tile)"/>
+        </svg>
+
+        <div class="util-hero-badge">
+            <span class="util-hero-badge-num">05</span>
+            <span class="util-hero-badge-label">Guides</span>
+        </div>
+
+        <div class="util-hero-content">
+            <span class="util-hero-eyebrow">Move-in setup · Dubai</span>
+            <h1 class="util-hero-title">Utilities</h1>
+            <p class="util-hero-copy">
+                Everything you need to activate before you feel at home — electricity,
+                contracts, connectivity, and the documents that tie it all together.
+            </p>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ── SECTION LABEL ────────────────────────────────────────────────────────
+
+st.markdown(
+    """
+    <div class="util-section-label">
+        <span class="util-section-label-text">Choose a setup area</span>
+        <div class="util-section-label-line"></div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ── PINTEREST CARD GRID ───────────────────────────────────────────────────
+
+items = list(UTILITIES.items())
+
+# 3-column layout — first two cards are taller (more prominent)
+col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
+columns = [col1, col2, col3]
+
+for index, (name, item) in enumerate(items):
+    with columns[index % 3]:
+        step_count = len(item["steps"])
+        motif_d = item["motif"]
+        accent = item["accent"]
+
+        st.markdown(
+            f"""
+            <div class="util-pin-card">
+                <div class="util-pin-top">
+                    <span class="util-pin-tag">{item["tag"]}</span>
+                    <p class="util-pin-number">{item["number"]}</p>
+                    <h3 class="util-pin-title">{name}</h3>
+                    <p class="util-pin-desc">{item["description"]}</p>
+                    <svg class="util-pin-motif" viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+                        <path d="{motif_d}" fill="none" stroke="{accent}" stroke-width="1.5" stroke-linecap="round"/>
+                        <circle cx="0" cy="20" r="2.5" fill="{accent}" opacity="0.6"/>
+                        <circle cx="120" cy="20" r="2.5" fill="{accent}" opacity="0.6"/>
+                    </svg>
+                </div>
+                <div class="util-pin-footer">
+                    <span class="util-pin-count">{step_count} steps</span>
+                    <div class="util-pin-arrow">→</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        if st.button(f"Open {name} guide", key=f"utility_{name}"):
+            show_utility_modal(name, item)
