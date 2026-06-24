@@ -15,478 +15,521 @@ render_nav(active="utilities")
 
 UTILITIES = {
     "DEWA": {
-        "number": "01",
-        "tag": "Electricity & Water",
-        "description": "Power and water activation for your new Dubai home — the essential first step.",
-        "steps": [
-            "Prepare tenancy contract and Emirates ID once available.",
-            "Confirm the premises number or property details.",
-            "Submit activation request through the official DEWA channel.",
-            "Pay deposit and activation fees where applicable.",
-            "Save confirmation details for your landlord or building management.",
+        "icon": "D",
+        "subtitle": "Electricity and water activation",
+        "description": (
+            "Set up electricity and water for your Dubai home after your tenancy details "
+            "are ready."
+        ),
+        "official_links": [
+            ("DEWA Move-In service", "https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in"),
+            ("DEWA homepage", "https://www.dewa.gov.ae/"),
         ],
-        "accent": "#BC8653",
-        "motif": "M 0,20 Q 30,0 60,20 Q 90,40 120,20",
+        "content": """
+### What this is
+
+DEWA is Dubai Electricity and Water Authority. You normally deal with DEWA when moving into a rented apartment or villa so that electricity and water are activated under your tenancy.
+
+### Before you start
+
+Prepare or confirm:
+
+- Your signed tenancy contract.
+- Your Ejari registration or tenancy registration process.
+- Your 9-digit DEWA premise number. This is usually displayed on the property door or provided by the landlord, agent, or building management.
+- Your Emirates ID if available.
+- Passport/visa details if requested during setup.
+- Payment method for deposit and activation charges.
+
+### Step-by-step setup
+
+1. **Confirm the property details**
+   - Ask the agent, landlord, or building management for the correct unit details.
+   - Confirm the DEWA premise number before applying.
+   - Make sure the property is the exact unit you are renting, not just the building.
+
+2. **Complete or start Ejari**
+   - DEWA move-in is closely connected to tenancy registration.
+   - In many rental flows, the Ejari process and DEWA activation are linked.
+   - Do not leave DEWA activation until the day you physically move in.
+
+3. **Open the DEWA Move-In service**
+   - Use the official DEWA Move-In service page.
+   - Select the move-in / activation service.
+   - Enter the required property and tenancy details.
+
+4. **Check the account and premise information**
+   - Review the premise number, unit number, and tenant information carefully.
+   - Small mistakes can delay activation.
+
+5. **Pay the required charges**
+   - Pay the security deposit and activation charges shown by DEWA.
+   - Keep the receipt or payment confirmation.
+   - Do not rely on estimated figures from unofficial blogs because charges can change.
+
+6. **Wait for activation**
+   - DEWA states that if supply is not activated within 15 working hours after security deposit payment, users should contact Customer Care.
+   - Save your DEWA account number and confirmation email.
+
+7. **After activation**
+   - Create or log in to your DEWA online account.
+   - Check your first bill carefully.
+   - Save your account details for future move-out, deposit refund, or bill payments.
+
+### Common mistakes to avoid
+
+- Applying with the wrong premise number.
+- Waiting until move-in day to activate.
+- Assuming the landlord has already transferred utilities.
+- Forgetting to keep payment receipts.
+- Using unofficial fee information without checking DEWA.
+
+### Official links
+
+- [DEWA Move-In service](https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in)
+- [DEWA official website](https://www.dewa.gov.ae/)
+""",
     },
     "Ejari": {
-        "number": "02",
-        "tag": "Rental Registration",
-        "description": "Your tenancy contract, made official — required before almost everything else.",
-        "steps": [
-            "Confirm your signed tenancy contract.",
-            "Prepare landlord and tenant documents.",
-            "Register the contract through the approved Ejari process.",
-            "Download or save your Ejari certificate.",
-            "Use the certificate for utilities and other move-in requirements.",
+        "icon": "E",
+        "subtitle": "Tenancy contract registration",
+        "description": (
+            "Register your tenancy contract through Dubai Land Department systems."
+        ),
+        "official_links": [
+            ("Dubai Land Department - Register / Renew Ejari Contract", "https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/"),
+            ("Dubai REST app information", "https://dubailand.gov.ae/"),
         ],
-        "accent": "#8C8A67",
-        "motif": "M 0,10 L 20,30 L 40,10 L 60,30 L 80,10 L 100,30 L 120,10",
+        "content": """
+### What this is
+
+Ejari is Dubai’s tenancy contract registration system. It is important because it formally registers your rental contract and is often needed for utility activation and other residence-related processes.
+
+### Before you start
+
+Prepare or confirm:
+
+- Signed tenancy contract.
+- Tenant Emirates ID, if available.
+- Tenant passport and visa details if requested.
+- Landlord details.
+- Title deed or property ownership details if requested.
+- DEWA premise number if required.
+- Payment method.
+- Access to Dubai REST / Ejari system, or visit an authorised centre.
+
+### Step-by-step setup
+
+1. **Sign the tenancy contract first**
+   - Do not try to register Ejari before the rental contract is signed.
+   - Check that names, unit number, rent amount, and contract dates are correct.
+
+2. **Choose registration method**
+   You usually have a few routes:
+   - Dubai REST / Ejari online route.
+   - Real Estate Trustee Centre.
+   - Property management company, if the property is managed by one.
+   - Authorised service channel.
+
+3. **Submit documents**
+   - Upload or submit the tenancy contract and required documents.
+   - Make sure there are no missing pages or mismatched details.
+   - The name on the contract should match the tenant documents.
+
+4. **Pay service fees**
+   - Pay the service fees shown by the official channel.
+   - Fees can vary depending on the channel, so use the official amount shown during registration.
+
+5. **Wait for review / approval**
+   - Dubai Land Department explains that an employee may review and approve the request through the system.
+   - Once approved, the e-contract registration certificate is issued.
+
+6. **Save your Ejari certificate**
+   - Download the PDF certificate.
+   - Save it in your relocation folder.
+   - You may need it for DEWA, internet setup, bank address updates, school registration, or other move-in processes.
+
+### Common mistakes to avoid
+
+- Signing a contract with incorrect unit details.
+- Not checking landlord/property details.
+- Uploading unclear document scans.
+- Assuming Ejari is optional.
+- Waiting until another service asks for it.
+
+### Official links
+
+- [Dubai Land Department - Register / Renew Ejari Contract](https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/)
+- [Dubai Land Department official website](https://dubailand.gov.ae/)
+""",
     },
-    "du / e&": {
-        "number": "03",
-        "tag": "Mobile & SIM",
-        "description": "Stay connected from day one — your first local number sets everything else in motion.",
-        "steps": [
-            "Compare prepaid and postpaid plans.",
-            "Prepare passport, Emirates ID, or valid identification.",
-            "Choose mobile data based on commute and daily usage.",
-            "Activate SIM or eSIM where supported.",
-            "Save customer support details in case activation fails.",
+    "e& Home Internet": {
+        "icon": "e&",
+        "subtitle": "eLife / home internet setup or move",
+        "description": (
+            "Set up or move e& home internet when you settle into a Dubai property."
+        ),
+        "official_links": [
+            ("e& Home Move", "https://www.eand.ae/en/c/home/home-moving.html"),
+            ("e& UAE official website", "https://www.eand.ae/"),
         ],
-        "accent": "#B27960",
-        "motif": "M 0,15 C 20,0 40,30 60,15 C 80,0 100,30 120,15",
+        "content": """
+### What this is
+
+e& provides home internet, TV, and landline packages in the UAE. If you already have an eLife plan and are moving, e& has a Home Move flow. If you are new, you can compare available home plans and request installation.
+
+### Before you start
+
+Prepare or confirm:
+
+- New home address and unit details.
+- Building name and community.
+- Tenancy contract or proof of residence if requested.
+- Emirates ID, if available.
+- Current e& account details if you are moving an existing service.
+- Preferred installation date and time.
+- Router/equipment details if you already have an existing connection.
+
+### Step-by-step setup for an existing e& customer moving home
+
+1. **Check whether your current plan can move**
+   - Confirm if your current eLife/home plan can be relocated to the new address.
+   - Check if your new building supports the required e& service.
+
+2. **Use the e& UAE app**
+   - e& describes its Home Move flow as: download the e& UAE app, go to the eLife Plan tab, tap Manage, then tap Home Move and follow the instructions.
+
+3. **Enter the new address**
+   - Add the building, unit, and area details carefully.
+   - Wrong unit details can delay installation.
+
+4. **Upload documents if requested**
+   - Upload tenancy contract, Emirates ID, or other proof requested by the app.
+   - Use clear scans/photos.
+
+5. **Book the technician visit**
+   - Select a suitable installation or relocation slot.
+   - Make sure someone can access the apartment and telecom room if required.
+
+6. **Prepare equipment**
+   - Keep router, ONT device, TV box, remote, cables, and account details available.
+   - Do not throw away existing equipment before confirming with e&.
+
+7. **Test after installation**
+   - Test Wi-Fi speed in multiple rooms.
+   - Check TV/landline if included.
+   - Save support ticket/reference number.
+
+### If you are a new e& customer
+
+1. Compare home internet packages on the official e& website.
+2. Check whether the building supports the selected plan.
+3. Prepare Emirates ID and tenancy/proof of residence if requested.
+4. Book installation.
+5. Test speed after activation.
+
+### Common mistakes to avoid
+
+- Booking installation before confirming building coverage.
+- Not being available for the technician visit.
+- Forgetting router/equipment from the previous home.
+- Choosing speed only by price without checking contract terms.
+- Not checking cancellation or relocation fees.
+
+### Official links
+
+- [e& Home Move](https://www.eand.ae/en/c/home/home-moving.html)
+- [e& UAE official website](https://www.eand.ae/)
+""",
     },
-    "Internet": {
-        "number": "04",
-        "tag": "Home Broadband",
-        "description": "Fast, reliable internet — book early, because installation takes time.",
-        "steps": [
-            "Check which providers are available in the building.",
-            "Compare speed, contract length, and installation time.",
-            "Book installation after tenancy confirmation.",
-            "Keep router and account details safely stored.",
-            "Test speed after installation.",
+    "du Home Internet": {
+        "icon": "du",
+        "subtitle": "du home internet setup or relocation",
+        "description": (
+            "Set up or move du home internet, TV, and landline services."
+        ),
+        "official_links": [
+            ("du Home Relocation", "https://www.du.ae/personal/at-home/moving-to-a-new-home"),
+            ("du official website", "https://www.du.ae/"),
         ],
-        "accent": "#B59275",
-        "motif": "M 0,20 L 30,5 L 60,20 L 90,5 L 120,20",
+        "content": """
+### What this is
+
+du provides home internet, TV, and landline services in the UAE. If you already have du Home and are moving, du offers an online home relocation service.
+
+### Before you start
+
+Prepare or confirm:
+
+- New address and unit number.
+- Building/community name.
+- Tenancy contract or title deed.
+- Proof of relationship if the tenancy is not in your name.
+- Emirates ID, if available.
+- Current du account details if relocating.
+- Preferred installation date and time.
+
+### Step-by-step setup for moving an existing du Home service
+
+1. **Check your new building**
+   - Confirm whether du service is available in the building.
+   - Ask building management if the telecom infrastructure is ready.
+
+2. **Open du Home relocation**
+   - Use the official du Home relocation page.
+   - Start the relocation request online.
+
+3. **Upload required documents**
+   - du states that users may need to upload the tenancy contract or title deed for the new home.
+   - If the tenancy is not in your name, upload proof of relationship if requested.
+
+4. **Review the relocation fee**
+   - du states that a moving fee of AED 100 will be charged on the next bill.
+   - Always confirm the final amount during the official request flow.
+
+5. **Choose installation timing**
+   - Pick a technician visit time.
+   - Make sure someone has access to the apartment and telecom area.
+
+6. **Prepare existing devices**
+   - Keep router, TV box, landline device, remote, cables, and power adapters ready.
+   - Confirm whether you need to return, reuse, or replace any device.
+
+7. **Test the service**
+   - Test Wi-Fi, TV, and landline if included.
+   - Save confirmation SMS/email and support reference.
+
+### If you are a new du customer
+
+1. Compare du Home plans on the official du website.
+2. Check building coverage.
+3. Prepare Emirates ID and tenancy/title deed if requested.
+4. Book installation.
+5. Test speed and Wi-Fi coverage after setup.
+
+### Common mistakes to avoid
+
+- Assuming every building supports both du and e& equally.
+- Forgetting to upload proof of relationship when the tenancy is under another person’s name.
+- Ignoring contract period and early termination terms.
+- Missing technician appointment.
+- Not testing Wi-Fi in bedrooms and work areas.
+
+### Official links
+
+- [du Home relocation](https://www.du.ae/personal/at-home/moving-to-a-new-home)
+- [du official website](https://www.du.ae/)
+""",
     },
-    "Move-in Documents": {
-        "number": "05",
-        "tag": "Document Checklist",
-        "description": "The paperwork that underpins everything — keep these within reach at all times.",
-        "steps": [
-            "Passport copy.",
-            "Visa or entry permit where applicable.",
-            "Emirates ID or application details.",
-            "Tenancy contract.",
-            "Payment receipts and confirmation emails.",
+    "Mobile SIM / eSIM": {
+        "icon": "SIM",
+        "subtitle": "du / e& mobile setup",
+        "description": (
+            "Get connected with a UAE mobile number through tourist, prepaid, postpaid, SIM, or eSIM options."
+        ),
+        "official_links": [
+            ("TDRA Mobile Consumer Registration", "https://tdra.gov.ae/en/initiatives/registration-for-mobile-consumers"),
+            ("e& Visitor Line", "https://www.eand.ae/en/c/mobile/plans/visitor-line.html"),
+            ("du Tourist SIM", "https://shop.du.ae/en/personal/prepaid/du-tourist-prepaid-plans?view=bundles"),
+            ("e& Mobile Registration Renewal", "https://www.eand.ae/en/c/mobile-registration-renewal.html"),
+            ("du Emirates ID update", "https://www.du.ae/support/id-renewal"),
         ],
-        "accent": "#642A16",
-        "motif": "M 10,25 A 20,20 0 0 1 50,5 A 20,20 0 0 1 90,25 A 20,20 0 0 1 50,45 A 20,20 0 0 1 10,25",
+        "content": """
+### What this is
+
+This guide helps newcomers choose and activate a UAE mobile line. You may start with a tourist SIM/eSIM if you have just arrived, then move to a resident prepaid or postpaid plan later once your Emirates ID is available.
+
+### Before you start
+
+Prepare or confirm:
+
+- Passport if you are a visitor/tourist.
+- Emirates ID if you are a UAE resident.
+- UAE PASS access if using digital services.
+- eSIM-compatible phone if choosing eSIM.
+- Unlocked phone that supports UAE networks.
+- Payment card or cash depending on channel.
+
+### Step-by-step setup for visitors
+
+1. **Choose tourist SIM or eSIM**
+   - e& and du both offer visitor/tourist mobile options.
+   - Tourist lines are useful when you need data immediately after landing.
+
+2. **Prepare passport identification**
+   - Visitors usually register using passport details.
+   - Keep the same passport used for entry.
+
+3. **Activate the line**
+   - Follow the provider’s activation steps.
+   - For eSIM, make sure your phone supports eSIM and is not carrier locked.
+   - For physical SIM, insert the SIM and follow activation instructions.
+
+4. **Choose data package**
+   - Select a package based on your stay length, maps usage, WhatsApp/calls, hotspot needs, and delivery apps.
+
+5. **Track validity**
+   - Tourist SIMs usually have validity limits.
+   - Set a reminder before expiry if you still need the number.
+
+### Step-by-step setup for residents
+
+1. **Wait for or prepare Emirates ID**
+   - Emirates ID is the main identity document for UAE residents.
+   - Telecom providers require valid identity registration.
+
+2. **Choose prepaid or postpaid**
+   - Prepaid is flexible and easier for early arrival.
+   - Postpaid may be better after stable residency, salary, and address details.
+
+3. **Register the number**
+   - Use the provider’s app, website, or store.
+   - Upload or scan Emirates ID if requested.
+
+4. **Keep registration updated**
+   - e& states that maintaining valid Emirates ID registration is required and non-renewal may result in suspension/disconnection.
+   - du also provides an Emirates ID update flow for customers.
+
+5. **Save account access**
+   - Download provider app.
+   - Enable usage tracking.
+   - Disable unwanted auto-renewal or third-party subscriptions.
+
+### Common mistakes to avoid
+
+- Buying a plan before checking phone compatibility.
+- Forgetting tourist SIM validity.
+- Not updating Emirates ID after renewal.
+- Ignoring auto-renewal settings.
+- Using unofficial sellers or unknown SIM sources.
+
+### Official links
+
+- [TDRA Mobile Consumer Registration](https://tdra.gov.ae/en/initiatives/registration-for-mobile-consumers)
+- [e& Visitor Line](https://www.eand.ae/en/c/mobile/plans/visitor-line.html)
+- [du Tourist SIM](https://shop.du.ae/en/personal/prepaid/du-tourist-prepaid-plans?view=bundles)
+- [e& Mobile Registration Renewal](https://www.eand.ae/en/c/mobile-registration-renewal.html)
+- [du Emirates ID update](https://www.du.ae/support/id-renewal)
+""",
+    },
+    "UAE PASS": {
+        "icon": "ID",
+        "subtitle": "Digital identity setup",
+        "description": (
+            "Set up UAE PASS to access many UAE digital government and partner services."
+        ),
+        "official_links": [
+            ("UAE PASS official website", "https://uaepass.ae/"),
+            ("UAE Government - Emirates ID", "https://u.ae/en/information-and-services/visa-and-emirates-id/emirates-id"),
+        ],
+        "content": """
+### What this is
+
+UAE PASS is the UAE’s national digital identity platform. It helps residents, citizens, and visitors access many online services and digitally sign or verify documents.
+
+### Why it matters for relocation
+
+UAE PASS can make many digital processes easier, especially when dealing with government or semi-government services. It is useful for identity verification, document access, and logging into supported portals.
+
+### Before you start
+
+Prepare or confirm:
+
+- Smartphone.
+- UAE mobile number.
+- Emirates ID if you are a resident.
+- Passport/visitor details if supported for your case.
+- Access to the UAE PASS app.
+- Ability to verify identity through the official process.
+
+### Step-by-step setup
+
+1. **Download the UAE PASS app**
+   - Use the official app store listing.
+   - Avoid unofficial links.
+
+2. **Register your account**
+   - Enter your details as requested.
+   - Use your own mobile number.
+
+3. **Verify your identity**
+   - Follow the app’s identity verification flow.
+   - Residents may need Emirates ID details.
+
+4. **Set up secure access**
+   - Create a secure PIN.
+   - Enable biometrics if available.
+   - Do not share your PIN or OTP.
+
+5. **Use UAE PASS for supported services**
+   - Log in to supported government and partner platforms.
+   - Use digital signature features only when you understand the document.
+
+### Common mistakes to avoid
+
+- Using someone else’s mobile number.
+- Sharing OTPs or PINs.
+- Skipping identity verification and expecting full access.
+- Using UAE PASS on a shared phone.
+- Signing documents without reading them.
+
+### Official links
+
+- [UAE PASS official website](https://uaepass.ae/)
+- [UAE Government - Emirates ID](https://u.ae/en/information-and-services/visa-and-emirates-id/emirates-id)
+""",
     },
 }
 
 
-@st.dialog("Utility setup guide")
+@st.dialog("Hayyak utility guide")
 def show_utility_modal(name, item):
-    st.markdown(
-        f"""
-        <div style="margin-bottom:0.25rem;">
-            <span style="
-                font-size:0.72rem;
-                font-weight:800;
-                letter-spacing:0.22em;
-                text-transform:uppercase;
-                color:{item['accent']};
-            ">{item['tag']}</span>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
     st.subheader(name)
-    st.caption(item["description"])
+    st.caption(item["subtitle"])
     arabic_divider()
 
-    st.markdown("**Setup checklist**")
-    for i, step in enumerate(item["steps"], 1):
-        st.markdown(
-            f"""
-            <div style="
-                display:flex;
-                align-items:flex-start;
-                gap:0.75rem;
-                padding:0.6rem 0;
-                border-bottom:1px solid rgba(140,138,103,0.14);
-            ">
-                <span style="
-                    min-width:24px;
-                    height:24px;
-                    border-radius:50%;
-                    background:rgba(140,138,103,0.14);
-                    border:1px solid rgba(140,138,103,0.28);
-                    display:inline-flex;
-                    align-items:center;
-                    justify-content:center;
-                    font-size:0.72rem;
-                    font-weight:800;
-                    color:{item['accent']};
-                ">{i}</span>
-                <span style="color:#2B1B14;line-height:1.55;">{step}</span>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+    st.markdown(item["content"])
 
-    st.markdown(
-        """
-        <p style="margin-top:1.1rem;font-size:0.8rem;color:#735A4C;">
-            Official links will be added as inline references within each step as the guide develops.
-        </p>
-        """,
-        unsafe_allow_html=True,
+    st.divider()
+    st.caption(
+        "Hayyak note: official processes, fees, required documents, and timelines can change. "
+        "Always confirm details through the linked official service before applying."
     )
 
 
-# ── ADDITIONAL PAGE-LEVEL CSS ──────────────────────────────────────────────
-
 st.markdown(
     """
-    <style>
-    /* ---- HERO (simple, like main page) ---- */
-    .utilities-hero {
-        position: relative;
-        padding: 2.5rem 1.5rem 2rem 1.5rem;
-        margin-bottom: 1.5rem;
-        border-radius: 32px;
-        background: linear-gradient(135deg, #F6EFE5 0%, #E8D9C8 100%);
-        text-align: center;
-        overflow: hidden;
-        box-shadow: 0 8px 24px rgba(100,42,22,0.06);
-    }
-    .hero-pattern {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(circle at 20% 30%, rgba(140,138,103,0.08) 0%, transparent 50%),
-                          radial-gradient(circle at 80% 70%, rgba(140,138,103,0.06) 0%, transparent 50%);
-        pointer-events: none;
-    }
-    .hero-content {
-        position: relative;
-        z-index: 1;
-        max-width: 640px;
-        margin: 0 auto;
-        animation: fadeUp 0.8s ease-out both;
-    }
-    .hero-icon {
-        font-size: 3.2rem;
-        line-height: 1;
-        margin-bottom: 0.2rem;
-    }
-    .hero-content h1 {
-        font-size: 2.8rem;
-        margin: 0.2rem 0 0.2rem 0;
-        color: #642A16;
-        font-weight: 700;
-        letter-spacing: -0.03em;
-    }
-    .hero-content p {
-        font-size: 1.1rem;
-        color: #735A4C;
-        max-width: 460px;
-        margin: 0 auto;
-        line-height: 1.5;
-    }
-    .hero-underline {
-        width: 50px;
-        height: 3px;
-        background: #8C8A67;
-        border-radius: 2px;
-        margin: 0.7rem auto 0 auto;
-    }
-
-    /* ---- TIP CARD (optional, kept) ---- */
-    .tip-card {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        background: rgba(255,249,240,0.7);
-        backdrop-filter: blur(4px);
-        border: 1px solid rgba(140,138,103,0.18);
-        border-radius: 20px;
-        padding: 0.8rem 1.2rem;
-        margin: 0 0 1.5rem 0;
-        box-shadow: 0 4px 12px rgba(100,42,22,0.04);
-        animation: fadeUp 0.9s ease-out 0.15s both;
-    }
-    .tip-icon {
-        font-size: 2rem;
-        line-height: 1;
-        flex-shrink: 0;
-    }
-    .tip-text {
-        color: #2B1B14;
-        font-size: 0.95rem;
-    }
-
-    /* ---- SECTION LABEL ---- */
-    .util-section-label {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1.75rem;
-        animation: fadeUp 0.9s ease-out 0.2s both;
-    }
-    .util-section-label-line {
-        flex: 1;
-        height: 1px;
-        background: linear-gradient(90deg, rgba(100,42,22,0.18), transparent);
-    }
-    .util-section-label-text {
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        color: #8C8A67;
-        white-space: nowrap;
-    }
-
-    /* ---- PINTEREST CARD ---- */
-    .util-pin-card {
-        background: #FFF9F0;
-        border: 1px solid rgba(140, 138, 103, 0.20);
-        border-radius: 24px;
-        overflow: hidden;
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
-        cursor: pointer;
-        box-shadow: 0 4px 18px rgba(100, 42, 22, 0.06);
-        margin-bottom: 0.85rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .util-pin-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 18px 44px rgba(100, 42, 22, 0.13);
-    }
-
-    .util-pin-top {
-        padding: 1.5rem 1.5rem 0.6rem 1.5rem;
-        position: relative;
-        flex: 1;
-    }
-
-    .util-pin-number {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 4.2rem;
-        font-weight: 700;
-        line-height: 0.85;
-        letter-spacing: -0.06em;
-        opacity: 0.08;
-        position: absolute;
-        bottom: -0.1rem;
-        right: 1.1rem;
-        pointer-events: none;
-        color: #642A16;
-    }
-
-    .util-pin-tag {
-        display: inline-block;
-        font-size: 0.66rem;
-        font-weight: 800;
-        letter-spacing: 0.24em;
-        text-transform: uppercase;
-        padding: 0.28rem 0.7rem;
-        border-radius: 999px;
-        background: rgba(140, 138, 103, 0.12);
-        border: 1px solid rgba(140, 138, 103, 0.22);
-        color: #8C8A67;
-        margin-bottom: 0.9rem;
-    }
-
-    .util-pin-title {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: 1.38rem;
-        font-weight: 700;
-        color: #642A16 !important;
-        line-height: 1.15;
-        letter-spacing: -0.03em;
-        margin: 0 0 0.6rem 0;
-    }
-
-    .util-pin-desc {
-        font-size: 0.88rem;
-        line-height: 1.6;
-        color: #735A4C;
-        margin: 0;
-    }
-
-    .util-pin-motif {
-        width: 100%;
-        height: 36px;
-        display: block;
-        margin-top: 1rem;
-        opacity: 0.45;
-    }
-
-    .util-pin-footer {
-        padding: 0.85rem 1.5rem 1.25rem 1.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        border-top: 1px solid rgba(140, 138, 103, 0.12);
-        margin-top: auto;
-    }
-
-    .util-pin-count {
-        font-size: 0.75rem;
-        color: #8C8A67;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-    }
-
-    .util-pin-arrow {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: rgba(140, 138, 103, 0.1);
-        border: 1px solid rgba(140, 138, 103, 0.22);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #642A16;
-        font-size: 0.9rem;
-        transition: background 0.18s;
-    }
-
-    .util-pin-card:hover .util-pin-arrow {
-        background: #642A16;
-        border-color: #642A16;
-        color: #FFF9F0;
-    }
-
-    /* hide the actual Streamlit button */
-    div[data-testid="column"] > div[data-testid="stButton"] {
-        display: none !important;
-    }
-
-    @keyframes fadeUp {
-        from { opacity: 0; transform: translateY(12px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (max-width: 820px) {
-        .hero-content h1 {
-            font-size: 2.2rem;
-        }
-        .tip-card {
-            flex-direction: column;
-            text-align: center;
-            gap: 0.3rem;
-        }
-        .util-section-label {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-    }
-    @media (max-width: 480px) {
-        .hero-content h1 {
-            font-size: 1.8rem;
-        }
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-# ── HERO (simple) ──────────────────────────────────────────────────────────
-
-st.markdown(
-    """
-    <div class="utilities-hero">
-        <div class="hero-pattern"></div>
-        <div class="hero-content">
-            <div class="hero-icon">⚡</div>
-            <h1>Utilities</h1>
-            <p>Everything you need to activate before you feel at home – electricity, contracts, connectivity, and the documents that tie it all together.</p>
-            <div class="hero-underline"></div>
+    <section class="section-card">
+        <div class="section-heading">
+            <div>
+                <h2>Utilities and move-in setup</h2>
+                <p>
+                    Choose a setup area to view a detailed, step-by-step guide.
+                    Each guide is designed for newcomers moving into a Dubai home.
+                </p>
+            </div>
         </div>
-    </div>
+    </section>
     """,
     unsafe_allow_html=True,
 )
 
 
-# ── QUICK TIP ──────────────────────────────────────────────────────────────
-
-st.markdown(
-    """
-    <div class="tip-card">
-        <div class="tip-icon">💡</div>
-        <div class="tip-text">
-            <strong>Pro tip:</strong> Start with DEWA and Ejari – they unlock everything else. Many buildings require these before you can activate internet or move in.
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-# ── SECTION LABEL ──────────────────────────────────────────────────────────
-
-st.markdown(
-    """
-    <div class="util-section-label">
-        <span class="util-section-label-text">Choose a setup area</span>
-        <div class="util-section-label-line"></div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-# ── CARD GRID ──────────────────────────────────────────────────────────────
-
-items = list(UTILITIES.items())
 cols = st.columns(3)
+items = list(UTILITIES.items())
 
-for idx, (name, item) in enumerate(items):
-    with cols[idx % 3]:
-        step_count = len(item["steps"])
-        motif_d = item["motif"]
-        accent = item["accent"]
-
-        # Unique button ID for this card
-        btn_key = f"util_btn_{idx}"
-
-        # Card with onclick that triggers the hidden button
+for index, (name, item) in enumerate(items):
+    with cols[index % 3]:
         st.markdown(
             f"""
-            <div class="util-pin-card" onclick="document.getElementById('{btn_key}').click();">
-                <div class="util-pin-top">
-                    <span class="util-pin-tag">{item["tag"]}</span>
-                    <p class="util-pin-number">{item["number"]}</p>
-                    <h3 class="util-pin-title">{name}</h3>
-                    <p class="util-pin-desc">{item["description"]}</p>
-                    <svg class="util-pin-motif" viewBox="0 0 120 36" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                        <path d="{motif_d}" fill="none" stroke="{accent}" stroke-width="1.5" stroke-linecap="round"/>
-                        <circle cx="0" cy="20" r="2.5" fill="{accent}" opacity="0.6"/>
-                        <circle cx="120" cy="20" r="2.5" fill="{accent}" opacity="0.6"/>
-                    </svg>
-                </div>
-                <div class="util-pin-footer">
-                    <span class="util-pin-count">{step_count} steps</span>
-                    <div class="util-pin-arrow">→</div>
-                </div>
+            <div class="utility-card">
+                <div class="utility-icon">{item["icon"]}</div>
+                <h3 style="margin:.2rem 0;color:#642A16;">{name}</h3>
+                <p class="muted-text">{item["description"]}</p>
             </div>
             """,
             unsafe_allow_html=True,
         )
 
-        # Hidden button – it will be triggered by the card click
-        if st.button(" ", key=btn_key):
+        if st.button(f"View {name} guide", key=f"utility_{name}"):
             show_utility_modal(name, item)
