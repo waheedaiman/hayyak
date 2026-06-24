@@ -18,16 +18,12 @@ PALETTE = {
 
 def _image_to_data_uri(path):
     image_path = Path(path)
-
     if not image_path.exists():
         return None
-
     encoded = base64.b64encode(image_path.read_bytes()).decode("utf-8")
     suffix = image_path.suffix.lower().replace(".", "")
-
     if suffix == "jpg":
         suffix = "jpeg"
-
     return f"data:image/{suffix};base64,{encoded}"
 
 
@@ -37,9 +33,9 @@ def get_image_data_uri(path):
 
 def apply_hayyak_theme():
     st.markdown(
-        """
+        f"""
         <style>
-        :root {
+        :root {{
             --deep-brown: #642A16;
             --sand: #B59275;
             --olive: #8C8A67;
@@ -52,42 +48,41 @@ def apply_hayyak_theme():
             --line: rgba(100, 42, 22, 0.16);
             --green-soft: rgba(140, 138, 103, 0.14);
             --green-line: rgba(140, 138, 103, 0.36);
-        }
+        }}
 
-        html, body, [data-testid="stAppViewContainer"] {
+        html, body, [data-testid="stAppViewContainer"] {{
             background:
                 radial-gradient(circle at top left, rgba(140, 138, 103, 0.16), transparent 30%),
                 radial-gradient(circle at top right, rgba(188, 134, 83, 0.10), transparent 28%),
                 linear-gradient(180deg, #F6EFE5 0%, #EFE1D1 100%);
             color: var(--ink);
-        }
+        }}
 
-        [data-testid="stHeader"] {
+        [data-testid="stHeader"] {{
             background: transparent;
-        }
+        }}
 
-        [data-testid="stSidebar"] {
+        [data-testid="stSidebar"] {{
             display: none;
-        }
+        }}
 
-        .block-container {
+        .block-container {{
             max-width: 1120px;
             padding-top: 1rem;
             padding-bottom: 2.5rem;
-        }
+        }}
 
-        h1, h2, h3 {
+        h1, h2, h3 {{
             color: var(--deep-brown);
             letter-spacing: -0.035em;
-        }
+        }}
 
-        p, label, span, div {
+        p, label, span, div {{
             color: var(--ink);
-        }
+        }}
 
         /* NAVBAR */
-
-        .hayyak-navbar {
+        .hayyak-navbar {{
             position: sticky;
             top: 0.75rem;
             z-index: 999;
@@ -99,29 +94,29 @@ def apply_hayyak_theme():
             background: rgba(255, 249, 240, 0.90);
             box-shadow: 0 12px 28px rgba(100, 42, 22, 0.09);
             backdrop-filter: blur(12px);
-        }
+        }}
 
-        .hayyak-navbar-inner {
+        .hayyak-navbar-inner {{
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-        }
+        }}
 
-        .hayyak-brand {
+        .hayyak-brand {{
             display: flex;
             align-items: center;
             min-width: 72px;
-        }
+        }}
 
-        .hayyak-logo {
+        .hayyak-logo {{
             width: 54px;
             height: 54px;
             object-fit: contain;
             display: block;
-        }
+        }}
 
-        .hayyak-logo-fallback {
+        .hayyak-logo-fallback {{
             width: 42px;
             height: 42px;
             border-radius: 999px;
@@ -131,45 +126,44 @@ def apply_hayyak_theme():
             align-items: center;
             justify-content: center;
             font-weight: 800;
-        }
+        }}
 
-        .hayyak-links {
+        .hayyak-links {{
             display: flex;
             align-items: center;
             gap: 0.35rem;
             flex-wrap: wrap;
-        }
+        }}
 
-        .hayyak-links a {
+        .hayyak-links a {{
             color: var(--deep-brown) !important;
             text-decoration: none !important;
             font-size: 0.88rem;
             padding: 0.46rem 0.78rem;
             border-radius: 999px;
             transition: 0.18s ease;
-        }
+        }}
 
-        .hayyak-links a:hover {
+        .hayyak-links a:hover {{
             background: var(--green-soft);
             color: var(--deep-brown) !important;
-        }
+        }}
 
-        .hayyak-links a.active {
+        .hayyak-links a.active {{
             background: var(--olive);
             color: var(--paper) !important;
-        }
+        }}
 
         /* HERO IMAGE */
-
-        .hero-image-container {
+        .hero-image-container {{
             width: 100%;
             max-width: 980px;
             margin: 0 auto 1.2rem auto;
             text-align: center;
             animation: fadeIn 1s ease-out both;
-        }
+        }}
 
-        .hero-image-container img {
+        .hero-image-container img {{
             width: 100%;
             height: auto;
             max-height: 400px;
@@ -177,57 +171,50 @@ def apply_hayyak_theme():
             display: block;
             border-radius: 24px;
             box-shadow: 0 12px 32px rgba(100, 42, 22, 0.10);
-        }
+        }}
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        @keyframes fadeIn {{
+            from {{ opacity: 0; transform: translateY(8px); }}
+            to {{ opacity: 1; transform: translateY(0); }}
+        }}
 
         /* SECTION CARDS */
-
-        .section-card {
+        .section-card {{
             border: 1px solid rgba(140, 138, 103, 0.24);
             border-radius: 28px;
             background: rgba(255, 249, 240, 0.91);
             box-shadow: 0 16px 38px rgba(100, 42, 22, 0.075);
             padding: 1.25rem;
             margin: 0.45rem 0 1rem 0;
-        }
+        }}
 
-        .section-heading {
+        .section-heading {{
             display: flex;
             justify-content: space-between;
             gap: 1rem;
             align-items: flex-end;
             margin-bottom: 0.85rem;
-        }
+        }}
 
-        .section-heading h2 {
+        .section-heading h2 {{
             margin: 0;
             font-size: 1.55rem;
-        }
+        }}
 
-        .section-heading p {
+        .section-heading p {{
             margin: 0.3rem 0 0 0;
             color: var(--muted);
             font-size: 0.95rem;
-        }
+        }}
 
-        .arabic-divider {
+        .arabic-divider {{
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(140, 138, 103, 0.48), transparent);
             position: relative;
             margin: 1rem 0;
-        }
+        }}
 
-        .arabic-divider:after {
+        .arabic-divider:after {{
             content: "";
             width: 9px;
             height: 9px;
@@ -237,33 +224,32 @@ def apply_hayyak_theme():
             left: 50%;
             top: -4px;
             margin-left: -4px;
-        }
+        }}
 
         /* RESULTS */
-
-        .result-card {
+        .result-card {{
             border: 1px solid rgba(140, 138, 103, 0.24);
             background: #FFF9F0;
             border-radius: 22px;
             padding: 1rem;
             margin-bottom: 0.8rem;
-        }
+        }}
 
-        .result-topline {
+        .result-topline {{
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 1rem;
-        }
+        }}
 
-        .result-title {
+        .result-title {{
             color: var(--deep-brown);
             font-size: 1.15rem;
             font-weight: 800;
             margin: 0;
-        }
+        }}
 
-        .match-pill {
+        .match-pill {{
             background: var(--green-soft);
             color: var(--olive);
             border: 1px solid var(--green-line);
@@ -272,156 +258,191 @@ def apply_hayyak_theme():
             font-size: 0.82rem;
             font-weight: 800;
             white-space: nowrap;
-        }
+        }}
 
-        .muted-text {
+        .muted-text {{
             color: var(--muted);
             line-height: 1.6;
-        }
+        }}
 
-        /* STREAMLIT QUIZ RESTYLE – unified palette */
+        /* ---------- STREAMLIT WIDGET OVERRIDES (HIGH SPECIFICITY) ---------- */
 
-        div[data-testid="stForm"] {
-            border: 1px solid rgba(140, 138, 103, 0.20);
-            background: rgba(246, 239, 229, 0.38);
-            border-radius: 24px;
-            padding: 1rem 1rem 0.65rem 1rem;
-        }
+        /* Form container */
+        div[data-testid="stForm"] {{
+            border: 1px solid rgba(140, 138, 103, 0.20) !important;
+            background: rgba(246, 239, 229, 0.38) !important;
+            border-radius: 24px !important;
+            padding: 1rem 1rem 0.65rem 1rem !important;
+        }}
 
+        /* Each widget container */
         div[data-testid="stSlider"],
         div[data-testid="stSelectbox"],
-        div[data-testid="stRadio"] {
-            background: rgba(255, 249, 240, 0.76);
-            border: 1px solid rgba(140, 138, 103, 0.18);
-            border-radius: 18px;
-            padding: 0.85rem 0.9rem;
-            margin-bottom: 0.75rem;
-        }
+        div[data-testid="stRadio"] {{
+            background: rgba(255, 249, 240, 0.76) !important;
+            border: 1px solid rgba(140, 138, 103, 0.18) !important;
+            border-radius: 18px !important;
+            padding: 0.85rem 0.9rem !important;
+            margin-bottom: 0.75rem !important;
+        }}
 
+        /* Labels */
         div[data-testid="stSlider"] label,
         div[data-testid="stSelectbox"] label,
-        div[data-testid="stRadio"] label {
+        div[data-testid="stRadio"] label {{
             color: var(--deep-brown) !important;
             font-weight: 800 !important;
             letter-spacing: -0.01em;
-        }
+        }}
 
-        /* Select boxes – fix black background */
-        div[data-baseweb="select"] > div {
+        /* ---------- SELECTBOX (dropdown) ---------- */
+        /* Main select input */
+        div[data-baseweb="select"] > div {{
             background-color: #FFF9F0 !important;
             border-color: rgba(140, 138, 103, 0.35) !important;
             border-radius: 999px !important;
             color: var(--ink) !important;
             box-shadow: none !important;
-        }
+        }}
 
-        div[data-baseweb="select"] span {
+        div[data-baseweb="select"] span {{
             color: var(--ink) !important;
-        }
+        }}
 
-        /* Radio buttons – use olive accent */
-        div[role="radiogroup"] label {
-            background: rgba(140, 138, 103, 0.09);
-            border: 1px solid rgba(140, 138, 103, 0.18);
-            border-radius: 999px;
-            padding: 0.38rem 0.68rem;
-            margin-right: 0.25rem;
+        /* Dropdown menu (the list) */
+        div[data-baseweb="popover"] div[role="listbox"] {{
+            background-color: #FFF9F0 !important;
+            border: 1px solid rgba(140, 138, 103, 0.24) !important;
+            border-radius: 16px !important;
+        }}
+
+        div[data-baseweb="popover"] div[role="option"] {{
+            background-color: #FFF9F0 !important;
             color: var(--ink) !important;
-        }
+        }}
 
-        div[role="radiogroup"] label:hover {
-            background: rgba(140, 138, 103, 0.16);
-        }
+        div[data-baseweb="popover"] div[role="option"]:hover {{
+            background-color: var(--green-soft) !important;
+        }}
 
-        /* Radio button circles */
-        input[type="radio"] {
+        /* ---------- RADIO BUTTONS ---------- */
+        /* Force accent color */
+        input[type="radio"] {{
             accent-color: var(--olive) !important;
-        }
+        }}
 
-        /* Checkboxes (if any) */
-        input[type="checkbox"] {
-            accent-color: var(--olive) !important;
-        }
+        /* Radio group labels */
+        div[role="radiogroup"] label {{
+            background: rgba(140, 138, 103, 0.09) !important;
+            border: 1px solid rgba(140, 138, 103, 0.18) !important;
+            border-radius: 999px !important;
+            padding: 0.38rem 0.68rem !important;
+            margin-right: 0.25rem !important;
+            color: var(--ink) !important;
+        }}
 
-        /* Slider – track and thumb */
-        div[data-testid="stSlider"] [data-baseweb="slider"] {
+        div[role="radiogroup"] label:hover {{
+            background: rgba(140, 138, 103, 0.16) !important;
+        }}
+
+        /* ---------- SLIDER ---------- */
+        /* Track */
+        div[data-testid="stSlider"] div[data-baseweb="slider"] {{
             color: var(--olive) !important;
-        }
+        }}
 
-        /* Override the slider track background */
-        div[data-testid="stSlider"] .stSlider > div {
+        /* Override the slider track background (using ::-webkit- for all browsers) */
+        div[data-testid="stSlider"] .stSlider > div {{
             background: var(--olive) !important;
-        }
+        }}
 
         /* Thumb (handle) */
-        div[data-testid="stSlider"] .stSlider div[role="slider"] {
+        div[data-testid="stSlider"] .stSlider div[role="slider"] {{
             background: var(--deep-brown) !important;
             border-color: var(--deep-brown) !important;
-        }
+        }}
 
-        /* Input fields – no black background */
-        input, textarea, .stTextInput > div > div > input {
+        /* Fallback for webkit browsers */
+        div[data-testid="stSlider"] input[type="range"]::-webkit-slider-runnable-track {{
+            background: var(--olive) !important;
+        }}
+
+        div[data-testid="stSlider"] input[type="range"]::-webkit-slider-thumb {{
+            background: var(--deep-brown) !important;
+            border-color: var(--deep-brown) !important;
+        }}
+
+        div[data-testid="stSlider"] input[type="range"]::-moz-range-track {{
+            background: var(--olive) !important;
+        }}
+
+        div[data-testid="stSlider"] input[type="range"]::-moz-range-thumb {{
+            background: var(--deep-brown) !important;
+            border-color: var(--deep-brown) !important;
+        }}
+
+        /* ---------- TEXT INPUTS ---------- */
+        input, textarea, .stTextInput > div > div > input {{
             background: #FFF9F0 !important;
             color: var(--ink) !important;
             border-color: rgba(140, 138, 103, 0.35) !important;
             border-radius: 16px !important;
-        }
+        }}
 
-        /* Buttons – hover uses darker olive, not brown */
+        /* ---------- BUTTONS ---------- */
         div[data-testid="stButton"] > button,
-        div[data-testid="stFormSubmitButton"] > button {
-            background: var(--olive);
-            color: var(--paper);
-            border: 1px solid var(--olive);
-            border-radius: 999px;
-            padding: 0.65rem 1.15rem;
-            font-weight: 800;
-            transition: 0.18s ease;
-        }
+        div[data-testid="stFormSubmitButton"] > button {{
+            background: var(--olive) !important;
+            color: var(--paper) !important;
+            border: 1px solid var(--olive) !important;
+            border-radius: 999px !important;
+            padding: 0.65rem 1.15rem !important;
+            font-weight: 800 !important;
+            transition: 0.18s ease !important;
+        }}
 
         div[data-testid="stButton"] > button:hover,
-        div[data-testid="stFormSubmitButton"] > button:hover {
+        div[data-testid="stFormSubmitButton"] > button:hover {{
             background: #6F7A52 !important;  /* darker olive */
             border-color: #6F7A52 !important;
             color: var(--paper) !important;
             transform: translateY(-1px);
-        }
+        }}
 
-        /* Alerts / info boxes */
-        div[data-testid="stAlert"] {
-            background: rgba(140, 138, 103, 0.12);
-            border: 1px solid rgba(140, 138, 103, 0.24);
-            color: var(--deep-brown);
-        }
+        /* ---------- ALERTS / INFO ---------- */
+        div[data-testid="stAlert"] {{
+            background: rgba(140, 138, 103, 0.12) !important;
+            border: 1px solid rgba(140, 138, 103, 0.24) !important;
+            color: var(--deep-brown) !important;
+        }}
 
-        /* Modal (st.dialog) – transparent background */
-        [data-testid="stDialog"] > div {
+        /* ---------- MODAL (st.dialog) ---------- */
+        [data-testid="stDialog"] > div {{
             background: rgba(255, 249, 240, 0.92) !important;
             backdrop-filter: blur(4px);
-            border-radius: 28px;
-            border: 1px solid rgba(140, 138, 103, 0.24);
-            box-shadow: 0 20px 48px rgba(100, 42, 22, 0.12);
-        }
+            border-radius: 28px !important;
+            border: 1px solid rgba(140, 138, 103, 0.24) !important;
+            box-shadow: 0 20px 48px rgba(100, 42, 22, 0.12) !important;
+        }}
 
-        /* UTILITIES (for other pages) */
-
-        .utility-grid {
+        /* ---------- UTILITY GRID (for other pages) ---------- */
+        .utility-grid {{
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1rem;
             margin-top: 1rem;
-        }
+        }}
 
-        .utility-card {
+        .utility-card {{
             border: 1px solid rgba(140, 138, 103, 0.24);
             background: rgba(255, 249, 240, 0.9);
             border-radius: 24px;
             padding: 1.1rem;
             min-height: 145px;
             box-shadow: 0 14px 34px rgba(100, 42, 22, 0.07);
-        }
+        }}
 
-        .utility-icon {
+        .utility-icon {{
             width: 42px;
             height: 42px;
             border-radius: 14px;
@@ -433,51 +454,44 @@ def apply_hayyak_theme():
             color: var(--olive);
             font-weight: 900;
             margin-bottom: 0.75rem;
-        }
+        }}
 
-        @media (max-width: 820px) {
-            .hayyak-navbar {
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 820px) {{
+            .hayyak-navbar {{
                 border-radius: 24px;
                 position: relative;
                 top: 0;
-            }
-
-            .hayyak-navbar-inner {
+            }}
+            .hayyak-navbar-inner {{
                 align-items: flex-start;
                 flex-direction: column;
-            }
-
-            .hayyak-logo {
+            }}
+            .hayyak-logo {{
                 width: 48px;
                 height: 48px;
-            }
-
-            .hayyak-links {
+            }}
+            .hayyak-links {{
                 width: 100%;
-            }
-
-            .hero-image-container {
+            }}
+            .hero-image-container {{
                 margin-bottom: 0.8rem;
-            }
-
-            .hero-image-container img {
+            }}
+            .hero-image-container img {{
                 max-height: 250px;
                 border-radius: 16px;
-            }
-
-            .section-card {
+            }}
+            .section-card {{
                 padding: 1rem;
-            }
-
-            .utility-grid {
+            }}
+            .utility-grid {{
                 grid-template-columns: 1fr;
-            }
-
-            .section-heading {
+            }}
+            .section-heading {{
                 align-items: flex-start;
                 flex-direction: column;
-            }
-        }
+            }}
+        }}
         </style>
         """,
         unsafe_allow_html=True,
@@ -486,7 +500,6 @@ def apply_hayyak_theme():
 
 def render_nav(active="home"):
     logo_uri = _image_to_data_uri("assets/hayyak-logo.png")
-
     if logo_uri:
         brand_html = f'<img class="hayyak-logo" src="{logo_uri}" alt="Hayyak logo" />'
     else:
