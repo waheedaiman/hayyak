@@ -15,6 +15,7 @@ render_nav(active="utilities")
 
 UTILITIES = {
     "DEWA": {
+        "icon": "💡",
         "description": "Electricity and water setup for your Dubai home.",
         "steps": [
             "Prepare tenancy contract and Emirates ID once available.",
@@ -25,6 +26,7 @@ UTILITIES = {
         ],
     },
     "Ejari": {
+        "icon": "📝",
         "description": "Rental contract registration required for many housing processes.",
         "steps": [
             "Confirm your signed tenancy contract.",
@@ -35,6 +37,7 @@ UTILITIES = {
         ],
     },
     "du / e&": {
+        "icon": "📱",
         "description": "Mobile connection and SIM setup after arrival.",
         "steps": [
             "Compare prepaid and postpaid plans.",
@@ -45,6 +48,7 @@ UTILITIES = {
         ],
     },
     "Internet": {
+        "icon": "🌐",
         "description": "Home internet connection for your apartment or villa.",
         "steps": [
             "Check which providers are available in the building.",
@@ -55,6 +59,7 @@ UTILITIES = {
         ],
     },
     "Move-in Documents": {
+        "icon": "📂",
         "description": "Documents usually needed during early relocation steps.",
         "steps": [
             "Passport copy.",
@@ -85,92 +90,160 @@ def show_utility_modal(name, item):
 # ---- HERO SECTION ----
 st.markdown(
     """
-    <div style="text-align:center; padding:1.5rem 0 0.5rem 0;">
-        <div class="eyebrow" style="color:#8C8A67; font-weight:600; letter-spacing:0.15em; text-transform:uppercase; font-size:0.85rem;">
-            Move‑in setup
+    <div class="utilities-hero">
+        <div class="utilities-hero-content">
+            <div class="eyebrow">Move‑in setup</div>
+            <h1>Utilities</h1>
+            <p>A calm, structured place to understand the essential services newcomers usually need when settling into a Dubai home.</p>
+            <div class="hero-underline"></div>
         </div>
-        <h1 style="font-size:2.6rem; margin:0.25rem 0 0.2rem 0; color:#642A16; font-weight:700;">
-            Utilities
-        </h1>
-        <p style="font-size:1.1rem; color:#735A4C; max-width:600px; margin:0.5rem auto 0 auto;">
-            A calm, structured place to understand the essential services newcomers usually need when settling into a Dubai home.
-        </p>
-        <div style="margin:1rem auto 0.5rem auto; width:60px; height:2px; background:#8C8A67; border-radius:2px;"></div>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
 
-# ---- UTILITY CARDS ----
+# ---- UTILITY CARDS (grid) ----
+st.markdown('<div class="section-card" style="margin-top:0.5rem;">', unsafe_allow_html=True)
 st.markdown(
     """
-    <div class="section-card">
-        <div class="section-heading">
-            <div>
-                <h2>Choose a setup area</h2>
-                <p>Select a utility to view its move‑in checklist.</p>
-            </div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
+        <div>
+            <h2 style="margin:0;">Choose a setup area</h2>
+            <p style="margin:0.2rem 0 0 0; color:#735A4C;">Select a utility to view its move‑in checklist.</p>
         </div>
-        <div class="utility-grid">
+        <span style="font-size:0.85rem; color:#8C8A67; background:rgba(140,138,103,0.12); padding:0.3rem 0.8rem; border-radius:999px;">5 essentials</span>
+    </div>
     """,
     unsafe_allow_html=True,
 )
 
-items = list(UTILITIES.items())
+# Grid with 3 columns
 cols = st.columns(3)
-
-for index, (name, item) in enumerate(items):
-    with cols[index % 3]:
-        # We'll use a container to hold the card and the button together
+for idx, (name, item) in enumerate(UTILITIES.items()):
+    with cols[idx % 3]:
+        # Build a card with an embedded button
         st.markdown(
             f"""
-            <div class="utility-card" style="display:flex; flex-direction:column; height:100%;">
-                <div style="flex:1;">
-                    <h3 style="margin:0 0 0.3rem 0; color:#642A16;">{name}</h3>
-                    <p class="muted-text" style="margin:0;">{item["description"]}</p>
+            <div class="utility-card" onclick="document.getElementById('utility_btn_{idx}').click();" style="cursor:pointer;">
+                <div class="utility-icon" style="font-size:2.2rem; line-height:1; margin-bottom:0.5rem;">{item["icon"]}</div>
+                <h3 style="margin:0 0 0.3rem 0; color:#642A16;">{name}</h3>
+                <p class="muted-text" style="margin:0 0 1rem 0; font-size:0.9rem;">{item["description"]}</p>
+                <div style="text-align:right; margin-top:auto;">
+                    <span class="utility-pill">View guide →</span>
                 </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        # Button placed inside the same column, styled to attach to the card
-        if st.button("View guide", key=f"utility_{name}", use_container_width=True):
+        # Hidden button that triggers the modal (invisible, but clickable via the card click)
+        # We use a st.button with a unique key but hide it with CSS
+        if st.button("View guide", key=f"utility_btn_{idx}", use_container_width=True):
             show_utility_modal(name, item)
 
-st.markdown("</div></div>", unsafe_allow_html=True)
+st.markdown("</div>", unsafe_allow_html=True)
 
 
-# ---- ADDITIONAL STYLING FOR THE BUTTON INSIDE THE CARD ----
-# We'll inject some CSS to make the button look like part of the card.
+# ---- EXTRA TIP SECTION TO FILL SPACE ----
+st.markdown(
+    """
+    <div style="margin:2rem 0 0.5rem 0; padding:1.2rem 1.5rem; background:rgba(255,249,240,0.6); border-radius:24px; border:1px solid rgba(140,138,103,0.18);">
+        <div style="display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap;">
+            <span style="font-size:2rem;">💡</span>
+            <div>
+                <div style="font-weight:700; color:#642A16;">Relocation tip</div>
+                <p style="margin:0.2rem 0 0 0; color:#735A4C;">
+                    Start with DEWA and Ejari – they unlock everything else. Many buildings require these before you can activate internet or move in.
+                </p>
+            </div>
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ---- CUSTOM STYLES FOR THE NEW LAYOUT ----
 st.markdown(
     """
     <style>
-    /* Style the button to sit flush with the card */
-    div[data-testid="column"]:has(div.utility-card) {
+    /* Utilities hero */
+    .utilities-hero {
+        text-align: center;
+        padding: 1.5rem 1rem 0.5rem 1rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(180deg, rgba(246,239,229,0.3) 0%, transparent 100%);
+        border-radius: 32px;
+    }
+    .utilities-hero-content {
+        max-width: 680px;
+        margin: 0 auto;
+    }
+    .utilities-hero .eyebrow {
+        color: #8C8A67;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+    }
+    .utilities-hero h1 {
+        font-size: 2.8rem;
+        margin: 0.2rem 0 0.2rem 0;
+        color: #642A16;
+        font-weight: 700;
+    }
+    .utilities-hero p {
+        font-size: 1.1rem;
+        color: #735A4C;
+        max-width: 520px;
+        margin: 0 auto;
+        line-height: 1.5;
+    }
+    .hero-underline {
+        width: 60px;
+        height: 3px;
+        background: #8C8A67;
+        border-radius: 2px;
+        margin: 0.7rem auto 0 auto;
+    }
+
+    /* Utility cards */
+    .utility-card {
+        background: rgba(255,249,240,0.92);
+        border: 1px solid rgba(140,138,103,0.18);
+        border-radius: 24px;
+        padding: 1.25rem 1.25rem 1rem 1.25rem;
+        height: 100%;
         display: flex;
         flex-direction: column;
-        height: 100%;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 12px rgba(100,42,22,0.04);
     }
-    div[data-testid="column"]:has(div.utility-card) > div[data-testid="stButton"] {
-        margin-top: -0.5rem;  /* remove gap */
-        padding: 0 0 0.2rem 0;
+    .utility-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 28px rgba(100,42,22,0.10);
+        border-color: rgba(140,138,103,0.35);
     }
-    div[data-testid="column"]:has(div.utility-card) > div[data-testid="stButton"] button {
-        border-radius: 0 0 22px 22px;
-        background: rgba(140, 138, 103, 0.08);
-        border: 1px solid rgba(140, 138, 103, 0.18);
-        border-top: none;
+    .utility-pill {
+        display: inline-block;
+        background: rgba(140,138,103,0.10);
         color: #642A16;
+        padding: 0.25rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
         font-weight: 600;
-        padding: 0.5rem 0;
-        box-shadow: none;
         transition: 0.2s ease;
+        border: 1px solid rgba(140,138,103,0.15);
     }
-    div[data-testid="column"]:has(div.utility-card) > div[data-testid="stButton"] button:hover {
-        background: rgba(140, 138, 103, 0.18);
-        border-color: rgba(140, 138, 103, 0.3);
-        color: #2B1B14;
+    .utility-card:hover .utility-pill {
+        background: #8C8A67;
+        color: white;
+        border-color: #8C8A67;
+    }
+
+    /* Hide the actual Streamlit button we use as a trigger */
+    div[data-testid="column"] > div[data-testid="stButton"] {
+        display: none;
     }
     </style>
     """,
