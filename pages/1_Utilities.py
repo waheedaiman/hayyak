@@ -145,15 +145,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# We'll generate cards using columns but we want a masonry feel – we'll use CSS grid via st.columns and custom classes.
-# However, Streamlit columns are easy; we'll use them but style the cells to have variable heights via CSS.
-# We'll use 3 columns, but we can add a class to each card to vary height if needed.
-# Since we want simplicity, we'll just use 3 columns and let the content define the height.
-
 cols = st.columns(3)
 for idx, (name, item) in enumerate(UTILITIES.items()):
     with cols[idx % 3]:
-        # Build a card with a gradient background and clickable area
         st.markdown(
             f"""
             <div class="utility-card" style="background: {item['gradient']}; cursor:pointer;" onclick="document.getElementById('util_btn_{idx}').click();">
@@ -167,8 +161,8 @@ for idx, (name, item) in enumerate(UTILITIES.items()):
             """,
             unsafe_allow_html=True,
         )
-        # Hidden button to trigger the modal
-        if st.button("", key=f"util_btn_{idx}", label_visibility="collapsed"):
+        # Hidden button – label is a space, but it's hidden via CSS
+        if st.button(" ", key=f"util_btn_{idx}"):
             show_utility_modal(name, item)
 
 st.markdown("</div></div>", unsafe_allow_html=True)
@@ -374,6 +368,11 @@ st.markdown(
         background: #8C8A67;
         color: white;
         border-color: #8C8A67;
+    }
+
+    /* Hide the actual Streamlit button */
+    div[data-testid="column"] > div[data-testid="stButton"] {
+        display: none;
     }
 
     /* ---- QUOTE ---- */
