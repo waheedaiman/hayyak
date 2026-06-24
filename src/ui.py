@@ -306,7 +306,7 @@ def apply_hayyak_theme():
             letter-spacing: -0.01em;
         }
 
-        /* Select boxes */
+        /* Select boxes – fix black background */
         div[data-baseweb="select"] > div {
             background-color: #FFF9F0 !important;
             border-color: rgba(140, 138, 103, 0.35) !important;
@@ -326,6 +326,7 @@ def apply_hayyak_theme():
             border-radius: 999px;
             padding: 0.38rem 0.68rem;
             margin-right: 0.25rem;
+            color: var(--ink) !important;
         }
 
         div[role="radiogroup"] label:hover {
@@ -337,6 +338,7 @@ def apply_hayyak_theme():
             accent-color: var(--olive) !important;
         }
 
+        /* Checkboxes (if any) */
         input[type="checkbox"] {
             accent-color: var(--olive) !important;
         }
@@ -357,15 +359,15 @@ def apply_hayyak_theme():
             border-color: var(--deep-brown) !important;
         }
 
-        /* Input fields */
-        input, textarea {
+        /* Input fields – no black background */
+        input, textarea, .stTextInput > div > div > input {
             background: #FFF9F0 !important;
             color: var(--ink) !important;
             border-color: rgba(140, 138, 103, 0.35) !important;
             border-radius: 16px !important;
         }
 
-        /* Buttons */
+        /* Buttons – hover uses darker olive, not brown */
         div[data-testid="stButton"] > button,
         div[data-testid="stFormSubmitButton"] > button {
             background: var(--olive);
@@ -379,9 +381,9 @@ def apply_hayyak_theme():
 
         div[data-testid="stButton"] > button:hover,
         div[data-testid="stFormSubmitButton"] > button:hover {
-            background: var(--deep-brown);
-            border-color: var(--deep-brown);
-            color: var(--paper);
+            background: #6F7A52 !important;  /* darker olive */
+            border-color: #6F7A52 !important;
+            color: var(--paper) !important;
             transform: translateY(-1px);
         }
 
@@ -390,6 +392,15 @@ def apply_hayyak_theme():
             background: rgba(140, 138, 103, 0.12);
             border: 1px solid rgba(140, 138, 103, 0.24);
             color: var(--deep-brown);
+        }
+
+        /* Modal (st.dialog) – transparent background */
+        [data-testid="stDialog"] > div {
+            background: rgba(255, 249, 240, 0.92) !important;
+            backdrop-filter: blur(4px);
+            border-radius: 28px;
+            border: 1px solid rgba(140, 138, 103, 0.24);
+            box-shadow: 0 20px 48px rgba(100, 42, 22, 0.12);
         }
 
         /* UTILITIES (for other pages) */
