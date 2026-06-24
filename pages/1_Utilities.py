@@ -15,351 +15,122 @@ render_nav(active="utilities")
 
 UTILITIES = {
     "DEWA": {
-        "icon": "D",
-        "description": "Electricity and water activation for your Dubai home.",
-        "steps": """
-### What this is
+        "number": "01",
+        "tag": "Electricity & Water",
+        "description": "Power and water activation for your new Dubai home — the essential first step.",
+        "steps": [
+            """Start by confirming your exact property details. Ask the landlord, agent, or building management for the correct unit number, building name, and DEWA premise number. Do not guess the premise number because using the wrong property details can delay activation.""",
 
-DEWA is Dubai Electricity and Water Authority. You usually need DEWA when moving into a rented apartment or villa so electricity and water are activated under your tenancy.
+            """Prepare your key documents before applying. You may need your signed tenancy contract, Ejari details once available, Emirates ID if available, passport or visa details if requested, and a valid payment method for the security deposit and activation charges.""",
 
-### Before you start
+            """Use the official <a href="https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in" target="_blank">DEWA Move-In service</a>. This is the correct place to activate electricity and water for a new home in Dubai. Avoid relying on unofficial pages for final fees or timelines.""",
 
-Prepare:
+            """Submit the move-in request with your property and tenant details. Carefully review the account information, premise number, mobile number, email address, and tenancy details before confirming the request.""",
 
-- Signed tenancy contract.
-- Ejari registration or tenancy registration process.
-- DEWA premise number, usually found on the property door or given by the landlord, agent, or building management.
-- Emirates ID if available.
-- Passport and visa details if requested.
-- Payment method for deposit and activation charges.
+            """Pay the required DEWA charges through official channels. DEWA’s official page currently lists a refundable security deposit of AED 2,000 for apartments or AED 4,000 for villas, plus a supply activation fee of AED 155. Always confirm the final amount on the official DEWA page at the time of applying.""",
 
-### Step-by-step guide
+            """Wait for activation and keep the payment confirmation. DEWA notes that if electricity and water supply is not activated within 15 working hours after security deposit payment, the customer should contact DEWA Customer Care.""",
 
-1. **Confirm the property details**
-   Check the unit number, building name, and DEWA premise number. Do not guess this number because using the wrong premise number can delay activation.
-
-2. **Complete or start Ejari**
-   DEWA activation is closely connected with tenancy registration. In many rental flows, DEWA move-in is linked to Ejari.
-
-3. **Open the official DEWA Move-In service**
-   Use the official DEWA Move-In page and enter the requested tenancy/property details.
-
-4. **Review all account details**
-   Check tenant name, premise number, unit details, and contact information before submitting.
-
-5. **Pay the required deposit and charges**
-   Pay only through official DEWA channels. Save the payment receipt.
-
-6. **Wait for activation**
-   DEWA says that if supply is not activated within 15 working hours after security deposit payment, users should contact DEWA Customer Care.
-
-7. **Save your DEWA account details**
-   Keep your DEWA account number, receipts, and confirmation emails because you may need them later for billing, move-out, or deposit refund.
-
-### Common mistakes
-
-- Applying with the wrong premise number.
-- Waiting until move-in day.
-- Assuming the landlord has already activated electricity and water.
-- Losing payment confirmation.
-- Trusting unofficial fee information.
-
-### Official links
-
-- [DEWA Move-In service](https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in)
-- [DEWA official website](https://www.dewa.gov.ae/)
-""",
+            """After activation, save your DEWA account number, payment receipt, and confirmation email. You will need these for bill payments, move-out, deposit refund, and future service requests.""",
+        ],
+        "accent": "#BC8653",
+        "motif": "M 0,20 Q 30,0 60,20 Q 90,40 120,20",
     },
+
     "Ejari": {
-        "icon": "E",
-        "description": "Register your tenancy contract through Dubai Land Department systems.",
-        "steps": """
-### What this is
+        "number": "02",
+        "tag": "Rental Registration",
+        "description": "Your tenancy contract, made official — required before almost everything else.",
+        "steps": [
+            """First, make sure your tenancy contract is signed and accurate. Check the tenant name, landlord name, property details, rent amount, contract dates, and unit number before starting Ejari registration.""",
 
-Ejari is Dubai’s tenancy contract registration system. It formally registers your rental contract and is often needed for DEWA, housing documentation, and other move-in processes.
+            """Prepare the required documents. These may include the signed tenancy contract, tenant Emirates ID if available, passport and visa details if requested, landlord details, property/title deed information, and payment method.""",
 
-### Before you start
+            """Choose the official registration route. Dubai Land Department explains that customers can register or renew a tenancy contract through a Real Estate Trustee Centre, property management company if applicable, the Ejari system, or Dubai REST.""",
 
-Prepare:
+            """Submit the required information and documents through the selected official channel. Make sure scans or uploaded files are clear, complete, and match the details in the tenancy contract.""",
 
-- Signed tenancy contract.
-- Tenant Emirates ID if available.
-- Tenant passport and visa details if requested.
-- Landlord details.
-- Property/title deed details if requested.
-- Payment method.
-- Access to Dubai REST, Ejari system, property management company, or authorised service centre.
+            """Pay the service fees shown by the official Ejari/Dubai Land Department channel. Do not rely on old screenshots or unofficial fee lists because service fees can change depending on the channel.""",
 
-### Step-by-step guide
+            """Wait for review and approval. Dubai Land Department states that after the information is submitted, an employee reviews and approves the request through the system.""",
 
-1. **Sign the tenancy contract**
-   Check that the names, rent amount, unit number, and contract dates are correct.
+            """Download and save your e-Contract Registration Certificate once issued. Keep a copy in your relocation folder because Ejari is commonly needed for DEWA, telecom setup, housing records, and other move-in processes.""",
 
-2. **Choose your registration route**
-   Dubai Land Department lists registration through channels such as service centres, property management companies, Ejari system, or Dubai REST.
-
-3. **Submit the required documents**
-   Upload or submit the tenancy contract and requested identity/property documents.
-
-4. **Pay the official service fees**
-   Use the amount shown by the official channel during registration.
-
-5. **Wait for approval**
-   Once approved, the e-contract registration certificate is issued.
-
-6. **Download and save your Ejari certificate**
-   Keep it in your relocation folder. You may need it for DEWA, telecom setup, bank address updates, or other services.
-
-### Common mistakes
-
-- Submitting a contract with incorrect unit details.
-- Uploading unclear scans.
-- Assuming Ejari is optional.
-- Waiting until another service asks for it.
-- Not saving the final certificate.
-
-### Official links
-
-- [Dubai Land Department - Register / Renew Ejari Contract](https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/)
-- [Dubai Land Department official website](https://dubailand.gov.ae/)
-""",
+            """Official starting point: <a href="https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/" target="_blank">Dubai Land Department — Register / Renew Ejari Contract</a>.""",
+        ],
+        "accent": "#8C8A67",
+        "motif": "M 0,10 L 20,30 L 40,10 L 60,30 L 80,10 L 100,30 L 120,10",
     },
-    "e& Home Internet": {
-        "icon": "e&",
-        "description": "Set up or move e& home internet for your Dubai property.",
-        "steps": """
-### What this is
 
-e& provides home internet, TV, and landline packages in the UAE. Newcomers may need a new home connection, while existing customers may need to move an eLife plan to a new address.
+    "du / e&": {
+        "number": "03",
+        "tag": "Mobile & SIM",
+        "description": "Stay connected from day one — your first local number sets everything else in motion.",
+        "steps": [
+            """Decide whether you need a tourist/visitor line or a resident mobile plan. If you just arrived, a tourist SIM or eSIM may be enough at first. Once you have Emirates ID, you can move to a regular prepaid or postpaid resident plan.""",
 
-### Before you start
+            """Check your phone compatibility before buying an eSIM. Make sure your phone supports eSIM, is unlocked, and can work with UAE mobile networks. If not, choose a physical SIM instead.""",
 
-Prepare:
+            """Prepare identification. Visitors usually need passport details. UAE residents usually need Emirates ID for mobile registration or renewal. Keep your documents ready before visiting a store or applying online.""",
 
-- New home address and unit details.
-- Building/community name.
-- Tenancy contract or proof of residence if requested.
-- Emirates ID if available.
-- Current e& account details if moving an existing service.
-- Preferred installation date and time.
-- Router/equipment details if you already have e& service.
+            """Compare data needs realistically. If you use Google Maps, WhatsApp calls, food delivery apps, university/work commute apps, or hotspot, choose a package with enough data rather than only the cheapest option.""",
 
-### Step-by-step guide
+            """Use official provider channels. For e&, start from the official <a href="https://www.eand.ae/en/c/mobile/plans/visitor-line.html" target="_blank">e& Visitor Line</a> page if you are a visitor. For du, start from the official <a href="https://shop.du.ae/en/personal/prepaid/du-tourist-prepaid-plans?view=bundles" target="_blank">du Tourist SIM</a> page.""",
 
-1. **Check building availability**
-   Confirm whether e& service is available in your building.
+            """Keep your mobile registration updated. The UAE telecom registration process is regulated by TDRA, and providers require valid identity details. You can check TDRA’s <a href="https://tdra.gov.ae/en/initiatives/registration-for-mobile-consumers" target="_blank">Registration for Mobile Consumers</a> page for official context.""",
 
-2. **Choose new setup or home move**
-   If you already have e&, use the Home Move flow. If you are new, compare home internet packages first.
-
-3. **Use official e& channels**
-   e& describes the Home Move flow through the e& UAE app: go to the eLife Plan tab, tap Manage, then Home Move.
-
-4. **Enter the new address carefully**
-   Add exact building, unit, and area details.
-
-5. **Upload documents if requested**
-   Submit tenancy contract, Emirates ID, or proof of residence if required.
-
-6. **Book installation**
-   Choose a technician visit slot and make sure someone can access the apartment.
-
-7. **Test the connection**
-   Test Wi-Fi speed in multiple rooms after installation.
-
-### Common mistakes
-
-- Booking before confirming building coverage.
-- Not being available for the technician.
-- Forgetting existing router/equipment.
-- Ignoring contract terms or relocation fees.
-- Not testing Wi-Fi after installation.
-
-### Official links
-
-- [e& Home Move](https://www.eand.ae/en/c/home/home-moving.html)
-- [e& UAE official website](https://www.eand.ae/)
-""",
+            """After activation, download the provider app, monitor data usage, check auto-renewal settings, and save customer support details. This helps avoid unexpected balance deductions or service interruptions.""",
+        ],
+        "accent": "#B27960",
+        "motif": "M 0,15 C 20,0 40,30 60,15 C 80,0 100,30 120,15",
     },
-    "du Home Internet": {
-        "icon": "du",
-        "description": "Set up or relocate du home internet, TV, and landline services.",
-        "steps": """
-### What this is
 
-du provides home internet, TV, and landline services in the UAE. Existing du Home users can request home relocation online.
+    "Internet": {
+        "number": "04",
+        "tag": "Home Broadband",
+        "description": "Fast, reliable internet — book early, because installation takes time.",
+        "steps": [
+            """Before choosing a provider, ask building management which home internet providers are available in your building. Some buildings may support one provider better than another, so check coverage before signing up.""",
 
-### Before you start
+            """Decide whether you are setting up a new home connection or relocating an existing one. If you already have e& home internet, use the official <a href="https://www.eand.ae/en/c/home/home-moving.html" target="_blank">e& Home Move</a> flow. e& describes the process through the e& UAE app: open the eLife Plan tab, tap Manage, then tap Home Move.""",
 
-Prepare:
+            """If you already have du Home, use the official <a href="https://www.du.ae/personal/at-home/moving-to-a-new-home" target="_blank">du Home Relocation</a> page. du states that relocation can be done online, and that users may need to upload a tenancy contract or title deed for the new home.""",
 
-- New address and unit number.
-- Building/community name.
-- Tenancy contract or title deed.
-- Proof of relationship if the tenancy is not in your name.
-- Emirates ID if available.
-- Current du account details if relocating.
-- Preferred installation date and time.
+            """Prepare your documents. You may need Emirates ID, tenancy contract, title deed if applicable, proof of relationship if the tenancy is not under your name, and your current account details if relocating an existing service.""",
 
-### Step-by-step guide
+            """Check fees and contract terms before confirming. du currently states that a moving fee of AED 100 will be charged on the next bill for home relocation. For any provider, always confirm final fees, contract length, early cancellation terms, and installation conditions through the official flow.""",
 
-1. **Check if du is available in your building**
-   Ask building management or check through du’s official channels.
+            """Book installation early. Choose a technician appointment when someone can access the apartment, telecom cabinet, router location, and building facilities if needed.""",
 
-2. **Open the official du relocation page**
-   Start the home relocation request online.
-
-3. **Upload required documents**
-   du says users may need tenancy contract or title deed. If the tenancy is not under your name, proof of relationship may be required.
-
-4. **Review the relocation fee**
-   du states that a moving fee of AED 100 will be added to the next bill. Confirm the final amount during the official request.
-
-5. **Schedule installation**
-   Choose a technician appointment and make sure access is available.
-
-6. **Prepare your devices**
-   Keep router, TV box, landline device, remotes, cables, and power adapters ready.
-
-7. **Test after setup**
-   Test Wi-Fi, TV, and landline if included.
-
-### Common mistakes
-
-- Assuming both du and e& are available in every building.
-- Missing the technician appointment.
-- Uploading incomplete documents.
-- Forgetting contract terms.
-- Not testing connection quality after setup.
-
-### Official links
-
-- [du Home relocation](https://www.du.ae/personal/at-home/moving-to-a-new-home)
-- [du official website](https://www.du.ae/)
-""",
+            """After installation, test the connection in multiple rooms. Check Wi-Fi speed near your work/study area, bedroom, and living room. If coverage is weak, ask about router placement or mesh options before closing the installation issue.""",
+        ],
+        "accent": "#B59275",
+        "motif": "M 0,20 L 30,5 L 60,20 L 90,5 L 120,20",
     },
-    "Mobile SIM / eSIM": {
-        "icon": "SIM",
-        "description": "Get connected with UAE mobile service through du or e&.",
-        "steps": """
-### What this is
 
-Newcomers usually need a UAE mobile number soon after arrival. Visitors can start with tourist SIM/eSIM options. Residents can later move to prepaid or postpaid plans using Emirates ID.
+    "Move-in Documents": {
+        "number": "05",
+        "tag": "Document Checklist",
+        "description": "The paperwork that underpins everything — keep these within reach at all times.",
+        "steps": [
+            """Create one digital folder for your move-in documents. Use clear file names such as passport.pdf, tenancy-contract.pdf, ejari.pdf, dewa-receipt.pdf, and internet-installation.pdf so you can find them quickly.""",
 
-### Before you start
+            """Keep your passport copy and visa or entry permit ready. These may be requested during early relocation tasks, telecom registration, tenancy steps, or identity verification depending on your status.""",
 
-Prepare:
+            """Keep your Emirates ID or Emirates ID application details ready once available. Emirates ID is especially important for resident telecom registration, UAE PASS, banking, and many local services.""",
 
-- Passport if you are a visitor.
-- Emirates ID if you are a UAE resident.
-- UAE PASS access if using digital verification.
-- eSIM-compatible phone if choosing eSIM.
-- Unlocked phone that supports UAE networks.
-- Payment method.
+            """Save your signed tenancy contract and Ejari certificate. These are core housing documents and may be needed for utilities, internet setup, address verification, and other move-in services.""",
 
-### Step-by-step guide for visitors
+            """Save DEWA payment receipts, account number, and activation confirmation. These can help if activation is delayed, billing details need to be checked, or move-out/deposit refund is needed later.""",
 
-1. **Choose tourist SIM or eSIM**
-   e& and du offer visitor/tourist mobile plans.
+            """Save telecom account details, installation appointment confirmations, technician reference numbers, and router/equipment details. This makes troubleshooting easier if internet activation is delayed.""",
 
-2. **Register with passport details**
-   Use your official passport details.
-
-3. **Activate the line**
-   Follow the provider’s activation process. For eSIM, confirm that your phone supports eSIM and is not carrier locked.
-
-4. **Choose the data package**
-   Pick based on maps, WhatsApp, delivery apps, hotspot needs, and stay length.
-
-5. **Track validity**
-   Tourist SIMs usually have limited validity, so set a reminder before expiry.
-
-### Step-by-step guide for residents
-
-1. **Prepare Emirates ID**
-   Emirates ID is required for resident telecom registration.
-
-2. **Choose prepaid or postpaid**
-   Prepaid is usually easier early on. Postpaid can make sense after residency and income details are stable.
-
-3. **Register the number**
-   Use the provider app, website, or store.
-
-4. **Keep registration updated**
-   Providers require valid identity registration. Update Emirates ID details when renewed.
-
-5. **Track usage**
-   Download the provider app and monitor data, renewal, and add-ons.
-
-### Common mistakes
-
-- Buying a plan before checking phone compatibility.
-- Forgetting tourist SIM expiry.
-- Not updating Emirates ID.
-- Ignoring auto-renewal.
-- Buying from unofficial sellers.
-
-### Official links
-
-- [TDRA Mobile Consumer Registration](https://tdra.gov.ae/en/initiatives/registration-for-mobile-consumers)
-- [e& Visitor Line](https://www.eand.ae/en/c/mobile/plans/visitor-line.html)
-- [du Tourist SIM](https://shop.du.ae/en/personal/prepaid/du-tourist-prepaid-plans?view=bundles)
-- [e& Mobile Registration Renewal](https://www.eand.ae/en/c/mobile-registration-renewal.html)
-- [du Emirates ID update](https://www.du.ae/support/id-renewal)
-""",
-    },
-    "UAE PASS": {
-        "icon": "ID",
-        "description": "Set up UAE digital identity access for supported services.",
-        "steps": """
-### What this is
-
-UAE PASS is the UAE’s national digital identity platform. It helps users access many government and partner services online.
-
-### Before you start
-
-Prepare:
-
-- Smartphone.
-- UAE mobile number.
-- Emirates ID if you are a resident.
-- Passport/visitor details if supported.
-- UAE PASS app.
-- Secure PIN and access to OTPs.
-
-### Step-by-step guide
-
-1. **Download the official UAE PASS app**
-   Use the official app store listing.
-
-2. **Register your account**
-   Enter your personal details and mobile number.
-
-3. **Verify your identity**
-   Follow the official verification steps in the app.
-
-4. **Set up security**
-   Create a PIN and use biometrics if available.
-
-5. **Use UAE PASS for supported services**
-   Use it to log in to supported UAE government and partner portals.
-
-### Common mistakes
-
-- Using someone else’s phone number.
-- Sharing OTPs or PINs.
-- Expecting full access without verification.
-- Using UAE PASS on a shared phone.
-- Signing documents without reading them.
-
-### Official links
-
-- [UAE PASS official website](https://uaepass.ae/)
-- [UAE Government - Emirates ID](https://u.ae/en/information-and-services/visa-and-emirates-id/emirates-id)
-""",
+            """Avoid storing sensitive documents in random WhatsApp chats only. Use a secure cloud folder, password-protected device, or trusted document storage method. Do not upload passport, Emirates ID, or visa documents into public tools or shared repositories.""",
+        ],
+        "accent": "#642A16",
+        "motif": "M 10,25 A 20,20 0 0 1 50,5 A 20,20 0 0 1 90,25 A 20,20 0 0 1 50,45 A 20,20 0 0 1 10,25",
     },
 }
-
 
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
