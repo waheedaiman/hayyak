@@ -159,132 +159,30 @@ def apply_hayyak_theme():
             color: var(--paper) !important;
         }
 
-        /* BRAND INTRO */
+        /* HERO IMAGE */
 
-        .hayyak-brand-intro {
-            text-align: center;
-            padding: 0.35rem 1rem 0.95rem 1rem;
-            margin: 0 auto 0.45rem auto;
+        .hero-image-container {
+            width: 100%;
             max-width: 980px;
+            margin: 0 auto 1.2rem auto;
+            text-align: center;
+            animation: fadeIn 1s ease-out both;
         }
 
-        .brand-arabic {
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: clamp(4.7rem, 13vw, 9.4rem);
-            line-height: 0.88;
-            font-weight: 700;
-            margin: 0;
-            background: linear-gradient(
-                90deg,
-                var(--deep-brown),
-                var(--terracotta),
-                var(--clay)
-            );
-            -webkit-background-clip: text;
-            color: transparent;
-            letter-spacing: -0.08em;
-            animation: hayyakFadeUp 900ms ease-out both;
-        }
-
-        .brand-english {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: clamp(0.35rem, 1.6vw, 1.3rem);
-            margin-top: 0.25rem;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: clamp(3.1rem, 8vw, 6.7rem);
-            line-height: 1;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            animation: hayyakFadeUp 950ms ease-out 180ms both;
-        }
-
-        .brand-english span:nth-child(1) { color: var(--deep-brown); }
-        .brand-english span:nth-child(2) { color: var(--terracotta); }
-        .brand-english span:nth-child(3) { color: var(--deep-brown); }
-        .brand-english span:nth-child(4) { color: var(--olive); }
-        .brand-english span:nth-child(5) { color: var(--clay); }
-        .brand-english span:nth-child(6) { color: #A8793B; }
-
-        .brand-divider {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.75rem;
-            margin: 0.65rem auto 0.85rem auto;
-            animation: hayyakFadeUp 850ms ease-out 320ms both;
-        }
-
-        .brand-divider-line {
-            width: 82px;
-            height: 1px;
-            background: rgba(100, 42, 22, 0.36);
-        }
-
-        .brand-divider-diamond {
-            width: 10px;
-            height: 10px;
-            background: var(--clay);
-            transform: rotate(45deg);
-        }
-
-        .brand-tagline {
-            margin: 0;
-            color: var(--deep-brown);
-            font-size: clamp(0.78rem, 1.4vw, 1rem);
-            font-weight: 700;
-            letter-spacing: 0.32em;
-            text-transform: uppercase;
-            animation: hayyakFadeUp 900ms ease-out 440ms both;
-        }
-
-        .brand-lower-row {
-            margin: 1.3rem auto 0 auto;
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            align-items: center;
-            gap: 1.15rem;
-            max-width: 520px;
-            animation: hayyakFadeUp 900ms ease-out 560ms both;
-        }
-
-        .brand-side-label {
-            color: var(--olive);
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.28em;
-            text-transform: uppercase;
-        }
-
-        .brand-side-line {
-            height: 44px;
-            width: 1px;
-            background: rgba(188, 134, 83, 0.75);
-        }
-
-        .brand-emblem {
-            width: 86px;
-            height: 116px;
-            border: 1px solid rgba(188, 134, 83, 0.75);
-            border-radius: 999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 249, 240, 0.36);
-        }
-
-        .brand-emblem img {
-            width: 64px;
-            height: 88px;
+        .hero-image-container img {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
             object-fit: contain;
-            animation: hayyakFadeUp 900ms ease-out 620ms both;
+            display: block;
+            border-radius: 24px;
+            box-shadow: 0 12px 32px rgba(100, 42, 22, 0.10);
         }
 
-        @keyframes hayyakFadeUp {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(8px);
             }
             to {
                 opacity: 1;
@@ -381,7 +279,7 @@ def apply_hayyak_theme():
             line-height: 1.6;
         }
 
-        /* STREAMLIT QUIZ RESTYLE */
+        /* STREAMLIT QUIZ RESTYLE – unified palette */
 
         div[data-testid="stForm"] {
             border: 1px solid rgba(140, 138, 103, 0.20);
@@ -408,6 +306,7 @@ def apply_hayyak_theme():
             letter-spacing: -0.01em;
         }
 
+        /* Select boxes */
         div[data-baseweb="select"] > div {
             background-color: #FFF9F0 !important;
             border-color: rgba(140, 138, 103, 0.35) !important;
@@ -420,6 +319,7 @@ def apply_hayyak_theme():
             color: var(--ink) !important;
         }
 
+        /* Radio buttons – use olive accent */
         div[role="radiogroup"] label {
             background: rgba(140, 138, 103, 0.09);
             border: 1px solid rgba(140, 138, 103, 0.18);
@@ -432,23 +332,40 @@ def apply_hayyak_theme():
             background: rgba(140, 138, 103, 0.16);
         }
 
-        input[type="radio"],
-        input[type="checkbox"] {
-            accent-color: var(--olive);
+        /* Radio button circles */
+        input[type="radio"] {
+            accent-color: var(--olive) !important;
         }
 
-        input,
-        textarea {
+        input[type="checkbox"] {
+            accent-color: var(--olive) !important;
+        }
+
+        /* Slider – track and thumb */
+        div[data-testid="stSlider"] [data-baseweb="slider"] {
+            color: var(--olive) !important;
+        }
+
+        /* Override the slider track background */
+        div[data-testid="stSlider"] .stSlider > div {
+            background: var(--olive) !important;
+        }
+
+        /* Thumb (handle) */
+        div[data-testid="stSlider"] .stSlider div[role="slider"] {
+            background: var(--deep-brown) !important;
+            border-color: var(--deep-brown) !important;
+        }
+
+        /* Input fields */
+        input, textarea {
             background: #FFF9F0 !important;
             color: var(--ink) !important;
             border-color: rgba(140, 138, 103, 0.35) !important;
             border-radius: 16px !important;
         }
 
-        div[data-testid="stSlider"] [data-baseweb="slider"] {
-            color: var(--olive) !important;
-        }
-
+        /* Buttons */
         div[data-testid="stButton"] > button,
         div[data-testid="stFormSubmitButton"] > button {
             background: var(--olive);
@@ -468,13 +385,14 @@ def apply_hayyak_theme():
             transform: translateY(-1px);
         }
 
+        /* Alerts / info boxes */
         div[data-testid="stAlert"] {
             background: rgba(140, 138, 103, 0.12);
             border: 1px solid rgba(140, 138, 103, 0.24);
             color: var(--deep-brown);
         }
 
-        /* UTILITIES */
+        /* UTILITIES (for other pages) */
 
         .utility-grid {
             display: grid;
@@ -527,31 +445,13 @@ def apply_hayyak_theme():
                 width: 100%;
             }
 
-            .hayyak-brand-intro {
-                padding-top: 0.15rem;
+            .hero-image-container {
+                margin-bottom: 0.8rem;
             }
 
-            .brand-english {
-                gap: 0.25rem;
-                letter-spacing: 0.04em;
-            }
-
-            .brand-tagline {
-                letter-spacing: 0.18em;
-                line-height: 1.6;
-            }
-
-            .brand-lower-row {
-                grid-template-columns: 1fr;
-                gap: 0.65rem;
-            }
-
-            .brand-side-line {
-                display: none;
-            }
-
-            .brand-emblem {
-                margin: 0 auto;
+            .hero-image-container img {
+                max-height: 250px;
+                border-radius: 16px;
             }
 
             .section-card {
