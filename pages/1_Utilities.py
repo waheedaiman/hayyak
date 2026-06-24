@@ -152,109 +152,98 @@ def show_utility_modal(name, item):
 st.markdown(
     """
     <style>
-    .util-hero {
+    /* ---- HERO (simple, like main page) ---- */
+    .utilities-hero {
         position: relative;
-        overflow: hidden;
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        margin-bottom: 1.5rem;
         border-radius: 32px;
-        background: linear-gradient(135deg, #2B1B14 0%, #642A16 55%, #BC8653 100%);
-        padding: 4rem 3.5rem;
-        margin-bottom: 2.5rem;
-        display: flex;
-        align-items: flex-end;
-        min-height: 320px;
+        background: linear-gradient(135deg, #F6EFE5 0%, #E8D9C8 100%);
+        text-align: center;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(100,42,22,0.06);
     }
-
-    .util-hero-svg {
+    .hero-pattern {
         position: absolute;
-        inset: 0;
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
-        opacity: 0.13;
+        background-image: radial-gradient(circle at 20% 30%, rgba(140,138,103,0.08) 0%, transparent 50%),
+                          radial-gradient(circle at 80% 70%, rgba(140,138,103,0.06) 0%, transparent 50%);
         pointer-events: none;
     }
-
-    .util-hero-content {
+    .hero-content {
         position: relative;
-        z-index: 2;
-        max-width: 560px;
+        z-index: 1;
+        max-width: 640px;
+        margin: 0 auto;
+        animation: fadeUp 0.8s ease-out both;
     }
-
-    .util-hero-eyebrow {
-        font-size: 0.72rem;
-        font-weight: 800;
-        letter-spacing: 0.32em;
-        text-transform: uppercase;
-        color: #BC8653;
-        margin-bottom: 0.85rem;
-        display: block;
-    }
-
-    .util-hero-title {
-        font-family: Georgia, "Times New Roman", serif;
-        font-size: clamp(3rem, 7vw, 5.2rem);
-        font-weight: 700;
-        line-height: 0.92;
-        letter-spacing: -0.04em;
-        color: #FFF9F0 !important;
-        margin: 0 0 1.1rem 0;
-    }
-
-    .util-hero-copy {
-        font-size: 1.05rem;
-        line-height: 1.65;
-        color: rgba(246, 239, 229, 0.78);
-        max-width: 440px;
-        margin: 0;
-    }
-
-    .util-hero-badge {
-        position: absolute;
-        top: 2.2rem;
-        right: 2.5rem;
-        z-index: 3;
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        border: 1px solid rgba(181, 146, 117, 0.38);
-        background: rgba(255, 249, 240, 0.07);
-        backdrop-filter: blur(4px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 0;
-    }
-
-    .util-hero-badge-num {
-        font-family: Georgia, serif;
-        font-size: 1.9rem;
-        font-weight: 700;
-        color: #F6EFE5;
+    .hero-icon {
+        font-size: 3.2rem;
         line-height: 1;
+        margin-bottom: 0.2rem;
     }
-
-    .util-hero-badge-label {
-        font-size: 0.6rem;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: #B59275;
+    .hero-content h1 {
+        font-size: 2.8rem;
+        margin: 0.2rem 0 0.2rem 0;
+        color: #642A16;
         font-weight: 700;
+        letter-spacing: -0.03em;
+    }
+    .hero-content p {
+        font-size: 1.1rem;
+        color: #735A4C;
+        max-width: 460px;
+        margin: 0 auto;
+        line-height: 1.5;
+    }
+    .hero-underline {
+        width: 50px;
+        height: 3px;
+        background: #8C8A67;
+        border-radius: 2px;
+        margin: 0.7rem auto 0 auto;
     }
 
-    /* ── SECTION LABEL ── */
+    /* ---- TIP CARD (optional, kept) ---- */
+    .tip-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255,249,240,0.7);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(140,138,103,0.18);
+        border-radius: 20px;
+        padding: 0.8rem 1.2rem;
+        margin: 0 0 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(100,42,22,0.04);
+        animation: fadeUp 0.9s ease-out 0.15s both;
+    }
+    .tip-icon {
+        font-size: 2rem;
+        line-height: 1;
+        flex-shrink: 0;
+    }
+    .tip-text {
+        color: #2B1B14;
+        font-size: 0.95rem;
+    }
+
+    /* ---- SECTION LABEL ---- */
     .util-section-label {
         display: flex;
         align-items: center;
         gap: 1rem;
         margin-bottom: 1.75rem;
+        animation: fadeUp 0.9s ease-out 0.2s both;
     }
-
     .util-section-label-line {
         flex: 1;
         height: 1px;
         background: linear-gradient(90deg, rgba(100,42,22,0.18), transparent);
     }
-
     .util-section-label-text {
         font-size: 0.72rem;
         font-weight: 800;
@@ -264,7 +253,7 @@ st.markdown(
         white-space: nowrap;
     }
 
-    /* ── PINTEREST CARD ── */
+    /* ---- PINTEREST CARD ---- */
     .util-pin-card {
         background: #FFF9F0;
         border: 1px solid rgba(140, 138, 103, 0.20);
@@ -274,6 +263,9 @@ st.markdown(
         cursor: pointer;
         box-shadow: 0 4px 18px rgba(100, 42, 22, 0.06);
         margin-bottom: 0.85rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .util-pin-card:hover {
@@ -284,6 +276,7 @@ st.markdown(
     .util-pin-top {
         padding: 1.5rem 1.5rem 0.6rem 1.5rem;
         position: relative;
+        flex: 1;
     }
 
     .util-pin-number {
@@ -345,6 +338,7 @@ st.markdown(
         align-items: center;
         justify-content: space-between;
         border-top: 1px solid rgba(140, 138, 103, 0.12);
+        margin-top: auto;
     }
 
     .util-pin-count {
@@ -374,24 +368,33 @@ st.markdown(
         color: #FFF9F0;
     }
 
-    /* hide streamlit buttons inside card columns — they show below the HTML card */
-    div[data-testid="stButton"] > button {
-        width: 100%;
-        margin-top: -0.4rem;
-        margin-bottom: 0.5rem;
-        border-radius: 18px !important;
-        font-size: 0.83rem !important;
-        padding: 0.55rem 1rem !important;
-        letter-spacing: 0.03em;
+    /* hide the actual Streamlit button */
+    div[data-testid="column"] > div[data-testid="stButton"] {
+        display: none !important;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 820px) {
-        .util-hero {
-            padding: 2.5rem 1.75rem;
-            min-height: 240px;
+        .hero-content h1 {
+            font-size: 2.2rem;
         }
-        .util-hero-badge {
-            display: none;
+        .tip-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.3rem;
+        }
+        .util-section-label {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+    @media (max-width: 480px) {
+        .hero-content h1 {
+            font-size: 1.8rem;
         }
     }
     </style>
@@ -400,48 +403,17 @@ st.markdown(
 )
 
 
-# ── HERO ──────────────────────────────────────────────────────────────────
+# ── HERO (simple) ──────────────────────────────────────────────────────────
 
 st.markdown(
     """
-    <div class="util-hero">
-        <!-- Geometric tile SVG background -->
-        <svg class="util-hero-svg" viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg">
-            <!-- Islamic-inspired geometric repeat -->
-            <defs>
-                <pattern id="tile" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
-                    <rect width="80" height="80" fill="none"/>
-                    <!-- outer diamond -->
-                    <polygon points="40,2 78,40 40,78 2,40" fill="none" stroke="#F6EFE5" stroke-width="0.8"/>
-                    <!-- inner octagon -->
-                    <polygon points="40,14 54,26 66,40 54,54 40,66 26,54 14,40 26,26" fill="none" stroke="#B59275" stroke-width="0.6"/>
-                    <!-- center star cross -->
-                    <line x1="40" y1="2" x2="40" y2="78" stroke="#F6EFE5" stroke-width="0.4"/>
-                    <line x1="2" y1="40" x2="78" y2="40" stroke="#F6EFE5" stroke-width="0.4"/>
-                    <line x1="14" y1="14" x2="66" y2="66" stroke="#F6EFE5" stroke-width="0.3"/>
-                    <line x1="66" y1="14" x2="14" y2="66" stroke="#F6EFE5" stroke-width="0.3"/>
-                    <!-- corner roses -->
-                    <circle cx="0" cy="0" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
-                    <circle cx="80" cy="0" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
-                    <circle cx="0" cy="80" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
-                    <circle cx="80" cy="80" r="5" fill="none" stroke="#BC8653" stroke-width="0.7"/>
-                </pattern>
-            </defs>
-            <rect width="800" height="320" fill="url(#tile)"/>
-        </svg>
-
-        <div class="util-hero-badge">
-            <span class="util-hero-badge-num">05</span>
-            <span class="util-hero-badge-label">Guides</span>
-        </div>
-
-        <div class="util-hero-content">
-            <span class="util-hero-eyebrow">Move-in setup · Dubai</span>
-            <h1 class="util-hero-title">Utilities</h1>
-            <p class="util-hero-copy">
-                Everything you need to activate before you feel at home — electricity,
-                contracts, connectivity, and the documents that tie it all together.
-            </p>
+    <div class="utilities-hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-icon">⚡</div>
+            <h1>Utilities</h1>
+            <p>Everything you need to activate before you feel at home – electricity, contracts, connectivity, and the documents that tie it all together.</p>
+            <div class="hero-underline"></div>
         </div>
     </div>
     """,
@@ -449,7 +421,22 @@ st.markdown(
 )
 
 
-# ── SECTION LABEL ────────────────────────────────────────────────────────
+# ── QUICK TIP ──────────────────────────────────────────────────────────────
+
+st.markdown(
+    """
+    <div class="tip-card">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text">
+            <strong>Pro tip:</strong> Start with DEWA and Ejari – they unlock everything else. Many buildings require these before you can activate internet or move in.
+        </div>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+# ── SECTION LABEL ──────────────────────────────────────────────────────────
 
 st.markdown(
     """
@@ -462,23 +449,24 @@ st.markdown(
 )
 
 
-# ── PINTEREST CARD GRID ───────────────────────────────────────────────────
+# ── CARD GRID ──────────────────────────────────────────────────────────────
 
 items = list(UTILITIES.items())
+cols = st.columns(3)
 
-# 3-column layout — first two cards are taller (more prominent)
-col1, col2, col3 = st.columns([1, 1, 1], gap="medium")
-columns = [col1, col2, col3]
-
-for index, (name, item) in enumerate(items):
-    with columns[index % 3]:
+for idx, (name, item) in enumerate(items):
+    with cols[idx % 3]:
         step_count = len(item["steps"])
         motif_d = item["motif"]
         accent = item["accent"]
 
+        # Unique button ID for this card
+        btn_key = f"util_btn_{idx}"
+
+        # Card with onclick that triggers the hidden button
         st.markdown(
             f"""
-            <div class="util-pin-card">
+            <div class="util-pin-card" onclick="document.getElementById('{btn_key}').click();">
                 <div class="util-pin-top">
                     <span class="util-pin-tag">{item["tag"]}</span>
                     <p class="util-pin-number">{item["number"]}</p>
@@ -499,5 +487,6 @@ for index, (name, item) in enumerate(items):
             unsafe_allow_html=True,
         )
 
-        if st.button(f"Open {name} guide", key=f"utility_{name}"):
+        # Hidden button – it will be triggered by the card click
+        if st.button(" ", key=btn_key):
             show_utility_modal(name, item)
