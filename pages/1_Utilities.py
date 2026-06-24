@@ -16,54 +16,59 @@ render_nav(active="utilities")
 UTILITIES = {
     "DEWA": {
         "icon": "💡",
-        "description": "Electricity and water setup for your Dubai home.",
+        "gradient": "linear-gradient(135deg, #F6EFE5 0%, #E8D9C8 100%)",
+        "description": "Electricity & water setup for your new home.",
         "steps": [
-            "Prepare tenancy contract and Emirates ID once available.",
-            "Confirm the premises number or property details.",
-            "Submit activation request through the official DEWA channel.",
-            "Pay deposit and activation fees where applicable.",
-            "Save confirmation details for your landlord or building management.",
+            "Prepare tenancy contract and Emirates ID.",
+            "Confirm premises number and property details.",
+            "Submit activation via DEWA official channel.",
+            "Pay deposit and activation fees.",
+            "Save confirmation for landlord and building management.",
         ],
     },
     "Ejari": {
         "icon": "📝",
-        "description": "Rental contract registration required for many housing processes.",
+        "gradient": "linear-gradient(135deg, #EFE1D1 0%, #DCCBB5 100%)",
+        "description": "Rental contract registration – essential for many processes.",
         "steps": [
-            "Confirm your signed tenancy contract.",
+            "Confirm signed tenancy contract.",
             "Prepare landlord and tenant documents.",
-            "Register the contract through the approved Ejari process.",
-            "Download or save your Ejari certificate.",
-            "Use the certificate for utilities and other move-in requirements.",
+            "Register through the approved Ejari system.",
+            "Download your Ejari certificate.",
+            "Use it for utilities and other move‑in needs.",
         ],
     },
     "du / e&": {
         "icon": "📱",
+        "gradient": "linear-gradient(135deg, #E8D9C8 0%, #D4C0A8 100%)",
         "description": "Mobile connection and SIM setup after arrival.",
         "steps": [
-            "Compare prepaid and postpaid plans.",
-            "Prepare passport, Emirates ID, or valid identification.",
-            "Choose mobile data based on commute and daily usage.",
-            "Activate SIM or eSIM where supported.",
-            "Save customer support details in case activation fails.",
+            "Compare prepaid vs postpaid plans.",
+            "Have passport, Emirates ID, or visa ready.",
+            "Choose data plan based on usage.",
+            "Activate SIM or eSIM.",
+            "Save customer support contacts.",
         ],
     },
     "Internet": {
         "icon": "🌐",
-        "description": "Home internet connection for your apartment or villa.",
+        "gradient": "linear-gradient(135deg, #DCCBB5 0%, #C8B39A 100%)",
+        "description": "Home internet for your apartment or villa.",
         "steps": [
-            "Check which providers are available in the building.",
+            "Check available providers in your building.",
             "Compare speed, contract length, and installation time.",
             "Book installation after tenancy confirmation.",
-            "Keep router and account details safely stored.",
+            "Keep router and account details safe.",
             "Test speed after installation.",
         ],
     },
     "Move-in Documents": {
         "icon": "📂",
-        "description": "Documents usually needed during early relocation steps.",
+        "gradient": "linear-gradient(135deg, #C8B39A 0%, #B59D82 100%)",
+        "description": "Documents needed during early relocation steps.",
         "steps": [
             "Passport copy.",
-            "Visa or entry permit where applicable.",
+            "Visa or entry permit.",
             "Emirates ID or application details.",
             "Tenancy contract.",
             "Payment receipts and confirmation emails.",
@@ -74,11 +79,20 @@ UTILITIES = {
 
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
-    st.markdown(f"## {name}")
-    st.caption(item["description"])
+    # Decorative header
+    st.markdown(
+        f"""
+        <div style="text-align:center; padding:0.5rem 0 0.5rem 0;">
+            <span style="font-size:3rem; line-height:1;">{item["icon"]}</span>
+            <h2 style="margin:0.2rem 0 0 0; color:#642A16;">{name}</h2>
+            <p style="color:#735A4C; margin:0.2rem 0 0 0;">{item["description"]}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     arabic_divider()
 
-    st.markdown("**Setup checklist**")
+    st.markdown("**✅ Setup checklist**")
     for step in item["steps"]:
         st.markdown(f"- {step}")
 
@@ -87,14 +101,15 @@ def show_utility_modal(name, item):
     )
 
 
-# ---- HERO SECTION ----
+# ---- HERO SECTION (full-width, animated) ----
 st.markdown(
     """
     <div class="utilities-hero">
-        <div class="utilities-hero-content">
-            <div class="eyebrow">Move‑in setup</div>
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-icon">⚡</div>
             <h1>Utilities</h1>
-            <p>A calm, structured place to understand the essential services newcomers usually need when settling into a Dubai home.</p>
+            <p>Your essential guide to setting up services in Dubai – clear, calm, and built for newcomers.</p>
             <div class="hero-underline"></div>
         </div>
     </div>
@@ -103,147 +118,332 @@ st.markdown(
 )
 
 
-# ---- UTILITY CARDS (grid) ----
-st.markdown('<div class="section-card" style="margin-top:0.5rem;">', unsafe_allow_html=True)
+# ---- QUICK TIP CARD (between hero and grid) ----
 st.markdown(
     """
-    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem;">
-        <div>
-            <h2 style="margin:0;">Choose a setup area</h2>
-            <p style="margin:0.2rem 0 0 0; color:#735A4C;">Select a utility to view its move‑in checklist.</p>
+    <div class="tip-card">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text">
+            <strong>Pro tip:</strong> Start with DEWA and Ejari – they unlock everything else. Many buildings require these before you can activate internet or move in.
         </div>
-        <span style="font-size:0.85rem; color:#8C8A67; background:rgba(140,138,103,0.12); padding:0.3rem 0.8rem; border-radius:999px;">5 essentials</span>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
-# Grid with 3 columns
+
+# ---- UTILITY CARDS (masonry-like grid) ----
+st.markdown(
+    """
+    <div class="utility-grid-container">
+        <div class="grid-header">
+            <h2>Choose a setup area</h2>
+            <span class="grid-badge">5 essentials</span>
+        </div>
+        <div class="utility-grid">
+    """,
+    unsafe_allow_html=True,
+)
+
+# We'll generate cards using columns but we want a masonry feel – we'll use CSS grid via st.columns and custom classes.
+# However, Streamlit columns are easy; we'll use them but style the cells to have variable heights via CSS.
+# We'll use 3 columns, but we can add a class to each card to vary height if needed.
+# Since we want simplicity, we'll just use 3 columns and let the content define the height.
+
 cols = st.columns(3)
 for idx, (name, item) in enumerate(UTILITIES.items()):
     with cols[idx % 3]:
-        # Build a card with an embedded button
+        # Build a card with a gradient background and clickable area
         st.markdown(
             f"""
-            <div class="utility-card" onclick="document.getElementById('utility_btn_{idx}').click();" style="cursor:pointer;">
-                <div class="utility-icon" style="font-size:2.2rem; line-height:1; margin-bottom:0.5rem;">{item["icon"]}</div>
-                <h3 style="margin:0 0 0.3rem 0; color:#642A16;">{name}</h3>
-                <p class="muted-text" style="margin:0 0 1rem 0; font-size:0.9rem;">{item["description"]}</p>
-                <div style="text-align:right; margin-top:auto;">
-                    <span class="utility-pill">View guide →</span>
+            <div class="utility-card" style="background: {item['gradient']}; cursor:pointer;" onclick="document.getElementById('util_btn_{idx}').click();">
+                <div class="card-icon">{item["icon"]}</div>
+                <h3>{name}</h3>
+                <p>{item["description"]}</p>
+                <div class="card-footer">
+                    <span class="card-link">Explore →</span>
                 </div>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        # Hidden button that triggers the modal (invisible, but clickable via the card click)
-        # We use a st.button with a unique key but hide it with CSS
-        if st.button("View guide", key=f"utility_btn_{idx}", use_container_width=True):
+        # Hidden button to trigger the modal
+        if st.button("", key=f"util_btn_{idx}", label_visibility="collapsed"):
             show_utility_modal(name, item)
 
-st.markdown("</div>", unsafe_allow_html=True)
+st.markdown("</div></div>", unsafe_allow_html=True)
 
 
-# ---- EXTRA TIP SECTION TO FILL SPACE ----
+# ---- QUOTE FOOTER ----
 st.markdown(
     """
-    <div style="margin:2rem 0 0.5rem 0; padding:1.2rem 1.5rem; background:rgba(255,249,240,0.6); border-radius:24px; border:1px solid rgba(140,138,103,0.18);">
-        <div style="display:flex; align-items:center; gap:1.2rem; flex-wrap:wrap;">
-            <span style="font-size:2rem;">💡</span>
-            <div>
-                <div style="font-weight:700; color:#642A16;">Relocation tip</div>
-                <p style="margin:0.2rem 0 0 0; color:#735A4C;">
-                    Start with DEWA and Ejari – they unlock everything else. Many buildings require these before you can activate internet or move in.
-                </p>
-            </div>
-        </div>
+    <div class="quote-footer">
+        <span class="quote-mark">"</span>
+        <p>Moving to a new city is a journey – we're here to make the utility part feel like a gentle step.</p>
+        <span class="quote-attribution">– Hayyak</span>
     </div>
     """,
     unsafe_allow_html=True,
 )
 
 
-# ---- CUSTOM STYLES FOR THE NEW LAYOUT ----
+# ---- CUSTOM STYLES (completely new) ----
 st.markdown(
     """
     <style>
-    /* Utilities hero */
+    /* ---- HERO ---- */
     .utilities-hero {
-        text-align: center;
-        padding: 1.5rem 1rem 0.5rem 1rem;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(180deg, rgba(246,239,229,0.3) 0%, transparent 100%);
+        position: relative;
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        margin-bottom: 1.5rem;
         border-radius: 32px;
+        background: linear-gradient(135deg, #F6EFE5 0%, #E8D9C8 100%);
+        text-align: center;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(100,42,22,0.06);
     }
-    .utilities-hero-content {
-        max-width: 680px;
+    .hero-pattern {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(circle at 20% 30%, rgba(140,138,103,0.08) 0%, transparent 50%),
+                          radial-gradient(circle at 80% 70%, rgba(140,138,103,0.06) 0%, transparent 50%);
+        pointer-events: none;
+    }
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 640px;
         margin: 0 auto;
+        animation: fadeUp 0.8s ease-out both;
     }
-    .utilities-hero .eyebrow {
-        color: #8C8A67;
-        font-weight: 600;
-        letter-spacing: 0.15em;
-        text-transform: uppercase;
-        font-size: 0.85rem;
+    .hero-icon {
+        font-size: 3.2rem;
+        line-height: 1;
+        margin-bottom: 0.2rem;
     }
-    .utilities-hero h1 {
+    .hero-content h1 {
         font-size: 2.8rem;
         margin: 0.2rem 0 0.2rem 0;
         color: #642A16;
         font-weight: 700;
+        letter-spacing: -0.03em;
     }
-    .utilities-hero p {
+    .hero-content p {
         font-size: 1.1rem;
         color: #735A4C;
-        max-width: 520px;
+        max-width: 460px;
         margin: 0 auto;
         line-height: 1.5;
     }
     .hero-underline {
-        width: 60px;
+        width: 50px;
         height: 3px;
         background: #8C8A67;
         border-radius: 2px;
         margin: 0.7rem auto 0 auto;
     }
 
-    /* Utility cards */
-    .utility-card {
-        background: rgba(255,249,240,0.92);
-        border: 1px solid rgba(140,138,103,0.18);
-        border-radius: 24px;
-        padding: 1.25rem 1.25rem 1rem 1.25rem;
-        height: 100%;
+    /* ---- TIP CARD ---- */
+    .tip-card {
         display: flex;
-        flex-direction: column;
-        transition: all 0.2s ease;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255,249,240,0.7);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(140,138,103,0.18);
+        border-radius: 20px;
+        padding: 0.8rem 1.2rem;
+        margin: 0 0 1.5rem 0;
         box-shadow: 0 4px 12px rgba(100,42,22,0.04);
+        animation: fadeUp 0.9s ease-out 0.15s both;
     }
-    .utility-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 28px rgba(100,42,22,0.10);
-        border-color: rgba(140,138,103,0.35);
+    .tip-icon {
+        font-size: 2rem;
+        line-height: 1;
+        flex-shrink: 0;
     }
-    .utility-pill {
-        display: inline-block;
-        background: rgba(140,138,103,0.10);
+    .tip-text {
+        color: #2B1B14;
+        font-size: 0.95rem;
+    }
+
+    /* ---- GRID ---- */
+    .utility-grid-container {
+        animation: fadeUp 0.9s ease-out 0.3s both;
+        margin: 1rem 0 1.5rem 0;
+    }
+    .grid-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.2rem;
+    }
+    .grid-header h2 {
+        margin: 0;
+        font-size: 1.6rem;
         color: #642A16;
-        padding: 0.25rem 1rem;
+    }
+    .grid-badge {
+        background: rgba(140,138,103,0.12);
+        color: #8C8A67;
+        padding: 0.2rem 0.8rem;
         border-radius: 999px;
         font-size: 0.8rem;
         font-weight: 600;
-        transition: 0.2s ease;
         border: 1px solid rgba(140,138,103,0.15);
     }
-    .utility-card:hover .utility-pill {
+    .utility-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+    }
+    /* Streamlit columns will be placed inside the grid, but we'll use the existing column divs */
+    /* We need to style the actual column divs to be part of the grid */
+    /* We'll use a wrapper div around the columns – we'll inject a class via st.markdown */
+    /* We'll just rely on the existing column layout, but we can style the column containers */
+    div[data-testid="column"] {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* ---- CARD ---- */
+    .utility-card {
+        border-radius: 24px;
+        padding: 1.5rem 1.2rem 1rem 1.2rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.25s ease;
+        border: 1px solid rgba(140,138,103,0.12);
+        box-shadow: 0 4px 12px rgba(100,42,22,0.04);
+        position: relative;
+        overflow: hidden;
+    }
+    .utility-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, transparent 60%, rgba(255,255,255,0.2) 100%);
+        pointer-events: none;
+    }
+    .utility-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 16px 36px rgba(100,42,22,0.10);
+        border-color: rgba(140,138,103,0.3);
+    }
+    .card-icon {
+        font-size: 2.8rem;
+        line-height: 1;
+        margin-bottom: 0.3rem;
+    }
+    .utility-card h3 {
+        margin: 0 0 0.2rem 0;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #642A16;
+    }
+    .utility-card p {
+        margin: 0 0 0.8rem 0;
+        color: #735A4C;
+        font-size: 0.9rem;
+        flex: 1;
+    }
+    .card-footer {
+        text-align: right;
+        margin-top: auto;
+    }
+    .card-link {
+        display: inline-block;
+        background: rgba(255,255,255,0.4);
+        backdrop-filter: blur(4px);
+        padding: 0.2rem 1rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #642A16;
+        border: 1px solid rgba(140,138,103,0.15);
+        transition: 0.2s ease;
+    }
+    .utility-card:hover .card-link {
         background: #8C8A67;
         color: white;
         border-color: #8C8A67;
     }
 
-    /* Hide the actual Streamlit button we use as a trigger */
-    div[data-testid="column"] > div[data-testid="stButton"] {
-        display: none;
+    /* ---- QUOTE ---- */
+    .quote-footer {
+        text-align: center;
+        padding: 1.5rem 0 0.5rem 0;
+        margin-top: 1.5rem;
+        border-top: 1px solid rgba(140,138,103,0.12);
+        animation: fadeUp 1s ease-out 0.6s both;
+    }
+    .quote-mark {
+        font-size: 3rem;
+        color: rgba(140,138,103,0.25);
+        line-height: 1;
+        display: block;
+        font-family: Georgia, serif;
+    }
+    .quote-footer p {
+        font-size: 1.05rem;
+        color: #735A4C;
+        max-width: 500px;
+        margin: 0.2rem auto 0.3rem auto;
+        font-style: italic;
+        line-height: 1.5;
+    }
+    .quote-attribution {
+        font-size: 0.85rem;
+        color: #8C8A67;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+    }
+
+    /* ---- ANIMATIONS ---- */
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(12px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 820px) {
+        .utility-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        .hero-content h1 {
+            font-size: 2.2rem;
+        }
+        .tip-card {
+            flex-direction: column;
+            text-align: center;
+            gap: 0.3rem;
+        }
+        .grid-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.3rem;
+        }
+    }
+    @media (max-width: 480px) {
+        .utility-grid {
+            grid-template-columns: 1fr;
+        }
+        .hero-content h1 {
+            font-size: 1.8rem;
+        }
     }
     </style>
     """,
