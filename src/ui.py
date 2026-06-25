@@ -50,7 +50,7 @@ def apply_hayyak_theme():
             padding-bottom: 2.5rem;
         }}
 
-        /* NAVBAR */
+        /* OLD NAVBAR (can be removed later, but keep for now) */
         .hayyak-navbar {{
             position: sticky;
             top: 0.75rem;
@@ -93,8 +93,8 @@ def apply_hayyak_theme():
             max-height: 400px;
             object-fit: contain;
             display: block;
-            box-shadow: none !important;   /* removed */
-            border-radius: 0 !important;    /* removed */
+            box-shadow: none !important;
+            border-radius: 0 !important;
         }}
         @keyframes fadeIn {{
             from {{ opacity: 0; transform: translateY(8px); }}
@@ -175,12 +175,11 @@ def apply_hayyak_theme():
             cursor: pointer;
             border: 2px solid var(--paper);
         }}
-        /* Hide the Streamlit text input for the slider value */
         div[data-testid="stTextInput"] {{
             display: none !important;
         }}
 
-        /* OTHER WIDGETS (select, radio, buttons) – same as before */
+        /* OTHER WIDGETS */
         div[data-testid="stSelectbox"],
         div[data-testid="stRadio"] {{
             background: rgba(255, 249, 240, 0.76) !important;
@@ -307,9 +306,9 @@ def apply_hayyak_theme():
             .hero-image-container img {{ max-height: 250px; }}
             .section-card {{ padding: 1rem; }}
         }}
-        </style>
-        /* ----- NAVBAR MADE WITH STREAMLIT WIDGETS ----- */
-        .hayyak-navbar-streamlit {
+
+        /* ----- NEW STREAMLIT NAVBAR (state‑safe) ----- */
+        .hayyak-navbar-streamlit {{
             position: sticky;
             top: 0.75rem;
             z-index: 999;
@@ -321,23 +320,20 @@ def apply_hayyak_theme():
             background: rgba(255, 249, 240, 0.90);
             box-shadow: 0 12px 28px rgba(100, 42, 22, 0.09);
             backdrop-filter: blur(12px);
-        }
+        }}
 
-        /* The container that holds the columns */
-        .hayyak-navbar-streamlit > .stHorizontalBlock {
+        .hayyak-navbar-streamlit > .stHorizontalBlock {{
             align-items: center;
             justify-content: space-between;
-        }
+        }}
 
-        /* Logo column */
-        .hayyak-navbar-streamlit .hayyak-logo {
+        .hayyak-navbar-streamlit .hayyak-logo {{
             width: 54px;
             height: 54px;
             object-fit: contain;
-        }
+        }}
 
-        /* Links column – make the page_link buttons look like pills */
-        .hayyak-navbar-streamlit .stPageLink > button {
+        .hayyak-navbar-streamlit .stPageLink > button {{
             background: transparent;
             border: none;
             color: var(--deep-brown);
@@ -346,39 +342,36 @@ def apply_hayyak_theme():
             border-radius: 999px;
             transition: 0.18s ease;
             font-weight: 400;
-        }
+        }}
 
-        .hayyak-navbar-streamlit .stPageLink > button:hover {
+        .hayyak-navbar-streamlit .stPageLink > button:hover {{
             background: rgba(140, 138, 103, 0.14);
-        }
+        }}
 
-        /* Active page pill */
-        .hayyak-navbar-streamlit .stPageLink.active > button {
+        .hayyak-navbar-streamlit .stPageLink.active > button {{
             background: var(--olive);
             color: white !important;
-        }
+        }}
+        </style>
         """,
         unsafe_allow_html=True,
     )
 
-def render_nav(active="home"):
-    import streamlit as st
 
+def render_nav(active="home"):
     logo_uri = _image_to_data_uri("assets/hayyak-logo.png")
 
-    # ----- page definitions (use your exact file names) -----
+    # ----- page definitions (must match your filenames inside pages/) -----
     pages = [
         ("home",      "Home / Quiz",      "app.py"),
-        ("utilities", "Utilities",        "pages/1_Utilities.py"),        # adjust if the file has a number prefix
-        ("checklist", "Dubai Checklist",  "pages/2_Checklist.py"),     # matches your file
-        ("guide",     "Dubai Guide",      "pages/3_Dubai_Guide.py"),     # adjust as needed
+        ("utilities", "Utilities",        "pages/1_Utilities.py"),
+        ("checklist", "Dubai Checklist",  "pages/2_Checklist.py"),
+        ("guide",     "Dubai Guide",      "pages/3_Dubai_Guide.py"),
     ]
 
-    # ----- open a sticky container with the same class we just styled -----
     with st.container():
         st.markdown('<div class="hayyak-navbar-streamlit">', unsafe_allow_html=True)
 
-        # one row for logo + links
         col_logo, col_links = st.columns([1, 4])
 
         with col_logo:
@@ -394,10 +387,16 @@ def render_nav(active="home"):
             link_cols = st.columns(len(pages))
             for i, (key, label, page_file) in enumerate(pages):
                 with link_cols[i]:
-                    # mark the active page so the CSS can style it
                     active_class = "active" if active == key else ""
                     st.markdown(f'<div class="stPageLink {active_class}">', unsafe_allow_html=True)
                     st.page_link(page_file, label=label, use_container_width=True)
                     st.markdown('</div>', unsafe_allow_html=True)
 
-        st.markdown('</div>', unsafe_allow_html=True)  # close hayyak-navbar-streamlit
+        st.markdown('</div>', unsafe_allow_html=True)
+
+
+def arabic_divider():
+    st.markdown(
+        '<div class="arabic-divider" style="margin:1rem 0; border-top:1px solid rgba(140,138,103,0.18);"></div>',
+        unsafe_allow_html=True,
+    )
