@@ -11,7 +11,7 @@ st.set_page_config(
 apply_hayyak_theme()
 render_nav(active="utilities")
 
-# ── UPDATED DATA: all new DEWA info, other utilities unchanged ──────────────
+# ── UPDATED DATA: all utilities with new structured info ──────────────
 UTILITIES = {
     "DEWA": {
         "number": "01",
@@ -28,7 +28,6 @@ UTILITIES = {
         ],
         "accent": "#BC8653",
         "motif": "M 0,20 Q 30,0 60,20 Q 90,40 120,20",
-        # ── New structured info for tabs ──
         "quick_info": {
             "activation": "Up to 15 working hours*",
             "deposit": "AED 2,000 (Apt) / AED 4,000 (Villa)",
@@ -57,60 +56,179 @@ UTILITIES = {
         "tag": "Rental Registration",
         "description": "Your tenancy contract, made official — required before almost everything else.",
         "steps": [
-            "Confirm your signed tenancy contract.",
-            "Prepare landlord and tenant documents.",
-            "Register the contract through the approved Ejari process.",
-            "Download or save your Ejari certificate.",
-            "Use the certificate for utilities and other move-in requirements.",
+            "**1. Check Your Tenancy Contract**  \nMake sure your tenancy contract is signed and accurate before registration. Check: tenant name, landlord name, property address, unit number, rent amount, contract start and end dates.",
+            "**2. Prepare Documents**  \nPrepare the documents likely needed for registration: signed tenancy contract, tenant Emirates ID (if available), passport/visa details (if requested), landlord details, property or title deed information (if requested), and a payment method.",
+            "**3. Choose Official Registration Channel**  \nUse an approved Ejari registration route. Dubai Land Department states that registration can be done through channels such as a Real Estate Trustee Centre, a property management company (if the property is managed by one), the Ejari system, or the Dubai REST app.",
+            "**4. Submit Details and Documents**  \nFill in the required information and upload or submit the required documents. Ensure all documents are clear, complete, and match the tenancy contract.",
+            "**5. Pay Service Fees**  \nProceed to pay the official service fees shown by the approved registration channel. Do not rely on old screenshots or unofficial fee lists because fees can change.",
+            "**6. Wait for Review and Approval**  \nDubai Land Department explains that after submission, the request is reviewed and approved through the system.",
+            "**7. Save Ejari Certificate**  \nOnce approved, you receive the **e‑Contract Registration Certificate**. Save it safely because you may need it for DEWA, internet setup, address proof, and other move‑in requirements.",
         ],
         "accent": "#8C8A67",
         "motif": "M 0,10 L 20,30 L 40,10 L 60,30 L 80,10 L 100,30 L 120,10",
+        "quick_info": {
+            "Main purpose": "Official tenancy contract registration",
+            "Official authority": "Dubai Land Department / Ejari",
+        },
+        "important_notes": [
+            "📄 <strong>Ejari comes before many services</strong> – often needed before or during DEWA, internet, housing documentation, and other move‑in processes.",
+            "✅ <strong>Contract details must match</strong> – wrong unit numbers, names, or dates can delay registration.",
+            "🏢 <strong>Use approved channels only</strong> – use Dubai Land Department, Dubai REST, Ejari system, Real Estate Trustee Centres, or approved property management channels.",
+            "ℹ️ <strong>Fees and requirements may change</strong> – always confirm the latest requirements through Dubai Land Department or the official channel you are using.",
+        ],
+        "official_links": [
+            {
+                "title": "Dubai Land Department — Register / Renew Rental Contract",
+                "url": "https://dubailand.gov.ae/en/eservices/register-renew-ejari-contract/",
+            },
+            {
+                "title": "Dubai Land Department Official Website",
+                "url": "https://dubailand.gov.ae",
+            },
+        ],
+        "footer_note": "Ejari requirements, documents, channels, and fees may change. Always verify the latest details through Dubai Land Department or an authorised Ejari registration channel.",
     },
+
     "du / e&": {
         "number": "03",
         "tag": "Mobile & SIM",
         "description": "Stay connected from day one — your first local number sets everything else in motion.",
         "steps": [
-            "Compare prepaid and postpaid plans.",
-            "Prepare passport, Emirates ID, or valid identification.",
-            "Choose mobile data based on commute and daily usage.",
-            "Activate SIM or eSIM where supported.",
-            "Save customer support details in case activation fails.",
+            "**1. Choose Visitor or Resident Plan**  \nDecide whether you need a temporary visitor line or a resident mobile plan. If you have just arrived, a tourist SIM or visitor line is usually the fastest option. Once your Emirates ID is ready, you can move to regular prepaid or postpaid options.",
+            "**2. Check Phone Compatibility**  \nBefore choosing eSIM, confirm that your phone supports eSIM and is not carrier locked. If your phone does not support eSIM, use a physical SIM.",
+            "**3. Prepare Identification**  \nVisitors usually need passport details. Residents usually need Emirates ID for mobile registration or renewal. TDRA states that licensed telecom providers must register subscriber data accurately with proper documentation such as Emirates ID.",
+            "**4. Compare Data Needs**  \nChoose your mobile package based on actual daily use. Think about: Google Maps, WhatsApp, ride‑hailing apps, delivery apps, work or university commute, hotspot usage, video calls.",
+            "**5. Apply Through Official Channels**  \nUse official du or e& channels rather than random third‑party sellers. For visitors, start from the official visitor/tourist plan pages.",
+            "**6. Activate SIM or eSIM**  \nFollow the provider’s activation process. For eSIM, scan the QR code only on the phone you want to activate. Keep Wi‑Fi available during setup in case mobile data is not active yet.",
+            "**7. Track Usage and Renewal**  \nDownload the provider app after activation. Use it to check remaining data, balance, auto‑renewal, add‑ons, Emirates ID registration status, and customer support options.",
         ],
         "accent": "#B27960",
         "motif": "M 0,15 C 20,0 40,30 60,15 C 80,0 100,30 120,15",
+        "quick_info": {
+            "Best for arrival": "Tourist SIM / visitor line or prepaid plan",
+            "Resident registration": "Usually requires valid identity documentation such as Emirates ID",
+        },
+        "important_notes": [
+            "🪪 <strong>Emirates ID matters</strong> – for resident mobile services, Emirates ID registration is important. e& states that the original Emirates ID is the accepted document through its self‑service registration channels.",
+            "📱 <strong>eSIM needs a compatible phone</strong> – not every phone supports eSIM. Check before buying.",
+            "🔄 <strong>Watch auto‑renewal</strong> – some bundles renew automatically. Check this in the app to avoid unexpected deductions.",
+            "⚠️ <strong>Keep SIMs under your name</strong> – TDRA’s mobile registration initiative aims to protect subscriber rights and reduce misuse, fraud, and scams.",
+        ],
+        "official_links": [
+            {
+                "title": "TDRA — Registration for Mobile Consumers",
+                "url": "https://tdra.gov.ae/en/initiatives/registration-for-mobile-consumers",
+            },
+            {
+                "title": "e& Visitor Line",
+                "url": "https://eand.ae/en/c/mobile/plans/visitor-line.html",
+            },
+            {
+                "title": "du Tourist SIM",
+                "url": "https://shop.du.ae/en/personal/prepaid/du-tourist-prepaid-plans",
+            },
+            {
+                "title": "e& Mobile Registration / Emirates ID Guidance",
+                "url": "https://eand.ae",
+            },
+        ],
+        "footer_note": "Telecom registration rules, plan prices, tourist SIM validity, and Emirates ID requirements can change. Always check du, e&, and TDRA official channels before choosing a plan.",
     },
+
     "Internet": {
         "number": "04",
         "tag": "Home Broadband",
         "description": "Fast, reliable internet — book early, because installation takes time.",
         "steps": [
-            "Check which providers are available in the building.",
-            "Compare speed, contract length, and installation time.",
-            "Book installation after tenancy confirmation.",
-            "Keep router and account details safely stored.",
-            "Test speed after installation.",
+            "**1. Check Building Coverage**  \nBefore choosing a package, ask your building management which provider is available or better supported in your building. Some buildings may support du, e&, or both, but coverage and installation experience can vary.",
+            "**2. Decide New Setup or Relocation**  \nChoose whether you are setting up a brand‑new home internet connection or moving an existing connection (du Home or e& eLife). Relocation flows and documents can differ.",
+            "**3. Use Official Provider Flow**  \nFor e&, the official Home Move page says the process is done through the **e& UAE app**: download the app, tap **Manage** on the eLife Plan tab, tap **Home Move**, and follow the instructions. For du, the official relocation page allows users to relocate du Home services online.",
+            "**4. Prepare Documents**  \nPrepare: tenancy contract or title deed, Emirates ID (if requested), new home address and unit number, current account details (if relocating), and proof of relationship if the tenancy is not in your name. du specifically states that you may need to upload the tenancy contract or title deed for the new home.",
+            "**5. Review Fees and Contract Terms**  \nCheck relocation fees, installation charges, contract duration, early cancellation terms, and outstanding bills before confirming. du currently states that a moving fee of **AED 100** will be charged on the next bill for relocation.",
+            "**6. Book Technician Visit**  \nChoose an installation slot when someone can access the apartment. Make sure the technician can reach the apartment, telecom cabinet, router location, and TV/landline area (if included).",
+            "**7. Test Internet After Setup**  \nAfter installation, test the connection in multiple rooms. Check Wi‑Fi speed near your desk, bedroom signal, living room signal, video call stability, and TV box or landline (if included).",
         ],
         "accent": "#B59275",
         "motif": "M 0,20 L 30,5 L 60,20 L 90,5 L 120,20",
+        "quick_info": {
+            "Main providers": "du and e&",
+            "Key requirement": "Building coverage and tenancy / title deed documentation",
+        },
+        "important_notes": [
+            "🏢 <strong>Building coverage comes first</strong> – do not choose a plan only by price. First check what your building actually supports.",
+            "📄 <strong>Tenancy or title deed may be needed</strong> – for relocation or new setup, providers may ask for proof of address.",
+            "💰 <strong>Relocation fees may apply</strong> – du currently lists a moving fee of AED 100 for home relocation, but always confirm final charges during the official request.",
+            "🧰 <strong>Keep equipment safe</strong> – do not throw away routers, TV boxes, remotes, cables, or power adapters before confirming provider instructions.",
+        ],
+        "official_links": [
+            {
+                "title": "e& Home Move",
+                "url": "https://eand.ae/en/c/home/home-moving.html",
+            },
+            {
+                "title": "du Home Relocation",
+                "url": "https://du.ae/personal/at-home/moving-to-a-new-home",
+            },
+            {
+                "title": "e& Official Website",
+                "url": "https://eand.ae",
+            },
+            {
+                "title": "du Official Website",
+                "url": "https://du.ae",
+            },
+        ],
+        "footer_note": "Home internet coverage, installation timelines, relocation fees, and required documents vary by provider and building. Always confirm details directly through du or e& before booking.",
     },
+
     "Move-in Documents": {
         "number": "05",
         "tag": "Document Checklist",
         "description": "The paperwork that underpins everything — keep these within reach at all times.",
         "steps": [
-            "Passport copy.",
-            "Visa or entry permit where applicable.",
-            "Emirates ID or application details.",
-            "Tenancy contract.",
-            "Payment receipts and confirmation emails.",
+            "**1. Create a Secure Digital Folder**  \nCreate a dedicated folder for your move‑in documents. Suggested folder names: “Dubai Move‑in Documents”, “Hayyak Relocation Folder”, or “Apartment Setup Files”. Use clear filenames so you can find documents quickly.",
+            "**2. Save Identity Documents**  \nKeep copies of: passport, visa or entry permit (if applicable), Emirates ID (once available), and Emirates ID application details (if still processing). These may be needed for telecom registration, tenancy tasks, banking, or identity verification.",
+            "**3. Save Housing Documents**  \nKeep your housing documents together: signed tenancy contract, Ejari certificate, landlord/agent contact details, building management contact details, unit number and building name. Ejari and tenancy documents are especially important because they connect to utilities and other move‑in services.",
+            "**4. Save DEWA Records**  \nKeep copies of: DEWA account number, DEWA payment receipt, security deposit receipt, activation confirmation, and any customer care reference numbers. You may need these for billing, service issues, move‑out, or deposit refund.",
+            "**5. Save Internet and SIM Records**  \nKeep copies of: du or e& account number, SIM registration details, internet installation appointment confirmation, router/equipment details, technician reference number, and plan contract/package details.",
+            "**6. Store Payment Receipts**  \nSave receipts for: rent payments, security deposit, agency fees (if applicable), DEWA deposit, internet setup or relocation fees, Ejari registration fees. Receipts are useful if there is a dispute, refund, delay, or service issue.",
+            "**7. Protect Sensitive Files**  \nDo not store passport, visa, Emirates ID, or tenancy documents only in WhatsApp chats. Use a secure cloud folder, password‑protected device, or trusted storage system. Never upload sensitive documents to GitHub, public folders, or public AI tools.",
         ],
         "accent": "#642A16",
         "motif": "M 10,25 A 20,20 0 0 1 50,5 A 20,20 0 0 1 90,25 A 20,20 0 0 1 50,45 A 20,20 0 0 1 10,25",
+        "quick_info": {
+            "Main purpose": "Keep housing, identity, and utility documents ready",
+            "Safety note": "Do not upload sensitive documents to public repositories or shared links",
+        },
+        "important_notes": [
+            "🔐 <strong>Avoid public uploads</strong> – never upload passport, Emirates ID, visa, tenancy contract, or receipts to public repositories.",
+            "📁 <strong>Use clear file names</strong> – bad filenames like `scan123.pdf` are hard to find later. Use names like `ejari-certificate.pdf`.",
+            "🧾 <strong>Keep receipts</strong> – receipts can matter for refunds, move‑out, billing disputes, and service delays.",
+            "🪪 <strong>Emirates ID becomes increasingly important</strong> – many resident services become easier once your Emirates ID is available.",
+        ],
+        "official_links": [
+            {
+                "title": "Dubai Land Department",
+                "url": "https://dubailand.gov.ae",
+            },
+            {
+                "title": "DEWA",
+                "url": "https://dewa.gov.ae",
+            },
+            {
+                "title": "TDRA",
+                "url": "https://tdra.gov.ae",
+            },
+            {
+                "title": "UAE Government Portal — Emirates ID",
+                "url": "https://u.ae/en/information-and-services/visa-and-emirates-id/emirates-id",
+            },
+        ],
+        "footer_note": "Move‑in documents often contain sensitive personal information. Store them securely and never commit them to GitHub or share them through public links.",
     },
 }
 
-# ── REDESIGNED MODAL: tabs when extra info exists, legacy layout otherwise ──
+# ── REDESIGNED MODAL: tabs when extra info exists ──────────────────────
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
     # Header (always visible)
@@ -135,30 +253,49 @@ def show_utility_modal(name, item):
         tab_labels = ["⚡ Quick Info", "📋 Setup Guide", "❗ Important to Know", "🔗 Official Links"]
         tabs = st.tabs(tab_labels)
 
-        with tabs[0]:  # Quick Info
+        with tabs[0]:  # Quick Info — now generic
             if "quick_info" in item:
                 qi = item["quick_info"]
-                st.markdown(
-                    f"""
-                    <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-bottom:1rem;">
-                        <div style="flex:1; min-width:200px;">
-                            <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
-                                         color:{item['accent']}; font-weight:700;">🕒 Activation</span>
-                            <p style="margin:0.2rem 0 0 0; font-size:1.1rem; font-weight:600; color:#2B1B14;">
-                                {qi['activation']}
-                            </p>
-                        </div>
-                        <div style="flex:1; min-width:200px;">
-                            <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
-                                         color:{item['accent']}; font-weight:700;">🛡️ Security Deposit</span>
-                            <p style="margin:0.2rem 0 0 0; font-size:1.1rem; font-weight:600; color:#2B1B14;">
-                                {qi['deposit']}
-                            </p>
-                        </div>
-                    </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
+                # Display each key‑value pair in a two‑column layout
+                items_list = list(qi.items())
+                cols = st.columns(min(2, len(items_list)))
+                for idx, (key, value) in enumerate(items_list):
+                    with cols[idx % 2]:
+                        # Format the key nicely
+                        label = key.replace('_', ' ').title()
+                        # Choose an emoji based on key
+                        emoji = "📌"  # default
+                        if "purpose" in key.lower() or "main" in key.lower():
+                            emoji = "🎯"
+                        elif "authority" in key.lower() or "provider" in key.lower():
+                            emoji = "🏛️"
+                        elif "requirement" in key.lower():
+                            emoji = "🔑"
+                        elif "note" in key.lower():
+                            emoji = "⚠️"
+                        elif "activation" in key.lower():
+                            emoji = "🕒"
+                        elif "deposit" in key.lower():
+                            emoji = "🛡️"
+                        elif "arrival" in key.lower():
+                            emoji = "✈️"
+                        elif "registration" in key.lower():
+                            emoji = "🪪"
+                        elif "safety" in key.lower():
+                            emoji = "🔐"
+
+                        st.markdown(
+                            f"""
+                            <div style="margin-bottom:0.8rem;">
+                                <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
+                                             color:{item['accent']}; font-weight:700;">{emoji} {label}</span>
+                                <p style="margin:0.2rem 0 0 0; font-size:1.0rem; font-weight:600; color:#2B1B14;">
+                                    {value}
+                                </p>
+                            </div>
+                            """,
+                            unsafe_allow_html=True,
+                        )
             else:
                 st.info("Quick information will be added soon.")
 
@@ -232,7 +369,7 @@ def show_utility_modal(name, item):
             unsafe_allow_html=True,
         )
 
-# ── PAGE LAYOUT (exactly as before) ────────────────────────────────────────
+# ── PAGE LAYOUT (including cream background fix for modal) ──────────────
 st.markdown(
     """
     <style>
@@ -481,7 +618,8 @@ st.markdown(
             font-size: 1.8rem;
         }
     }
-        /* Force cream background on the dialog and its content */
+
+    /* ── CREAM BACKGROUND FOR MODAL ── */
     div[data-testid="stDialog"],
     div[data-testid="stDialog"] > div,
     div[data-testid="stDialog"] .stDialogContent,
@@ -489,8 +627,6 @@ st.markdown(
         background: #FFF9F0 !important;
         border-radius: 24px !important;
     }
-
-    /* Also make the backdrop overlay lighter if it’s dark */
     div[data-testid="stDialogOverlay"] {
         background: rgba(255, 249, 240, 0.85) !important;
         backdrop-filter: blur(2px);
@@ -540,7 +676,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ── CARD GRID (unchanged) ─────────────────────────────────────────────────
+# ── CARD GRID ─────────────────────────────────────────────────────────────
 items = list(UTILITIES.items())
 cols = st.columns(3)
 
