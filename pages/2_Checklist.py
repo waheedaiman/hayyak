@@ -105,141 +105,162 @@ def build_personalised_checklist(profile, top_recs):
         "first_month": unique_ordered(first_month),
     }
 
-# ---------- custom CSS for the checklist ----------
+# ---------- page‑wide styling (inspired by Utilities) ----------
 st.markdown(
-    """
+    f"""
     <style>
-    /* tab styling – olive active tab, cream inactive */
-    div[data-testid="stTabs"] button[data-baseweb="tab"] {
-        background: transparent;
-        border: none;
-        color: #735A4C;
-        font-weight: 600;
-        padding: 0.6rem 1.2rem;
-        border-radius: 999px;
-        margin-right: 0.3rem;
-        transition: all 0.2s ease;
-    }
-    div[data-testid="stTabs"] button[data-baseweb="tab"]:hover {
-        background: rgba(140, 138, 103, 0.12);
-        color: #642A16;
-    }
-    div[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] {
-        background: #8C8A67;
-        color: white;
-    }
+    /* hero – same as utilities */
+    .checklist-hero {{
+        position: relative;
+        padding: 2.5rem 1.5rem 2rem 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 32px;
+        background: linear-gradient(135deg, #F6EFE5 0%, #E8D9C8 100%);
+        text-align: center;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(100,42,22,0.06);
+    }}
+    .hero-pattern {{
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background-image: radial-gradient(circle at 20% 30%, rgba(140,138,103,0.08) 0%, transparent 50%),
+                          radial-gradient(circle at 80% 70%, rgba(140,138,103,0.06) 0%, transparent 50%);
+        pointer-events: none;
+    }}
+    .hero-content {{
+        position: relative; z-index: 1;
+        max-width: 640px; margin: 0 auto;
+        animation: fadeUp 0.8s ease-out both;
+    }}
+    .hero-icon {{ font-size: 3.2rem; line-height: 1; margin-bottom: 0.2rem; }}
+    .hero-content h1 {{
+        font-size: 2.8rem; margin: 0.2rem 0 0.2rem 0;
+        color: #642A16; font-weight: 700; letter-spacing: -0.03em;
+    }}
+    .hero-content p {{
+        font-size: 1.1rem; color: #735A4C;
+        max-width: 460px; margin: 0 auto; line-height: 1.5;
+    }}
+    .hero-underline {{
+        width: 50px; height: 3px; background: #8C8A67;
+        border-radius: 2px; margin: 0.7rem auto 0 auto;
+    }}
 
-    /* checklist card – one card per tab section */
-    .checklist-card {
+    /* tip card */
+    .tip-card {{
+        display: flex; align-items: center; gap: 1rem;
+        background: rgba(255,249,240,0.7); backdrop-filter: blur(4px);
+        border: 1px solid rgba(140,138,103,0.18); border-radius: 20px;
+        padding: 0.8rem 1.2rem; margin: 0 0 1.5rem 0;
+        box-shadow: 0 4px 12px rgba(100,42,22,0.04);
+        animation: fadeUp 0.9s ease-out 0.15s both;
+    }}
+    .tip-icon {{ font-size: 2rem; line-height: 1; flex-shrink: 0; }}
+    .tip-text {{ color: #2B1B14; font-size: 0.95rem; }}
+
+    /* tabs */
+    div[data-testid="stTabs"] button[data-baseweb="tab"] {{
+        background: transparent; border: none;
+        color: #735A4C; font-weight: 600;
+        padding: 0.6rem 1.2rem; border-radius: 999px;
+        margin-right: 0.3rem; transition: all 0.2s ease;
+    }}
+    div[data-testid="stTabs"] button[data-baseweb="tab"]:hover {{
+        background: rgba(140, 138, 103, 0.12); color: #642A16;
+    }}
+    div[data-testid="stTabs"] button[data-baseweb="tab"][aria-selected="true"] {{
+        background: #8C8A67; color: white;
+    }}
+
+    /* checklist card */
+    .checklist-card {{
         background: #FFF9F0;
         border: 1px solid rgba(140, 138, 103, 0.18);
         border-radius: 24px;
         padding: 1.5rem 1.8rem;
-        margin-top: 0.8rem;
+        margin-top: 1rem;
         box-shadow: 0 8px 18px rgba(100, 42, 22, 0.05);
-    }
-
-    /* each task row */
-    .task-row {
-        display: flex;
-        align-items: center;
-        gap: 0.9rem;
-        padding: 0.75rem 0;
-        border-bottom: 1px dashed rgba(140, 138, 103, 0.18);
-    }
-    .task-row:last-child {
-        border-bottom: none;
-    }
-
-    /* custom styled checkbox to match Hayyak palette */
-    .task-row input[type="checkbox"] {
-        appearance: none;
-        width: 22px;
-        height: 22px;
-        border: 2px solid #8C8A67;
-        border-radius: 6px;
-        background: transparent;
-        cursor: pointer;
-        flex-shrink: 0;
-    }
-    .task-row input[type="checkbox"]:checked {
-        background: #8C8A67;
-        border-color: #8C8A67;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='18px' height='18px'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E");
-        background-size: 16px;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    .task-label {
-        font-size: 0.95rem;
-        color: #2B1B14;
-        line-height: 1.4;
-    }
+    }}
 
     /* progress bar color */
-    div[data-testid="stProgress"] > div > div {
+    div[data-testid="stProgress"] > div > div {{
         background-color: #8C8A67;
-    }
+    }}
 
-    /* category subtitle */
-    .phase-subtitle {
-        color: #642A16;
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-top: 1.2rem;
-        margin-bottom: 0.3rem;
-        display: flex;
-        align-items: center;
-        gap: 0.4rem;
-    }
-    .phase-icon {
-        font-size: 1.4rem;
-    }
+    /* checkbox styling – keep Streamlit native, just tweak accent */
+    .checklist-card input[type="checkbox"] {{
+        accent-color: #8C8A67;                /* modern browsers */
+        transform: scale(1.2);
+        margin-right: 0.6rem;
+        cursor: pointer;
+    }}
+    /* For WebKit fallback (older Safari) */
+    .checklist-card input[type="checkbox"]:checked {{
+        background-color: #8C8A67;
+        border-color: #8C8A67;
+    }}
+
+    @keyframes fadeUp {{
+        from {{ opacity: 0; transform: translateY(12px); }}
+        to {{ opacity: 1; transform: translateY(0); }}
+    }}
+
+    @media (max-width: 820px) {{
+        .hero-content h1 {{ font-size: 2.2rem; }}
+        .tip-card {{ flex-direction: column; text-align: center; gap: 0.3rem; }}
+    }}
+    @media (max-width: 480px) {{
+        .hero-content h1 {{ font-size: 1.8rem; }}
+    }}
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# ---------- hero section ----------
+# ---------- hero ----------
 st.markdown(
     """
-    <section class="hero-shell">
-        <div class="hero-grid">
-            <div>
-                <div class="eyebrow">Relocation planning</div>
-                <h1 class="hero-title">Dubai Checklist</h1>
-                <p class="hero-copy">
-                    Your personalised move‑in timeline, built from your quiz answers.
-                    Tick things off as you go – each step brings you closer to home.
-                </p>
-            </div>
-            <div class="brand-card" style="background: #F6EFE5; border-radius: 24px; padding: 1.2rem;">
-                <p style="color: #642A16; font-weight: 700; margin: 0;">🌴 Your Hayyak journey</p>
-                <p style="color: #735A4C; margin: 0.4rem 0 0 0;">
-                    Return here anytime after updating your quiz on the Home page.
-                </p>
-            </div>
+    <div class="checklist-hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-icon">📋</div>
+            <h1>Dubai Checklist</h1>
+            <p>Your personalised move‑in timeline, built from your quiz. Tick things off as you go – each step brings you closer to home.</p>
+            <div class="hero-underline"></div>
         </div>
-    </section>
+    </div>
+    """,
+    unsafe_allow_html=True,
+)
+
+# ---------- tip ----------
+st.markdown(
+    """
+    <div class="tip-card">
+        <div class="tip-icon">💡</div>
+        <div class="tip-text">
+            <strong>Tip:</strong> This checklist adapts to your quiz profile. Update your answers on the Home page and return here to see your latest action plan.
+        </div>
+    </div>
     """,
     unsafe_allow_html=True,
 )
 
 arabic_divider()
 
-# ---------- personalised checklist tabs ----------
+# ---------- personalised checklist ----------
 if "user_profile" in st.session_state and "recommendations" in st.session_state:
     profile = st.session_state.user_profile
     recs = st.session_state.recommendations
     checklist = build_personalised_checklist(profile, recs)
 
-    st.markdown('<div class="section-card">', unsafe_allow_html=True)
-    st.subheader("Your personalised move‑in checklist")
+    st.markdown(
+        '<div style="margin-bottom:0.5rem;"><span style="font-size:0.72rem; font-weight:800; letter-spacing:0.3em; text-transform:uppercase; color:#8C8A67;">Your Move‑in Timeline</span></div>',
+        unsafe_allow_html=True,
+    )
 
     tabs = st.tabs(["🌅 Before arrival", "🏡 First week", "🌿 First month"])
     phase_keys = ["before_arrival", "first_week", "first_month"]
-    phase_icons = ["🌅", "🏡", "🌿"]
 
     for idx, tab in enumerate(tabs):
         with tab:
@@ -247,62 +268,51 @@ if "user_profile" in st.session_state and "recommendations" in st.session_state:
             total = len(tasks)
             checked_count = 0
 
-            # progress bar
+            # progress bar at top
             st.markdown(
-                f'<div class="phase-subtitle"><span class="phase-icon">{phase_icons[idx]}</span> {total} tasks</div>',
+                f'<p style="margin:0 0 0.5rem 0; color:#642A16; font-weight:700;">{total} tasks</p>',
                 unsafe_allow_html=True,
             )
 
-            # build card with custom checkboxes
-            card_html = '<div class="checklist-card">'
-            for task in tasks:
-                # unique key for each checkbox
-                key = f"{phase_keys[idx]}_{hash(task)}"
-                checkbox_html = f'<input type="checkbox" id="{key}" name="{key}" onchange="this.dispatchEvent(new Event(\'input\', {{ bubbles: true }}))">'
-                # We'll wrap the checkbox and label inside a task-row div
-                card_html += f'<div class="task-row">'
-                card_html += checkbox_html
-                card_html += f'<label for="{key}" class="task-label">{task}</label>'
-                card_html += '</div>'
+            # card wrapper
+            st.markdown('<div class="checklist-card">', unsafe_allow_html=True)
 
-                # read Streamlit checkbox state (parallel widget)
-                checked = st.checkbox(task, key=key, label_visibility="collapsed")
+            for task in tasks:
+                key = f"{phase_keys[idx]}_{hash(task)}"
+                checked = st.checkbox(task, key=key)
                 if checked:
                     checked_count += 1
-            card_html += '</div>'
 
-            st.markdown(card_html, unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-            # display progress
+            # progress bar below the card
             progress = checked_count / total if total else 0
             st.progress(progress)
             st.caption(f"{checked_count} of {total} completed")
 
-    st.markdown("</div>", unsafe_allow_html=True)
-
 else:
+    # fallback (no quiz completed)
     st.info(
         """
         🧭 **Your checklist is waiting.**  
-        Complete the quiz on the **Home** page and come back – we'll build a
-        step‑by‑step timeline just for you.
+        Complete the quiz on the **Home** page and come back – we'll build a step‑by‑step timeline just for you.
         """
     )
-    # fallback static sample
+    # static sample (optional)
     st.markdown('<div class="section-card">', unsafe_allow_html=True)
     st.subheader("Sample checklist (not personalised)")
-    fallback_tabs = st.tabs(["Before arrival", "First week", "First month"])
-    with fallback_tabs[0]:
+    sample_tabs = st.tabs(["Before arrival", "First week", "First month"])
+    with sample_tabs[0]:
         st.checkbox("Shortlist neighbourhoods")
         st.checkbox("Estimate rent and deposit budget")
         st.checkbox("Prepare identity and visa documents")
         st.checkbox("Research commute options")
-    with fallback_tabs[1]:
+    with sample_tabs[1]:
         st.checkbox("Inspect apartment before signing")
         st.checkbox("Confirm Ejari process")
         st.checkbox("Start DEWA setup")
         st.checkbox("Arrange mobile and internet")
-    with fallback_tabs[2]:
+    with sample_tabs[2]:
         st.checkbox("Explore local supermarkets and clinics")
         st.checkbox("Save emergency and building contacts")
         st.checkbox("Review commute routine")
