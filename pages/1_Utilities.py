@@ -481,9 +481,19 @@ st.markdown(
             font-size: 1.8rem;
         }
     }
-    div[data-testid="stDialog"] {
-    background: #FFF9F0 !important;
-    border-radius: 24px !important;
+        /* Force cream background on the dialog and its content */
+    div[data-testid="stDialog"],
+    div[data-testid="stDialog"] > div,
+    div[data-testid="stDialog"] .stDialogContent,
+    div[role="dialog"] {
+        background: #FFF9F0 !important;
+        border-radius: 24px !important;
+    }
+
+    /* Also make the backdrop overlay lighter if it’s dark */
+    div[data-testid="stDialogOverlay"] {
+        background: rgba(255, 249, 240, 0.85) !important;
+        backdrop-filter: blur(2px);
     }
     </style>
     """,
