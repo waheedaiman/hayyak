@@ -481,6 +481,10 @@ st.markdown(
             font-size: 1.8rem;
         }
     }
+    div[data-testid="stDialog"] {
+    background: #FFF9F0 !important;
+    border-radius: 24px !important;
+    }
     </style>
     """,
     unsafe_allow_html=True,
