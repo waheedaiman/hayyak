@@ -11,8 +11,7 @@ st.set_page_config(
 apply_hayyak_theme()
 render_nav(active="utilities")
 
-
-# ── ORIGINAL DATA STRUCTURE (exactly as you first provided) ────────────────
+# ── UPDATED DATA: all new DEWA info, other utilities unchanged ──────────────
 UTILITIES = {
     "DEWA": {
         "number": "01",
@@ -20,21 +19,37 @@ UTILITIES = {
         "description": "Power and water activation for your new Dubai home — the essential first step.",
         "steps": [
             """Start by confirming your exact property details. Ask the landlord, agent, or building management for the correct unit number, building name, and DEWA premise number. Do not guess the premise number because using the wrong property details can delay activation.""",
-
             """Prepare your key documents before applying. You may need your signed tenancy contract, Ejari details once available, Emirates ID if available, passport or visa details if requested, and a valid payment method for the security deposit and activation charges.""",
-
             """Use the official <a href="https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in" target="_blank">DEWA Move-In service</a>. This is the correct place to activate electricity and water for a new home in Dubai. Avoid relying on unofficial pages for final fees or timelines.""",
-
             """Submit the move-in request with your property and tenant details. Carefully review the account information, premise number, mobile number, email address, and tenancy details before confirming the request.""",
-
             """Pay the required DEWA charges through official channels. DEWA’s official page currently lists a refundable security deposit of AED 2,000 for apartments or AED 4,000 for villas, plus a supply activation fee of AED 155. Always confirm the final amount on the official DEWA page at the time of applying.""",
-
             """Wait for activation and keep the payment confirmation. DEWA notes that if electricity and water supply is not activated within 15 working hours after security deposit payment, the customer should contact DEWA Customer Care.""",
-
             """After activation, save your DEWA account number, payment receipt, and confirmation email. You will need these for bill payments, move-out, deposit refund, and future service requests.""",
         ],
         "accent": "#BC8653",
         "motif": "M 0,20 Q 30,0 60,20 Q 90,40 120,20",
+        # ── New structured info for tabs ──
+        "quick_info": {
+            "activation": "Up to 15 working hours*",
+            "deposit": "AED 2,000 (Apt) / AED 4,000 (Villa)",
+        },
+        "important_notes": [
+            "🕒 <strong>Activation after deposit</strong>: DEWA states up to 15 working hours for supply activation.",
+            "💰 <strong>Refundable deposit</strong>: AED 2,000 for apartments, AED 4,000 for villas.",
+            "✅ <strong>Keep all receipts safe</strong>: You may need them for move-out or deposit refund.",
+            "ℹ️ <strong>Charges may change</strong>: Always confirm the latest amounts on the official DEWA website.",
+        ],
+        "official_links": [
+            {
+                "title": "DEWA Move-In Service",
+                "url": "https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in",
+            },
+            {
+                "title": "DEWA Official Website",
+                "url": "https://dewa.gov.ae",
+            },
+        ],
+        "footer_note": "* As per DEWA: If supply is not activated within 15 working hours after security deposit payment, please contact DEWA Customer Care.",
     },
 
     "Ejari": {
@@ -95,429 +110,129 @@ UTILITIES = {
     },
 }
 
-
-# ── MODAL WITH TABS – only shows tabs that have content ────────────────────
+# ── REDESIGNED MODAL: tabs when extra info exists, legacy layout otherwise ──
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
-    accent = item.get("accent", "#8C8A67")
-    tag = item.get("tag", "")
-    description = item.get("description", "")
-    steps = item.get("steps", [])
-    quick_info = item.get("quick_info", [])        # not present → empty list
-    important_notes = item.get("important_notes", [])
-    official_links = item.get("official_links", [])
-    footer_note = item.get("footer_note", "")
-
-    # Build a list of (tab_id, label, content_html) only for non‑empty sections
-    tabs_to_show = []
-
-    # Quick Info (if data exists)
-    if quick_info:
-        quick_html = ""
-        for info in quick_info:
-            if isinstance(info, dict):
-                title = info.get("title", info.get("label", ""))
-                body = info.get("body", info.get("text", ""))
-            else:
-                title, body = "", str(info)
-            if title or body:
-                quick_html += f"""
-                <div class="hy-modal-pill">
-                    <span class="hy-modal-pill-icon">i</span>
-                    <div>
-                        <strong>{title}</strong>
-                        <p>{body}</p>
-                    </div>
-                </div>
-                """
-        if quick_html:
-            tabs_to_show.append(("quick", "Quick Info", quick_html))
-
-    # Setup Guide (always present)
-    steps_html = ""
-    for idx, step in enumerate(steps, 1):
-        # step can be a string or a dict with title/body
-        if isinstance(step, dict):
-            title = step.get("title", f"Step {idx}")
-            body = step.get("body", step.get("text", ""))
-        else:
-            title = f"Step {idx}"
-            body = step
-        steps_html += f"""
-        <div class="hy-step-card">
-            <div class="hy-step-number">{idx:02d}</div>
-            <h4>{title}</h4>
-            <p>{body}</p>
-        </div>
-        """
-    if steps_html:
-        tabs_to_show.append(("guide", "Setup Guide", steps_html))
-
-    # Important Notes (if data exists)
-    if important_notes:
-        notes_html = ""
-        for note in important_notes:
-            if isinstance(note, dict):
-                title = note.get("title", note.get("label", ""))
-                body = note.get("body", note.get("text", ""))
-            else:
-                title, body = "", str(note)
-            if title or body:
-                notes_html += f"""
-                <div class="hy-note-row">
-                    <span class="hy-note-icon">!</span>
-                    <div>
-                        <strong>{title}</strong>
-                        <p>{body}</p>
-                    </div>
-                </div>
-                """
-        if notes_html:
-            tabs_to_show.append(("notes", "Important", notes_html))
-
-    # Official Links (if data exists)
-    if official_links:
-        links_html = ""
-        for link in official_links:
-            if isinstance(link, dict):
-                label = link.get("title", link.get("label", "Official link"))
-                url = link.get("url", link.get("href", "#"))
-            else:
-                label, url = str(link), "#"
-            links_html += f"""
-            <a class="hy-official-link" href="{url}" target="_blank">
-                <span>↗</span>
-                <div>
-                    <strong>{label}</strong>
-                    <small>{url}</small>
-                </div>
-            </a>
-            """
-        if links_html:
-            tabs_to_show.append(("links", "Official Links", links_html))
-
-    # Footer note (only shown inside Quick Info tab if no Quick Info tab,
-    # otherwise we can put it at the bottom of the modal – optional)
-    footer_block = ""
-    if footer_note:
-        footer_block = f"""
-        <div class="hy-footer-note">
-            {footer_note}
-        </div>
-        """
-
-    # Build the HTML radio tabs only if we have >1 tab; otherwise show just the content
-    if len(tabs_to_show) > 1:
-        # Unique name based on utility name
-        safe_name = name.lower().replace(" ", "-").replace("/", "").replace("&", "and")
-        radios = ""
-        labels = ""
-        panels = ""
-        for i, (tab_id, tab_label, tab_content) in enumerate(tabs_to_show):
-            checked = "checked" if i == 0 else ""
-            radios += f'<input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-{tab_id}-{safe_name}" {checked}>\n'
-            labels += f'<label class="hy-modal-tab-label" for="tab-{tab_id}-{safe_name}">{tab_label}</label>\n'
-            panels += f'<div class="hy-modal-panel hy-panel-{tab_id}">{tab_content} {footer_block if tab_id == "quick" and not quick_info else ""}</div>\n'
-        # If footer is not placed in a specific panel, add it after panels
-        if footer_block and not quick_info:
-            footer_block = ""  # we will append it after all panels
-
-        tab_structure = f"""
-        <div class="hy-modal-tabs">
-            {labels}
-        </div>
-        <div class="hy-modal-pages">
-            {panels}
-            {footer_block}
-        </div>
-        """
-    else:
-        # Only one tab – just display the content
-        if tabs_to_show:
-            tab_id, tab_label, content = tabs_to_show[0]
-            tab_structure = f"""
-            <div class="hy-modal-pages" style="max-height: 58vh; overflow-y: auto;">
-                {content}
-                {footer_block}
-            </div>
-            """
-        else:
-            tab_structure = ""
-
-    # Full modal HTML
+    # Header (always visible)
     st.markdown(
-        f"""
-        <style>
-        [data-testid="stDialog"] {{
-            background: rgba(43, 27, 20, 0.22) !important;
-        }}
-        [data-testid="stDialog"] > div {{
-            background: #FFF9F0 !important;
-            border: 1px solid rgba(140, 138, 103, 0.25) !important;
-            border-radius: 28px !important;
-            box-shadow: 0 28px 80px rgba(43, 27, 20, 0.22) !important;
-            color: #2B1B14 !important;
-        }}
-        [data-testid="stDialog"] * {{
-            color: inherit;
-        }}
-        .hy-modal-shell {{
-            background: radial-gradient(circle at top right, rgba(140, 138, 103, 0.13), transparent 28%),
-                        linear-gradient(135deg, #FFF9F0 0%, #F6EFE5 100%);
-            border-radius: 24px;
-            overflow: hidden;
-            color: #2B1B14;
-            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        }}
-        .hy-modal-header {{
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 1rem;
-            align-items: center;
-            padding: 1.15rem 1.2rem 0.95rem 1.2rem;
-            border-bottom: 1px solid rgba(140, 138, 103, 0.18);
-        }}
-        .hy-modal-mark {{
-            width: 72px;
-            height: 72px;
-            border-radius: 22px;
-            background: {accent};
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #FFF9F0;
-            font-weight: 900;
-            font-size: 1.15rem;
-            box-shadow: 0 16px 32px rgba(100, 42, 22, 0.14);
-        }}
-        .hy-modal-kicker {{
-            color: {accent};
-            font-size: 0.72rem;
-            font-weight: 900;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-            margin-bottom: 0.2rem;
-        }}
-        .hy-modal-title {{
-            margin: 0;
-            color: #642A16;
-            font-size: 2rem;
-            line-height: 1;
-            letter-spacing: -0.04em;
-        }}
-        .hy-modal-subtitle {{
-            margin: 0.35rem 0 0 0;
-            color: #735A4C;
-            line-height: 1.45;
-            font-size: 0.95rem;
-        }}
-        .hy-modal-body {{
-            padding: 1rem 1.2rem 1.15rem 1.2rem;
-        }}
-        .hy-modal-tabs {{
-            display: flex;
-            gap: 0.6rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid rgba(140, 138, 103, 0.18);
-            padding-bottom: 0.8rem;
-            flex-wrap: wrap;
-        }}
-        .hy-modal-radio {{
-            display: none;
-        }}
-        .hy-modal-tab-label {{
-            padding: 0.65rem 1rem;
-            border-radius: 999px;
-            background: rgba(140, 138, 103, 0.12);
-            border: 1px solid rgba(140, 138, 103, 0.22);
-            color: #642A16;
-            font-size: 0.78rem;
-            font-weight: 900;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.18s ease;
-        }}
-        .hy-modal-tab-label:hover {{
-            background: rgba(140, 138, 103, 0.2);
-        }}
-        .hy-modal-panel {{
-            display: none;
-        }}
-        .hy-modal-pages {{
-            max-height: 58vh;
-            overflow-y: auto;
-            padding-right: 0.4rem;
-        }}
-        /* Active tab style – targets the correct radio & label combo */
-        {''.join([f'#tab-{tab_id}-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-{tab_id}-{safe_name}"]'
-                  for tab_id, _, _ in tabs_to_show]) if len(tabs_to_show) > 1 else ""}
-        {{
-            background: {accent};
-            color: #FFF9F0;
-            border-color: {accent};
-        }}
-        {''.join([f'#tab-{tab_id}-{safe_name}:checked ~ .hy-modal-pages .hy-panel-{tab_id}'
-                  for tab_id, _, _ in tabs_to_show]) if len(tabs_to_show) > 1 else ""}
-        {{
-            display: block;
-        }}
-        .hy-section-label {{
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            margin: 0.25rem 0 0.75rem 0;
-            color: #642A16;
-            font-size: 0.76rem;
-            font-weight: 900;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-        }}
-        .hy-section-label:after {{
-            content: "";
-            height: 1px;
-            flex: 1;
-            background: linear-gradient(90deg, rgba(140, 138, 103, 0.42), transparent);
-        }}
-        .hy-step-grid {{
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.65rem;
-        }}
-        .hy-step-card {{
-            position: relative;
-            min-height: 150px;
-            background: rgba(255, 249, 240, 0.90);
-            border: 1px solid rgba(188, 134, 83, 0.22);
-            border-radius: 18px;
-            padding: 0.85rem 0.8rem 0.8rem 0.8rem;
-            box-shadow: 0 10px 24px rgba(100, 42, 22, 0.055);
-        }}
-        .hy-step-card:after {{
-            content: "";
-            position: absolute;
-            left: 0.85rem;
-            right: 0.85rem;
-            bottom: 0;
-            height: 3px;
-            border-radius: 999px 999px 0 0;
-            background: {accent};
-            opacity: 0.86;
-        }}
-        .hy-step-number {{
-            width: 30px;
-            height: 30px;
-            border-radius: 999px;
-            background: {accent};
-            color: #FFF9F0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 0.76rem;
-            margin-bottom: 0.65rem;
-        }}
-        .hy-step-card h4 {{
-            margin: 0 0 0.35rem 0;
-            color: #642A16;
-            font-size: 0.95rem;
-            line-height: 1.18;
-        }}
-        .hy-step-card p {{
-            margin: 0;
-            color: #2B1B14;
-            font-size: 0.78rem;
-            line-height: 1.45;
-        }}
-        .hy-step-card a, .hy-official-link {{
-            color: #2D5B7C !important;
-            font-weight: 800;
-            text-decoration: none;
-        }}
-        .hy-note-row {{
-            display: flex;
-            gap: 0.65rem;
-            padding: 0.65rem 0;
-            border-bottom: 1px solid rgba(140, 138, 103, 0.14);
-        }}
-        .hy-note-row:last-child {{
-            border-bottom: 0;
-        }}
-        .hy-official-link {{
-            display: flex;
-            gap: 0.65rem;
-            align-items: flex-start;
-            padding: 0.65rem 0;
-            border-bottom: 1px solid rgba(140, 138, 103, 0.14);
-        }}
-        .hy-official-link:last-child {{
-            border-bottom: 0;
-        }}
-        .hy-official-link span {{
-            color: {accent};
-            font-weight: 900;
-            flex-shrink: 0;
-        }}
-        .hy-official-link strong {{
-            color: #2D5B7C;
-            display: block;
-            font-size: 0.82rem;
-        }}
-        .hy-official-link small {{
-            color: #735A4C;
-            word-break: break-word;
-            line-height: 1.25;
-        }}
-        .hy-footer-note {{
-            margin-top: 0.8rem;
-            background: rgba(140, 138, 103, 0.12);
-            border: 1px solid rgba(140, 138, 103, 0.20);
-            border-radius: 16px;
-            padding: 0.7rem 0.8rem;
-            color: #735A4C;
-            font-size: 0.78rem;
-            line-height: 1.45;
-        }}
-        .hy-empty-text {{
-            color: #735A4C;
-            font-size: 0.8rem;
-            margin: 0;
-        }}
-        @media (max-width: 900px) {{
-            .hy-step-grid {{
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }}
-        }}
-        @media (max-width: 560px) {{
-            .hy-modal-header {{
-                grid-template-columns: 1fr;
-            }}
-            .hy-step-grid {{
-                grid-template-columns: 1fr;
-            }}
-        }}
-        </style>
-
-        <div class="hy-modal-shell">
-            <div class="hy-modal-header">
-                <div class="hy-modal-mark">{item.get("number", "")}</div>
-                <div>
-                    <div class="hy-modal-kicker">{tag}</div>
-                    <h2 class="hy-modal-title">{name}</h2>
-                    <p class="hy-modal-subtitle">{description}</p>
-                </div>
-            </div>
-            <div class="hy-modal-body">
-                {radios if len(tabs_to_show) > 1 else ""}
-                {tab_structure}
-            </div>
-        </div>
-        """,
+        f"""<div style="margin-bottom:0.25rem;">
+            <span style="font-size:0.72rem; font-weight:800; letter-spacing:0.22em;
+                         text-transform:uppercase; color:{item['accent']};">
+                {item['tag']}
+            </span>
+        </div>""",
         unsafe_allow_html=True,
     )
+    st.subheader(name)
+    st.caption(item["description"])
+    arabic_divider()
 
+    # ---- Check if we have the new detailed structure ----
+    has_tabs = any(k in item for k in ("quick_info", "important_notes", "official_links"))
 
-# ── PAGE LAYOUT (unchanged) ────────────────────────────────────────────────
+    if has_tabs:
+        # Use tabs to organise content without endless scrolling
+        tab_labels = ["⚡ Quick Info", "📋 Setup Guide", "❗ Important to Know", "🔗 Official Links"]
+        tabs = st.tabs(tab_labels)
+
+        with tabs[0]:  # Quick Info
+            if "quick_info" in item:
+                qi = item["quick_info"]
+                st.markdown(
+                    f"""
+                    <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-bottom:1rem;">
+                        <div style="flex:1; min-width:200px;">
+                            <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
+                                         color:{item['accent']}; font-weight:700;">🕒 Activation</span>
+                            <p style="margin:0.2rem 0 0 0; font-size:1.1rem; font-weight:600; color:#2B1B14;">
+                                {qi['activation']}
+                            </p>
+                        </div>
+                        <div style="flex:1; min-width:200px;">
+                            <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
+                                         color:{item['accent']}; font-weight:700;">🛡️ Security Deposit</span>
+                            <p style="margin:0.2rem 0 0 0; font-size:1.1rem; font-weight:600; color:#2B1B14;">
+                                {qi['deposit']}
+                            </p>
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.info("Quick information will be added soon.")
+
+        with tabs[1]:  # Setup Guide
+            st.markdown("**7‑STEP SETUP GUIDE**" if name == "DEWA" else "**Setup checklist**")
+            for i, step in enumerate(item["steps"], 1):
+                st.markdown(
+                    f"""<div style="display:flex; align-items:flex-start; gap:0.75rem;
+                                    padding:0.6rem 0; border-bottom:1px solid rgba(140,138,103,0.14);">
+                        <span style="min-width:24px; height:24px; border-radius:50%;
+                                     background:rgba(140,138,103,0.14);
+                                     border:1px solid rgba(140,138,103,0.28);
+                                     display:inline-flex; align-items:center; justify-content:center;
+                                     font-size:0.72rem; font-weight:800; color:{item['accent']};">
+                            {i}
+                        </span>
+                        <span style="color:#2B1B14; line-height:1.55;">{step}</span>
+                    </div>""",
+                    unsafe_allow_html=True,
+                )
+
+        with tabs[2]:  # Important to Know
+            if "important_notes" in item:
+                for note in item["important_notes"]:
+                    st.markdown(
+                        f'<div style="margin-bottom:0.8rem; color:#2B1B14; line-height:1.5;">{note}</div>',
+                        unsafe_allow_html=True,
+                    )
+            else:
+                st.info("Important notes will be added soon.")
+
+        with tabs[3]:  # Official Links
+            if "official_links" in item:
+                for link in item["official_links"]:
+                    st.markdown(
+                        f'<div style="margin-bottom:0.6rem;">'
+                        f'🌐 <a href="{link["url"]}" target="_blank" style="color:{item["accent"]}; '
+                        f'text-decoration:none; font-weight:600;">{link["title"]}</a>'
+                        f'</div>',
+                        unsafe_allow_html=True,
+                    )
+                # Footer note inside the same tab for convenience
+                if "footer_note" in item:
+                    st.markdown("---")
+                    st.caption(item["footer_note"])
+            else:
+                st.info("Official links will be added soon.")
+
+    else:
+        # Legacy simple checklist (no tabs, just the old layout)
+        st.markdown("**Setup checklist**")
+        for i, step in enumerate(item["steps"], 1):
+            st.markdown(
+                f"""<div style="display:flex; align-items:flex-start; gap:0.75rem;
+                                padding:0.6rem 0; border-bottom:1px solid rgba(140,138,103,0.14);">
+                    <span style="min-width:24px; height:24px; border-radius:50%;
+                                 background:rgba(140,138,103,0.14);
+                                 border:1px solid rgba(140,138,103,0.28);
+                                 display:inline-flex; align-items:center; justify-content:center;
+                                 font-size:0.72rem; font-weight:800; color:{item['accent']};">
+                        {i}
+                    </span>
+                    <span style="color:#2B1B14; line-height:1.55;">{step}</span>
+                </div>""",
+                unsafe_allow_html=True,
+            )
+        st.markdown(
+            """<p style="margin-top:1.1rem; font-size:0.8rem; color:#735A4C;">
+                Official links will be added as inline references within each step as the guide develops.
+            </p>""",
+            unsafe_allow_html=True,
+        )
+
+# ── PAGE LAYOUT (exactly as before) ────────────────────────────────────────
 st.markdown(
     """
     <style>
@@ -770,7 +485,6 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
-
 
 # ── HERO ──────────────────────────────────────────────────────────────────
 st.markdown(
