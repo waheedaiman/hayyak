@@ -99,7 +99,7 @@ UTILITIES = {
             """Visitors usually need passport details. Residents usually need Emirates ID for mobile registration or renewal. TDRA states that licensed telecom providers must register subscriber data accurately with proper documentation such as Emirates ID.""",
             """Choose your mobile package based on actual daily use. Think about: Google Maps, WhatsApp, ride‑hailing apps, delivery apps, work or university commute, hotspot usage, video calls.""",
             """Use official du or e& channels rather than random third‑party sellers. For visitors, start from the official visitor/tourist plan pages.""",
-            """Follow the provider’s activation process. For eSIM, scan the QR code only on the phone you want to activate. Keep Wi‑Fi available during setup in case mobile data is not active yet."""",
+            """Follow the provider’s activation process. For eSIM, scan the QR code only on the phone you want to activate. Keep Wi‑Fi available during setup in case mobile data is not active yet.""",
             """Download the provider app after activation. Use it to check remaining data, balance, auto‑renewal, add‑ons, Emirates ID registration status, and customer support options.""",
         ],
         "accent": "#B27960",
