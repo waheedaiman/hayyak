@@ -11,7 +11,8 @@ st.set_page_config(
 apply_hayyak_theme()
 render_nav(active="utilities")
 
-# ── UPDATED DATA: all new DEWA info, other utilities unchanged ──────────────
+
+# ── ORIGINAL DATA STRUCTURE (exactly as you first provided) ────────────────
 UTILITIES = {
     "DEWA": {
         "number": "01",
@@ -19,55 +20,21 @@ UTILITIES = {
         "description": "Power and water activation for your new Dubai home — the essential first step.",
         "steps": [
             """Start by confirming your exact property details. Ask the landlord, agent, or building management for the correct unit number, building name, and DEWA premise number. Do not guess the premise number because using the wrong property details can delay activation.""",
+
             """Prepare your key documents before applying. You may need your signed tenancy contract, Ejari details once available, Emirates ID if available, passport or visa details if requested, and a valid payment method for the security deposit and activation charges.""",
+
             """Use the official <a href="https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in" target="_blank">DEWA Move-In service</a>. This is the correct place to activate electricity and water for a new home in Dubai. Avoid relying on unofficial pages for final fees or timelines.""",
+
             """Submit the move-in request with your property and tenant details. Carefully review the account information, premise number, mobile number, email address, and tenancy details before confirming the request.""",
+
             """Pay the required DEWA charges through official channels. DEWA’s official page currently lists a refundable security deposit of AED 2,000 for apartments or AED 4,000 for villas, plus a supply activation fee of AED 155. Always confirm the final amount on the official DEWA page at the time of applying.""",
+
             """Wait for activation and keep the payment confirmation. DEWA notes that if electricity and water supply is not activated within 15 working hours after security deposit payment, the customer should contact DEWA Customer Care.""",
+
             """After activation, save your DEWA account number, payment receipt, and confirmation email. You will need these for bill payments, move-out, deposit refund, and future service requests.""",
         ],
         "accent": "#BC8653",
         "motif": "M 0,20 Q 30,0 60,20 Q 90,40 120,20",
-        # ── New structured info for tabs ──
-        "quick_info": [
-            {
-                "title": "Activation",
-                "body": "Up to 15 working hours*",
-            },
-            {
-                "title": "Security Deposit",
-                "body": "AED 2,000 (Apt) / AED 4,000 (Villa)",
-            },
-        ],
-        "important_notes": [
-            {
-                "title": "Activation after deposit",
-                "body": "DEWA states up to 15 working hours for supply activation.",
-            },
-            {
-                "title": "Refundable deposit",
-                "body": "AED 2,000 for apartments and AED 4,000 for villas.",
-            },
-            {
-                "title": "Keep all receipts safe",
-                "body": "You may need them for move-out or deposit refund.",
-            },
-            {
-                "title": "Charges may change",
-                "body": "Always confirm the latest amounts on the official DEWA website.",
-            },
-        ],
-        "official_links": [
-            {
-                "title": "DEWA Move-In Service",
-                "url": "https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in",
-            },
-            {
-                "title": "DEWA Official Website",
-                "url": "https://dewa.gov.ae",
-            },
-        ],
-        "footer_note": "* As per DEWA: If supply is not activated within 15 working hours after security deposit payment, please contact DEWA Customer Care.",
     },
 
     "Ejari": {
@@ -128,140 +95,162 @@ UTILITIES = {
     },
 }
 
+
+# ── MODAL WITH TABS – only shows tabs that have content ────────────────────
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
     accent = item.get("accent", "#8C8A67")
-    safe_name = (
-        name.lower()
-        .replace(" ", "-")
-        .replace("/", "")
-        .replace("&", "and")
-    )
     tag = item.get("tag", "")
     description = item.get("description", "")
     steps = item.get("steps", [])
-    quick_info = item.get("quick_info", [])
+    quick_info = item.get("quick_info", [])        # not present → empty list
     important_notes = item.get("important_notes", [])
     official_links = item.get("official_links", [])
-    footer_note = item.get(
-        "footer_note",
-        "Official requirements, fees, document rules, and timelines can change. Always confirm final details through the linked official service before applying.",
-    )
+    footer_note = item.get("footer_note", "")
 
-    def normalise_text(value):
-        if isinstance(value, dict):
-            title = value.get("title") or value.get("label") or ""
-            body = value.get("body") or value.get("text") or value.get("value") or ""
-            return title, body
-        return "", str(value)
+    # Build a list of (tab_id, label, content_html) only for non‑empty sections
+    tabs_to_show = []
 
-    def normalise_link(value):
-        if isinstance(value, dict):
-            label = value.get("label") or value.get("title") or "Official link"
-            url = value.get("url") or value.get("href") or "#"
-            return label, url
+    # Quick Info (if data exists)
+    if quick_info:
+        quick_html = ""
+        for info in quick_info:
+            if isinstance(info, dict):
+                title = info.get("title", info.get("label", ""))
+                body = info.get("body", info.get("text", ""))
+            else:
+                title, body = "", str(info)
+            if title or body:
+                quick_html += f"""
+                <div class="hy-modal-pill">
+                    <span class="hy-modal-pill-icon">i</span>
+                    <div>
+                        <strong>{title}</strong>
+                        <p>{body}</p>
+                    </div>
+                </div>
+                """
+        if quick_html:
+            tabs_to_show.append(("quick", "Quick Info", quick_html))
 
-        if isinstance(value, (list, tuple)) and len(value) >= 2:
-            return value[0], value[1]
-
-        return str(value), "#"
-
-    quick_html = ""
-    for info in quick_info:
-        title, body = normalise_text(info)
-        if not title and body:
-            title = "Quick info"
-
-        quick_html += f"""
-        <div class="hy-modal-pill">
-            <span class="hy-modal-pill-icon">i</span>
-            <div>
-                <strong>{title}</strong>
-                <p>{body}</p>
-            </div>
-        </div>
-        """
-
-    if not quick_html:
-        quick_html = f"""
-        <div class="hy-modal-pill">
-            <span class="hy-modal-pill-icon">i</span>
-            <div>
-                <strong>{tag}</strong>
-                <p>{description}</p>
-            </div>
-        </div>
-        """
-
+    # Setup Guide (always present)
     steps_html = ""
-    for index, step in enumerate(steps, 1):
-        title = f"Step {index}"
-        body = step
-
+    for idx, step in enumerate(steps, 1):
+        # step can be a string or a dict with title/body
         if isinstance(step, dict):
-            title = step.get("title", f"Step {index}")
-            body = step.get("body") or step.get("text") or ""
-
+            title = step.get("title", f"Step {idx}")
+            body = step.get("body", step.get("text", ""))
+        else:
+            title = f"Step {idx}"
+            body = step
         steps_html += f"""
         <div class="hy-step-card">
-            <div class="hy-step-number">{index:02d}</div>
+            <div class="hy-step-number">{idx:02d}</div>
             <h4>{title}</h4>
             <p>{body}</p>
         </div>
         """
+    if steps_html:
+        tabs_to_show.append(("guide", "Setup Guide", steps_html))
 
-    notes_html = ""
-    for note in important_notes:
-        title, body = normalise_text(note)
-        if not title and body:
-            title = "Important"
+    # Important Notes (if data exists)
+    if important_notes:
+        notes_html = ""
+        for note in important_notes:
+            if isinstance(note, dict):
+                title = note.get("title", note.get("label", ""))
+                body = note.get("body", note.get("text", ""))
+            else:
+                title, body = "", str(note)
+            if title or body:
+                notes_html += f"""
+                <div class="hy-note-row">
+                    <span class="hy-note-icon">!</span>
+                    <div>
+                        <strong>{title}</strong>
+                        <p>{body}</p>
+                    </div>
+                </div>
+                """
+        if notes_html:
+            tabs_to_show.append(("notes", "Important", notes_html))
 
-        notes_html += f"""
-        <div class="hy-note-row">
-            <span class="hy-note-icon">!</span>
-            <div>
-                <strong>{title}</strong>
-                <p>{body}</p>
-            </div>
+    # Official Links (if data exists)
+    if official_links:
+        links_html = ""
+        for link in official_links:
+            if isinstance(link, dict):
+                label = link.get("title", link.get("label", "Official link"))
+                url = link.get("url", link.get("href", "#"))
+            else:
+                label, url = str(link), "#"
+            links_html += f"""
+            <a class="hy-official-link" href="{url}" target="_blank">
+                <span>↗</span>
+                <div>
+                    <strong>{label}</strong>
+                    <small>{url}</small>
+                </div>
+            </a>
+            """
+        if links_html:
+            tabs_to_show.append(("links", "Official Links", links_html))
+
+    # Footer note (only shown inside Quick Info tab if no Quick Info tab,
+    # otherwise we can put it at the bottom of the modal – optional)
+    footer_block = ""
+    if footer_note:
+        footer_block = f"""
+        <div class="hy-footer-note">
+            {footer_note}
         </div>
         """
 
-    if not notes_html:
-        notes_html = """
-        <div class="hy-note-row">
-            <span class="hy-note-icon">!</span>
-            <div>
-                <strong>Confirm before applying</strong>
-                <p>Fees, requirements, and service timelines can change. Always verify the latest details through official channels.</p>
-            </div>
+    # Build the HTML radio tabs only if we have >1 tab; otherwise show just the content
+    if len(tabs_to_show) > 1:
+        # Unique name based on utility name
+        safe_name = name.lower().replace(" ", "-").replace("/", "").replace("&", "and")
+        radios = ""
+        labels = ""
+        panels = ""
+        for i, (tab_id, tab_label, tab_content) in enumerate(tabs_to_show):
+            checked = "checked" if i == 0 else ""
+            radios += f'<input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-{tab_id}-{safe_name}" {checked}>\n'
+            labels += f'<label class="hy-modal-tab-label" for="tab-{tab_id}-{safe_name}">{tab_label}</label>\n'
+            panels += f'<div class="hy-modal-panel hy-panel-{tab_id}">{tab_content} {footer_block if tab_id == "quick" and not quick_info else ""}</div>\n'
+        # If footer is not placed in a specific panel, add it after panels
+        if footer_block and not quick_info:
+            footer_block = ""  # we will append it after all panels
+
+        tab_structure = f"""
+        <div class="hy-modal-tabs">
+            {labels}
+        </div>
+        <div class="hy-modal-pages">
+            {panels}
+            {footer_block}
         </div>
         """
-
-    links_html = ""
-    for link in official_links:
-        label, url = normalise_link(link)
-        links_html += f"""
-        <a class="hy-official-link" href="{url}" target="_blank">
-            <span>↗</span>
-            <div>
-                <strong>{label}</strong>
-                <small>{url}</small>
+    else:
+        # Only one tab – just display the content
+        if tabs_to_show:
+            tab_id, tab_label, content = tabs_to_show[0]
+            tab_structure = f"""
+            <div class="hy-modal-pages" style="max-height: 58vh; overflow-y: auto;">
+                {content}
+                {footer_block}
             </div>
-        </a>
-        """
+            """
+        else:
+            tab_structure = ""
 
-    if not links_html:
-        links_html = """
-        <p class="hy-empty-text">Official links will appear here once added for this guide.</p>
-        """
-
+    # Full modal HTML
     st.markdown(
         f"""
         <style>
         [data-testid="stDialog"] {{
             background: rgba(43, 27, 20, 0.22) !important;
         }}
-
         [data-testid="stDialog"] > div {{
             background: #FFF9F0 !important;
             border: 1px solid rgba(140, 138, 103, 0.25) !important;
@@ -269,21 +258,17 @@ def show_utility_modal(name, item):
             box-shadow: 0 28px 80px rgba(43, 27, 20, 0.22) !important;
             color: #2B1B14 !important;
         }}
-
         [data-testid="stDialog"] * {{
             color: inherit;
         }}
-
         .hy-modal-shell {{
-            background:
-                radial-gradient(circle at top right, rgba(140, 138, 103, 0.13), transparent 28%),
-                linear-gradient(135deg, #FFF9F0 0%, #F6EFE5 100%);
+            background: radial-gradient(circle at top right, rgba(140, 138, 103, 0.13), transparent 28%),
+                        linear-gradient(135deg, #FFF9F0 0%, #F6EFE5 100%);
             border-radius: 24px;
             overflow: hidden;
             color: #2B1B14;
             font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         }}
-
         .hy-modal-header {{
             display: grid;
             grid-template-columns: auto 1fr;
@@ -291,9 +276,7 @@ def show_utility_modal(name, item):
             align-items: center;
             padding: 1.15rem 1.2rem 0.95rem 1.2rem;
             border-bottom: 1px solid rgba(140, 138, 103, 0.18);
-            position: relative;
         }}
-
         .hy-modal-mark {{
             width: 72px;
             height: 72px;
@@ -307,7 +290,6 @@ def show_utility_modal(name, item):
             font-size: 1.15rem;
             box-shadow: 0 16px 32px rgba(100, 42, 22, 0.14);
         }}
-
         .hy-modal-kicker {{
             color: {accent};
             font-size: 0.72rem;
@@ -316,7 +298,6 @@ def show_utility_modal(name, item):
             text-transform: uppercase;
             margin-bottom: 0.2rem;
         }}
-
         .hy-modal-title {{
             margin: 0;
             color: #642A16;
@@ -324,18 +305,15 @@ def show_utility_modal(name, item):
             line-height: 1;
             letter-spacing: -0.04em;
         }}
-
         .hy-modal-subtitle {{
             margin: 0.35rem 0 0 0;
             color: #735A4C;
             line-height: 1.45;
             font-size: 0.95rem;
         }}
-
         .hy-modal-body {{
             padding: 1rem 1.2rem 1.15rem 1.2rem;
         }}
-
         .hy-modal-tabs {{
             display: flex;
             gap: 0.6rem;
@@ -344,11 +322,9 @@ def show_utility_modal(name, item):
             padding-bottom: 0.8rem;
             flex-wrap: wrap;
         }}
-
         .hy-modal-radio {{
             display: none;
         }}
-
         .hy-modal-tab-label {{
             padding: 0.65rem 1rem;
             border-radius: 999px;
@@ -362,37 +338,30 @@ def show_utility_modal(name, item):
             cursor: pointer;
             transition: 0.18s ease;
         }}
-
         .hy-modal-tab-label:hover {{
             background: rgba(140, 138, 103, 0.2);
         }}
-
         .hy-modal-panel {{
             display: none;
         }}
-
         .hy-modal-pages {{
             max-height: 58vh;
             overflow-y: auto;
             padding-right: 0.4rem;
         }}
-
-        #tab-quick-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-quick-{safe_name}"],
-        #tab-guide-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-guide-{safe_name}"],
-        #tab-notes-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-notes-{safe_name}"],
-        #tab-links-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-links-{safe_name}"] {{
+        /* Active tab style – targets the correct radio & label combo */
+        {''.join([f'#tab-{tab_id}-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-{tab_id}-{safe_name}"]'
+                  for tab_id, _, _ in tabs_to_show]) if len(tabs_to_show) > 1 else ""}
+        {{
             background: {accent};
             color: #FFF9F0;
             border-color: {accent};
         }}
-
-        #tab-quick-{safe_name}:checked ~ .hy-modal-pages .hy-panel-quick,
-        #tab-guide-{safe_name}:checked ~ .hy-modal-pages .hy-panel-guide,
-        #tab-notes-{safe_name}:checked ~ .hy-modal-pages .hy-panel-notes,
-        #tab-links-{safe_name}:checked ~ .hy-modal-pages .hy-panel-links {{
+        {''.join([f'#tab-{tab_id}-{safe_name}:checked ~ .hy-modal-pages .hy-panel-{tab_id}'
+                  for tab_id, _, _ in tabs_to_show]) if len(tabs_to_show) > 1 else ""}
+        {{
             display: block;
         }}
-
         .hy-section-label {{
             display: flex;
             align-items: center;
@@ -404,68 +373,17 @@ def show_utility_modal(name, item):
             letter-spacing: 0.16em;
             text-transform: uppercase;
         }}
-
         .hy-section-label:after {{
             content: "";
             height: 1px;
             flex: 1;
             background: linear-gradient(90deg, rgba(140, 138, 103, 0.42), transparent);
         }}
-
-        .hy-quick-grid {{
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 0.65rem;
-            margin-bottom: 0.9rem;
-        }}
-
-        .hy-modal-pill {{
-            display: flex;
-            gap: 0.65rem;
-            align-items: flex-start;
-            background: rgba(255, 249, 240, 0.88);
-            border: 1px solid rgba(140, 138, 103, 0.20);
-            border-radius: 16px;
-            padding: 0.72rem;
-        }}
-
-        .hy-modal-pill-icon,
-        .hy-note-icon {{
-            width: 28px;
-            height: 28px;
-            border-radius: 999px;
-            background: rgba(140, 138, 103, 0.15);
-            border: 1px solid rgba(140, 138, 103, 0.30);
-            color: {accent};
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            flex-shrink: 0;
-        }}
-
-        .hy-modal-pill strong,
-        .hy-note-row strong {{
-            display: block;
-            color: #642A16;
-            font-size: 0.82rem;
-            margin-bottom: 0.15rem;
-        }}
-
-        .hy-modal-pill p,
-        .hy-note-row p {{
-            margin: 0;
-            color: #2B1B14;
-            font-size: 0.8rem;
-            line-height: 1.45;
-        }}
-
         .hy-step-grid {{
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 0.65rem;
         }}
-
         .hy-step-card {{
             position: relative;
             min-height: 150px;
@@ -475,7 +393,6 @@ def show_utility_modal(name, item):
             padding: 0.85rem 0.8rem 0.8rem 0.8rem;
             box-shadow: 0 10px 24px rgba(100, 42, 22, 0.055);
         }}
-
         .hy-step-card:after {{
             content: "";
             position: absolute;
@@ -487,7 +404,6 @@ def show_utility_modal(name, item):
             background: {accent};
             opacity: 0.86;
         }}
-
         .hy-step-number {{
             width: 30px;
             height: 30px;
@@ -501,40 +417,32 @@ def show_utility_modal(name, item):
             font-size: 0.76rem;
             margin-bottom: 0.65rem;
         }}
-
         .hy-step-card h4 {{
             margin: 0 0 0.35rem 0;
             color: #642A16;
             font-size: 0.95rem;
             line-height: 1.18;
         }}
-
         .hy-step-card p {{
             margin: 0;
             color: #2B1B14;
             font-size: 0.78rem;
             line-height: 1.45;
         }}
-
-        .hy-step-card a,
-        .hy-official-link {{
+        .hy-step-card a, .hy-official-link {{
             color: #2D5B7C !important;
             font-weight: 800;
             text-decoration: none;
         }}
-
-
         .hy-note-row {{
             display: flex;
             gap: 0.65rem;
             padding: 0.65rem 0;
             border-bottom: 1px solid rgba(140, 138, 103, 0.14);
         }}
-
         .hy-note-row:last-child {{
             border-bottom: 0;
         }}
-
         .hy-official-link {{
             display: flex;
             gap: 0.65rem;
@@ -542,29 +450,24 @@ def show_utility_modal(name, item):
             padding: 0.65rem 0;
             border-bottom: 1px solid rgba(140, 138, 103, 0.14);
         }}
-
         .hy-official-link:last-child {{
             border-bottom: 0;
         }}
-
         .hy-official-link span {{
             color: {accent};
             font-weight: 900;
             flex-shrink: 0;
         }}
-
         .hy-official-link strong {{
             color: #2D5B7C;
             display: block;
             font-size: 0.82rem;
         }}
-
         .hy-official-link small {{
             color: #735A4C;
             word-break: break-word;
             line-height: 1.25;
         }}
-
         .hy-footer-note {{
             margin-top: 0.8rem;
             background: rgba(140, 138, 103, 0.12);
@@ -575,25 +478,20 @@ def show_utility_modal(name, item):
             font-size: 0.78rem;
             line-height: 1.45;
         }}
-
         .hy-empty-text {{
             color: #735A4C;
             font-size: 0.8rem;
             margin: 0;
         }}
-
         @media (max-width: 900px) {{
             .hy-step-grid {{
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }}
         }}
-
         @media (max-width: 560px) {{
             .hy-modal-header {{
                 grid-template-columns: 1fr;
             }}
-
-            .hy-quick-grid,
             .hy-step-grid {{
                 grid-template-columns: 1fr;
             }}
@@ -609,60 +507,17 @@ def show_utility_modal(name, item):
                     <p class="hy-modal-subtitle">{description}</p>
                 </div>
             </div>
-
-        <div class="hy-modal-body">
-            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-quick-{safe_name}" checked>
-            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-guide-{safe_name}">
-            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-notes-{safe_name}">
-            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-links-{safe_name}">
-
-            <div class="hy-modal-tabs">
-                <label class="hy-modal-tab-label" for="tab-quick-{safe_name}">Quick Info</label>
-                <label class="hy-modal-tab-label" for="tab-guide-{safe_name}">Setup Guide</label>
-                <label class="hy-modal-tab-label" for="tab-notes-{safe_name}">Important</label>
-                <label class="hy-modal-tab-label" for="tab-links-{safe_name}">Official Links</label>
+            <div class="hy-modal-body">
+                {radios if len(tabs_to_show) > 1 else ""}
+                {tab_structure}
             </div>
-
-            <div class="hy-modal-pages">
-                <div class="hy-modal-panel hy-panel-quick">
-                    <div class="hy-section-label">Quick Info</div>
-                    <div class="hy-quick-grid">
-                        {quick_html}
-                    </div>
-
-                    <div class="hy-footer-note">
-                        {footer_note}
-                    </div>
-                </div>
-
-                <div class="hy-modal-panel hy-panel-guide">
-                    <div class="hy-section-label">Setup Guide</div>
-                    <div class="hy-step-grid">
-                        {steps_html}
-                    </div>
-                </div>
-
-                <div class="hy-modal-panel hy-panel-notes">
-                    <div class="hy-section-label">Important to Know</div>
-                    <div>
-                        {notes_html}
-                    </div>
-                </div>
-
-                <div class="hy-modal-panel hy-panel-links">
-                    <div class="hy-section-label">Official Links</div>
-                    <div>
-                        {links_html}
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
 
-# ── PAGE LAYOUT (exactly as before) ────────────────────────────────────────
+
+# ── PAGE LAYOUT (unchanged) ────────────────────────────────────────────────
 st.markdown(
     """
     <style>
@@ -915,6 +770,7 @@ st.markdown(
     """,
     unsafe_allow_html=True,
 )
+
 
 # ── HERO ──────────────────────────────────────────────────────────────────
 st.markdown(
