@@ -109,7 +109,7 @@ def build_personalised_checklist(profile, top_recs):
 st.markdown(
     f"""
     <style>
-    /* hero – same as utilities */
+    /* hero – same as before */
     .checklist-hero {{
         position: relative;
         padding: 2.5rem 1.5rem 2rem 1.5rem;
@@ -177,27 +177,41 @@ st.markdown(
         background: #FFF9F0;
         border: 1px solid rgba(140, 138, 103, 0.18);
         border-radius: 24px;
-        padding: 1.5rem 1.8rem;
+        padding: 1.8rem 2rem;  /* slightly bigger padding */
         margin-top: 1rem;
         box-shadow: 0 8px 18px rgba(100, 42, 22, 0.05);
+    }}
+
+    /* task row – increased spacing and readability */
+    .checklist-card div[data-testid="stCheckbox"] {{
+        margin-bottom: 0.9rem;               /* space between tasks */
+        padding: 0.5rem 0;
+        border-bottom: 1px dashed rgba(140,138,103,0.12);  /* light separator */
+    }}
+    .checklist-card div[data-testid="stCheckbox"]:last-child {{
+        border-bottom: none;
+        margin-bottom: 0;
+    }}
+
+    .checklist-card label {{
+        font-size: 1.05rem;                  /* larger text */
+        line-height: 1.55;                   /* more breathing room */
+        color: #2B1B14;                      /* almost black, good contrast */
+        font-weight: 450;                    /* slightly bolder than default */
+        padding-left: 0.4rem;
+    }}
+
+    /* checkbox itself */
+    .checklist-card input[type="checkbox"] {{
+        accent-color: #8C8A67;
+        transform: scale(1.3);               /* bigger checkbox */
+        margin-right: 0.7rem;
+        cursor: pointer;
     }}
 
     /* progress bar color */
     div[data-testid="stProgress"] > div > div {{
         background-color: #8C8A67;
-    }}
-
-    /* checkbox styling – keep Streamlit native, just tweak accent */
-    .checklist-card input[type="checkbox"] {{
-        accent-color: #8C8A67;                /* modern browsers */
-        transform: scale(1.2);
-        margin-right: 0.6rem;
-        cursor: pointer;
-    }}
-    /* For WebKit fallback (older Safari) */
-    .checklist-card input[type="checkbox"]:checked {{
-        background-color: #8C8A67;
-        border-color: #8C8A67;
     }}
 
     @keyframes fadeUp {{
@@ -208,6 +222,7 @@ st.markdown(
     @media (max-width: 820px) {{
         .hero-content h1 {{ font-size: 2.2rem; }}
         .tip-card {{ flex-direction: column; text-align: center; gap: 0.3rem; }}
+        .checklist-card label {{ font-size: 0.98rem; }}
     }}
     @media (max-width: 480px) {{
         .hero-content h1 {{ font-size: 1.8rem; }}
