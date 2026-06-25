@@ -29,15 +29,33 @@ UTILITIES = {
         "accent": "#BC8653",
         "motif": "M 0,20 Q 30,0 60,20 Q 90,40 120,20",
         # ── New structured info for tabs ──
-        "quick_info": {
-            "activation": "Up to 15 working hours*",
-            "deposit": "AED 2,000 (Apt) / AED 4,000 (Villa)",
-        },
+        "quick_info": [
+            {
+                "title": "Activation",
+                "body": "Up to 15 working hours*",
+            },
+            {
+                "title": "Security Deposit",
+                "body": "AED 2,000 (Apt) / AED 4,000 (Villa)",
+            },
+        ],
         "important_notes": [
-            "🕒 <strong>Activation after deposit</strong>: DEWA states up to 15 working hours for supply activation.",
-            "💰 <strong>Refundable deposit</strong>: AED 2,000 for apartments, AED 4,000 for villas.",
-            "✅ <strong>Keep all receipts safe</strong>: You may need them for move-out or deposit refund.",
-            "ℹ️ <strong>Charges may change</strong>: Always confirm the latest amounts on the official DEWA website.",
+            {
+                "title": "Activation after deposit",
+                "body": "DEWA states up to 15 working hours for supply activation.",
+            },
+            {
+                "title": "Refundable deposit",
+                "body": "AED 2,000 for apartments and AED 4,000 for villas.",
+            },
+            {
+                "title": "Keep all receipts safe",
+                "body": "You may need them for move-out or deposit refund.",
+            },
+            {
+                "title": "Charges may change",
+                "body": "Always confirm the latest amounts on the official DEWA website.",
+            },
         ],
         "official_links": [
             {
@@ -110,127 +128,495 @@ UTILITIES = {
     },
 }
 
-# ── REDESIGNED MODAL: tabs when extra info exists, legacy layout otherwise ──
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
-    # Header (always visible)
-    st.markdown(
-        f"""<div style="margin-bottom:0.25rem;">
-            <span style="font-size:0.72rem; font-weight:800; letter-spacing:0.22em;
-                         text-transform:uppercase; color:{item['accent']};">
-                {item['tag']}
-            </span>
-        </div>""",
-        unsafe_allow_html=True,
+    accent = item.get("accent", "#8C8A67")
+    tag = item.get("tag", "")
+    description = item.get("description", "")
+    steps = item.get("steps", [])
+    quick_info = item.get("quick_info", [])
+    important_notes = item.get("important_notes", [])
+    official_links = item.get("official_links", [])
+    footer_note = item.get(
+        "footer_note",
+        "Official requirements, fees, document rules, and timelines can change. Always confirm final details through the linked official service before applying.",
     )
-    st.subheader(name)
-    st.caption(item["description"])
-    arabic_divider()
 
-    # ---- Check if we have the new detailed structure ----
-    has_tabs = any(k in item for k in ("quick_info", "important_notes", "official_links"))
+    def normalise_text(value):
+        if isinstance(value, dict):
+            title = value.get("title") or value.get("label") or ""
+            body = value.get("body") or value.get("text") or value.get("value") or ""
+            return title, body
+        return "", str(value)
 
-    if has_tabs:
-        # Use tabs to organise content without endless scrolling
-        tab_labels = ["⚡ Quick Info", "📋 Setup Guide", "❗ Important to Know", "🔗 Official Links"]
-        tabs = st.tabs(tab_labels)
+    def normalise_link(value):
+        if isinstance(value, dict):
+            label = value.get("label") or value.get("title") or "Official link"
+            url = value.get("url") or value.get("href") or "#"
+            return label, url
 
-        with tabs[0]:  # Quick Info
-            if "quick_info" in item:
-                qi = item["quick_info"]
-                st.markdown(
-                    f"""
-                    <div style="display:flex; gap:2rem; flex-wrap:wrap; margin-bottom:1rem;">
-                        <div style="flex:1; min-width:200px;">
-                            <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
-                                         color:{item['accent']}; font-weight:700;">🕒 Activation</span>
-                            <p style="margin:0.2rem 0 0 0; font-size:1.1rem; font-weight:600; color:#2B1B14;">
-                                {qi['activation']}
-                            </p>
-                        </div>
-                        <div style="flex:1; min-width:200px;">
-                            <span style="font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em;
-                                         color:{item['accent']}; font-weight:700;">🛡️ Security Deposit</span>
-                            <p style="margin:0.2rem 0 0 0; font-size:1.1rem; font-weight:600; color:#2B1B14;">
-                                {qi['deposit']}
-                            </p>
+        if isinstance(value, (list, tuple)) and len(value) >= 2:
+            return value[0], value[1]
+
+        return str(value), "#"
+
+    quick_html = ""
+    for info in quick_info:
+        title, body = normalise_text(info)
+        if not title and body:
+            title = "Quick info"
+
+        quick_html += f"""
+        <div class="hy-modal-pill">
+            <span class="hy-modal-pill-icon">i</span>
+            <div>
+                <strong>{title}</strong>
+                <p>{body}</p>
+            </div>
+        </div>
+        """
+
+    if not quick_html:
+        quick_html = f"""
+        <div class="hy-modal-pill">
+            <span class="hy-modal-pill-icon">i</span>
+            <div>
+                <strong>{tag}</strong>
+                <p>{description}</p>
+            </div>
+        </div>
+        """
+
+    steps_html = ""
+    for index, step in enumerate(steps, 1):
+        title = f"Step {index}"
+        body = step
+
+        if isinstance(step, dict):
+            title = step.get("title", f"Step {index}")
+            body = step.get("body") or step.get("text") or ""
+
+        steps_html += f"""
+        <div class="hy-step-card">
+            <div class="hy-step-number">{index:02d}</div>
+            <h4>{title}</h4>
+            <p>{body}</p>
+        </div>
+        """
+
+    notes_html = ""
+    for note in important_notes:
+        title, body = normalise_text(note)
+        if not title and body:
+            title = "Important"
+
+        notes_html += f"""
+        <div class="hy-note-row">
+            <span class="hy-note-icon">!</span>
+            <div>
+                <strong>{title}</strong>
+                <p>{body}</p>
+            </div>
+        </div>
+        """
+
+    if not notes_html:
+        notes_html = """
+        <div class="hy-note-row">
+            <span class="hy-note-icon">!</span>
+            <div>
+                <strong>Confirm before applying</strong>
+                <p>Fees, requirements, and service timelines can change. Always verify the latest details through official channels.</p>
+            </div>
+        </div>
+        """
+
+    links_html = ""
+    for link in official_links:
+        label, url = normalise_link(link)
+        links_html += f"""
+        <a class="hy-official-link" href="{url}" target="_blank">
+            <span>↗</span>
+            <div>
+                <strong>{label}</strong>
+                <small>{url}</small>
+            </div>
+        </a>
+        """
+
+    if not links_html:
+        links_html = """
+        <p class="hy-empty-text">Official links will appear here once added for this guide.</p>
+        """
+
+    st.markdown(
+        f"""
+        <style>
+        [data-testid="stDialog"] {{
+            background: rgba(43, 27, 20, 0.22) !important;
+        }}
+
+        [data-testid="stDialog"] > div {{
+            background: #FFF9F0 !important;
+            border: 1px solid rgba(140, 138, 103, 0.25) !important;
+            border-radius: 28px !important;
+            box-shadow: 0 28px 80px rgba(43, 27, 20, 0.22) !important;
+            color: #2B1B14 !important;
+        }}
+
+        [data-testid="stDialog"] * {{
+            color: inherit;
+        }}
+
+        .hy-modal-shell {{
+            background:
+                radial-gradient(circle at top right, rgba(140, 138, 103, 0.13), transparent 28%),
+                linear-gradient(135deg, #FFF9F0 0%, #F6EFE5 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            color: #2B1B14;
+            font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        }}
+
+        .hy-modal-header {{
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: center;
+            padding: 1.15rem 1.2rem 0.95rem 1.2rem;
+            border-bottom: 1px solid rgba(140, 138, 103, 0.18);
+            position: relative;
+        }}
+
+        .hy-modal-mark {{
+            width: 72px;
+            height: 72px;
+            border-radius: 22px;
+            background: {accent};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFF9F0;
+            font-weight: 900;
+            font-size: 1.15rem;
+            box-shadow: 0 16px 32px rgba(100, 42, 22, 0.14);
+        }}
+
+        .hy-modal-kicker {{
+            color: {accent};
+            font-size: 0.72rem;
+            font-weight: 900;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }}
+
+        .hy-modal-title {{
+            margin: 0;
+            color: #642A16;
+            font-size: 2rem;
+            line-height: 1;
+            letter-spacing: -0.04em;
+        }}
+
+        .hy-modal-subtitle {{
+            margin: 0.35rem 0 0 0;
+            color: #735A4C;
+            line-height: 1.45;
+            font-size: 0.95rem;
+        }}
+
+        .hy-modal-body {{
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 270px;
+            gap: 1rem;
+            padding: 1rem 1.2rem 1.15rem 1.2rem;
+        }}
+
+        .hy-main-panel,
+        .hy-side-panel {{
+            min-width: 0;
+        }}
+
+        .hy-section-label {{
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            margin: 0.25rem 0 0.75rem 0;
+            color: #642A16;
+            font-size: 0.76rem;
+            font-weight: 900;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }}
+
+        .hy-section-label:after {{
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, rgba(140, 138, 103, 0.42), transparent);
+        }}
+
+        .hy-quick-grid {{
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+            margin-bottom: 0.9rem;
+        }}
+
+        .hy-modal-pill {{
+            display: flex;
+            gap: 0.65rem;
+            align-items: flex-start;
+            background: rgba(255, 249, 240, 0.88);
+            border: 1px solid rgba(140, 138, 103, 0.20);
+            border-radius: 16px;
+            padding: 0.72rem;
+        }}
+
+        .hy-modal-pill-icon,
+        .hy-note-icon {{
+            width: 28px;
+            height: 28px;
+            border-radius: 999px;
+            background: rgba(140, 138, 103, 0.15);
+            border: 1px solid rgba(140, 138, 103, 0.30);
+            color: {accent};
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            flex-shrink: 0;
+        }}
+
+        .hy-modal-pill strong,
+        .hy-note-row strong {{
+            display: block;
+            color: #642A16;
+            font-size: 0.82rem;
+            margin-bottom: 0.15rem;
+        }}
+
+        .hy-modal-pill p,
+        .hy-note-row p {{
+            margin: 0;
+            color: #2B1B14;
+            font-size: 0.8rem;
+            line-height: 1.45;
+        }}
+
+        .hy-step-grid {{
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.65rem;
+        }}
+
+        .hy-step-card {{
+            position: relative;
+            min-height: 150px;
+            background: rgba(255, 249, 240, 0.90);
+            border: 1px solid rgba(188, 134, 83, 0.22);
+            border-radius: 18px;
+            padding: 0.85rem 0.8rem 0.8rem 0.8rem;
+            box-shadow: 0 10px 24px rgba(100, 42, 22, 0.055);
+        }}
+
+        .hy-step-card:after {{
+            content: "";
+            position: absolute;
+            left: 0.85rem;
+            right: 0.85rem;
+            bottom: 0;
+            height: 3px;
+            border-radius: 999px 999px 0 0;
+            background: {accent};
+            opacity: 0.86;
+        }}
+
+        .hy-step-number {{
+            width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            background: {accent};
+            color: #FFF9F0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.76rem;
+            margin-bottom: 0.65rem;
+        }}
+
+        .hy-step-card h4 {{
+            margin: 0 0 0.35rem 0;
+            color: #642A16;
+            font-size: 0.95rem;
+            line-height: 1.18;
+        }}
+
+        .hy-step-card p {{
+            margin: 0;
+            color: #2B1B14;
+            font-size: 0.78rem;
+            line-height: 1.45;
+        }}
+
+        .hy-step-card a,
+        .hy-official-link {{
+            color: #2D5B7C !important;
+            font-weight: 800;
+            text-decoration: none;
+        }}
+
+        .hy-side-box {{
+            background: rgba(255, 249, 240, 0.86);
+            border: 1px solid rgba(140, 138, 103, 0.22);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }}
+
+        .hy-side-heading {{
+            background: {accent};
+            color: #FFF9F0;
+            padding: 0.7rem 0.85rem;
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }}
+
+        .hy-side-content {{
+            padding: 0.75rem;
+        }}
+
+        .hy-note-row {{
+            display: flex;
+            gap: 0.65rem;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(140, 138, 103, 0.14);
+        }}
+
+        .hy-note-row:last-child {{
+            border-bottom: 0;
+        }}
+
+        .hy-official-link {{
+            display: flex;
+            gap: 0.65rem;
+            align-items: flex-start;
+            padding: 0.65rem 0;
+            border-bottom: 1px solid rgba(140, 138, 103, 0.14);
+        }}
+
+        .hy-official-link:last-child {{
+            border-bottom: 0;
+        }}
+
+        .hy-official-link span {{
+            color: {accent};
+            font-weight: 900;
+            flex-shrink: 0;
+        }}
+
+        .hy-official-link strong {{
+            color: #2D5B7C;
+            display: block;
+            font-size: 0.82rem;
+        }}
+
+        .hy-official-link small {{
+            color: #735A4C;
+            word-break: break-word;
+            line-height: 1.25;
+        }}
+
+        .hy-footer-note {{
+            margin-top: 0.8rem;
+            background: rgba(140, 138, 103, 0.12);
+            border: 1px solid rgba(140, 138, 103, 0.20);
+            border-radius: 16px;
+            padding: 0.7rem 0.8rem;
+            color: #735A4C;
+            font-size: 0.78rem;
+            line-height: 1.45;
+        }}
+
+        .hy-empty-text {{
+            color: #735A4C;
+            font-size: 0.8rem;
+            margin: 0;
+        }}
+
+        @media (max-width: 900px) {{
+            .hy-modal-body {{
+                grid-template-columns: 1fr;
+            }}
+
+            .hy-step-grid {{
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }}
+        }}
+
+        @media (max-width: 560px) {{
+            .hy-modal-header {{
+                grid-template-columns: 1fr;
+            }}
+
+            .hy-quick-grid,
+            .hy-step-grid {{
+                grid-template-columns: 1fr;
+            }}
+        }}
+        </style>
+
+        <div class="hy-modal-shell">
+            <div class="hy-modal-header">
+                <div class="hy-modal-mark">{item.get("number", "")}</div>
+                <div>
+                    <div class="hy-modal-kicker">{tag}</div>
+                    <h2 class="hy-modal-title">{name}</h2>
+                    <p class="hy-modal-subtitle">{description}</p>
+                </div>
+            </div>
+
+            <div class="hy-modal-body">
+                <div class="hy-main-panel">
+                    <div class="hy-section-label">Quick Info</div>
+                    <div class="hy-quick-grid">
+                        {quick_html}
+                    </div>
+
+                    <div class="hy-section-label">Setup Guide</div>
+                    <div class="hy-step-grid">
+                        {steps_html}
+                    </div>
+
+                    <div class="hy-footer-note">
+                        {footer_note}
+                    </div>
+                </div>
+
+                <div class="hy-side-panel">
+                    <div class="hy-side-box">
+                        <div class="hy-side-heading">Important to Know</div>
+                        <div class="hy-side-content">
+                            {notes_html}
                         </div>
                     </div>
-                    """,
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.info("Quick information will be added soon.")
 
-        with tabs[1]:  # Setup Guide
-            st.markdown("**7‑STEP SETUP GUIDE**" if name == "DEWA" else "**Setup checklist**")
-            for i, step in enumerate(item["steps"], 1):
-                st.markdown(
-                    f"""<div style="display:flex; align-items:flex-start; gap:0.75rem;
-                                    padding:0.6rem 0; border-bottom:1px solid rgba(140,138,103,0.14);">
-                        <span style="min-width:24px; height:24px; border-radius:50%;
-                                     background:rgba(140,138,103,0.14);
-                                     border:1px solid rgba(140,138,103,0.28);
-                                     display:inline-flex; align-items:center; justify-content:center;
-                                     font-size:0.72rem; font-weight:800; color:{item['accent']};">
-                            {i}
-                        </span>
-                        <span style="color:#2B1B14; line-height:1.55;">{step}</span>
-                    </div>""",
-                    unsafe_allow_html=True,
-                )
-
-        with tabs[2]:  # Important to Know
-            if "important_notes" in item:
-                for note in item["important_notes"]:
-                    st.markdown(
-                        f'<div style="margin-bottom:0.8rem; color:#2B1B14; line-height:1.5;">{note}</div>',
-                        unsafe_allow_html=True,
-                    )
-            else:
-                st.info("Important notes will be added soon.")
-
-        with tabs[3]:  # Official Links
-            if "official_links" in item:
-                for link in item["official_links"]:
-                    st.markdown(
-                        f'<div style="margin-bottom:0.6rem;">'
-                        f'🌐 <a href="{link["url"]}" target="_blank" style="color:{item["accent"]}; '
-                        f'text-decoration:none; font-weight:600;">{link["title"]}</a>'
-                        f'</div>',
-                        unsafe_allow_html=True,
-                    )
-                # Footer note inside the same tab for convenience
-                if "footer_note" in item:
-                    st.markdown("---")
-                    st.caption(item["footer_note"])
-            else:
-                st.info("Official links will be added soon.")
-
-    else:
-        # Legacy simple checklist (no tabs, just the old layout)
-        st.markdown("**Setup checklist**")
-        for i, step in enumerate(item["steps"], 1):
-            st.markdown(
-                f"""<div style="display:flex; align-items:flex-start; gap:0.75rem;
-                                padding:0.6rem 0; border-bottom:1px solid rgba(140,138,103,0.14);">
-                    <span style="min-width:24px; height:24px; border-radius:50%;
-                                 background:rgba(140,138,103,0.14);
-                                 border:1px solid rgba(140,138,103,0.28);
-                                 display:inline-flex; align-items:center; justify-content:center;
-                                 font-size:0.72rem; font-weight:800; color:{item['accent']};">
-                        {i}
-                    </span>
-                    <span style="color:#2B1B14; line-height:1.55;">{step}</span>
-                </div>""",
-                unsafe_allow_html=True,
-            )
-        st.markdown(
-            """<p style="margin-top:1.1rem; font-size:0.8rem; color:#735A4C;">
-                Official links will be added as inline references within each step as the guide develops.
-            </p>""",
-            unsafe_allow_html=True,
-        )
+                    <div class="hy-side-box">
+                        <div class="hy-side-heading">Official Links</div>
+                        <div class="hy-side-content">
+                            {links_html}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
 # ── PAGE LAYOUT (exactly as before) ────────────────────────────────────────
 st.markdown(
