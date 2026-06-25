@@ -131,6 +131,12 @@ UTILITIES = {
 @st.dialog("Utility setup guide")
 def show_utility_modal(name, item):
     accent = item.get("accent", "#8C8A67")
+    safe_name = (
+        name.lower()
+        .replace(" ", "-")
+        .replace("/", "")
+        .replace("&", "and")
+    )
     tag = item.get("tag", "")
     description = item.get("description", "")
     steps = item.get("steps", [])
@@ -327,15 +333,64 @@ def show_utility_modal(name, item):
         }}
 
         .hy-modal-body {{
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) 270px;
-            gap: 1rem;
             padding: 1rem 1.2rem 1.15rem 1.2rem;
         }}
 
-        .hy-main-panel,
-        .hy-side-panel {{
-            min-width: 0;
+        .hy-modal-tabs {{
+            display: flex;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(140, 138, 103, 0.18);
+            padding-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }}
+
+        .hy-modal-radio {{
+            display: none;
+        }}
+
+        .hy-modal-tab-label {{
+            padding: 0.65rem 1rem;
+            border-radius: 999px;
+            background: rgba(140, 138, 103, 0.12);
+            border: 1px solid rgba(140, 138, 103, 0.22);
+            color: #642A16;
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.18s ease;
+        }}
+
+        .hy-modal-tab-label:hover {{
+            background: rgba(140, 138, 103, 0.2);
+        }}
+
+        .hy-modal-panel {{
+            display: none;
+        }}
+
+        .hy-modal-pages {{
+            max-height: 58vh;
+            overflow-y: auto;
+            padding-right: 0.4rem;
+        }}
+
+        #tab-quick-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-quick-{safe_name}"],
+        #tab-guide-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-guide-{safe_name}"],
+        #tab-notes-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-notes-{safe_name}"],
+        #tab-links-{safe_name}:checked ~ .hy-modal-tabs label[for="tab-links-{safe_name}"] {{
+            background: {accent};
+            color: #FFF9F0;
+            border-color: {accent};
+        }}
+
+        #tab-quick-{safe_name}:checked ~ .hy-modal-pages .hy-panel-quick,
+        #tab-guide-{safe_name}:checked ~ .hy-modal-pages .hy-panel-guide,
+        #tab-notes-{safe_name}:checked ~ .hy-modal-pages .hy-panel-notes,
+        #tab-links-{safe_name}:checked ~ .hy-modal-pages .hy-panel-links {{
+            display: block;
         }}
 
         .hy-section-label {{
@@ -468,27 +523,6 @@ def show_utility_modal(name, item):
             text-decoration: none;
         }}
 
-        .hy-side-box {{
-            background: rgba(255, 249, 240, 0.86);
-            border: 1px solid rgba(140, 138, 103, 0.22);
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 0.75rem;
-        }}
-
-        .hy-side-heading {{
-            background: {accent};
-            color: #FFF9F0;
-            padding: 0.7rem 0.85rem;
-            font-size: 0.8rem;
-            font-weight: 900;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-        }}
-
-        .hy-side-content {{
-            padding: 0.75rem;
-        }}
 
         .hy-note-row {{
             display: flex;
@@ -549,10 +583,6 @@ def show_utility_modal(name, item):
         }}
 
         @media (max-width: 900px) {{
-            .hy-modal-body {{
-                grid-template-columns: 1fr;
-            }}
-
             .hy-step-grid {{
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }}
@@ -580,16 +610,24 @@ def show_utility_modal(name, item):
                 </div>
             </div>
 
-            <div class="hy-modal-body">
-                <div class="hy-main-panel">
+        <div class="hy-modal-body">
+            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-quick-{safe_name}" checked>
+            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-guide-{safe_name}">
+            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-notes-{safe_name}">
+            <input class="hy-modal-radio" type="radio" name="utility-tabs-{safe_name}" id="tab-links-{safe_name}">
+
+            <div class="hy-modal-tabs">
+                <label class="hy-modal-tab-label" for="tab-quick-{safe_name}">Quick Info</label>
+                <label class="hy-modal-tab-label" for="tab-guide-{safe_name}">Setup Guide</label>
+                <label class="hy-modal-tab-label" for="tab-notes-{safe_name}">Important</label>
+                <label class="hy-modal-tab-label" for="tab-links-{safe_name}">Official Links</label>
+            </div>
+
+            <div class="hy-modal-pages">
+                <div class="hy-modal-panel hy-panel-quick">
                     <div class="hy-section-label">Quick Info</div>
                     <div class="hy-quick-grid">
                         {quick_html}
-                    </div>
-
-                    <div class="hy-section-label">Setup Guide</div>
-                    <div class="hy-step-grid">
-                        {steps_html}
                     </div>
 
                     <div class="hy-footer-note">
@@ -597,22 +635,28 @@ def show_utility_modal(name, item):
                     </div>
                 </div>
 
-                <div class="hy-side-panel">
-                    <div class="hy-side-box">
-                        <div class="hy-side-heading">Important to Know</div>
-                        <div class="hy-side-content">
-                            {notes_html}
-                        </div>
+                <div class="hy-modal-panel hy-panel-guide">
+                    <div class="hy-section-label">Setup Guide</div>
+                    <div class="hy-step-grid">
+                        {steps_html}
                     </div>
+                </div>
 
-                    <div class="hy-side-box">
-                        <div class="hy-side-heading">Official Links</div>
-                        <div class="hy-side-content">
-                            {links_html}
-                        </div>
+                <div class="hy-modal-panel hy-panel-notes">
+                    <div class="hy-section-label">Important to Know</div>
+                    <div>
+                        {notes_html}
+                    </div>
+                </div>
+
+                <div class="hy-modal-panel hy-panel-links">
+                    <div class="hy-section-label">Official Links</div>
+                    <div>
+                        {links_html}
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         """,
         unsafe_allow_html=True,
