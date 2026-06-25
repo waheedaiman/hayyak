@@ -252,12 +252,46 @@ def apply_hayyak_theme():
         }}
 
         /* MODAL */
+        [data-testid="stDialog"] {{
+            z-index: 1000 !important;
+        }}
+        [data-testid="stDialog"]::backdrop {{
+            background: rgba(0, 0, 0, 0.4) !important;
+        }}
         [data-testid="stDialog"] > div {{
-            background: rgba(255, 249, 240, 0.92) !important;
+            background: rgba(255, 249, 240, 0.98) !important;
             backdrop-filter: blur(4px);
             border-radius: 28px !important;
             border: 1px solid rgba(140, 138, 103, 0.24) !important;
-            box-shadow: 0 20px 48px rgba(100, 42, 22, 0.12) !important;
+            box-shadow: 0 20px 48px rgba(100, 42, 22, 0.15) !important;
+            color: var(--ink) !important;
+        }}
+        [data-testid="stDialog"] * {{
+            color: var(--ink) !important;
+        }}
+        [data-testid="stDialog"] h1,
+        [data-testid="stDialog"] h2,
+        [data-testid="stDialog"] h3,
+        [data-testid="stDialog"] h4,
+        [data-testid="stDialog"] h5,
+        [data-testid="stDialog"] h6 {{
+            color: var(--deep-brown) !important;
+        }}
+        [data-testid="stDialog"] p {{
+            color: var(--ink) !important;
+        }}
+        [data-testid="stDialog"] [data-testid="stCaption"] {{
+            color: #735A4C !important;
+        }}
+        [data-testid="stDialog"] [data-testid="stSuccess"] {{
+            background: rgba(140, 138, 103, 0.12) !important;
+            border: 1px solid rgba(140, 138, 103, 0.24) !important;
+            color: var(--deep-brown) !important;
+        }}
+        [data-testid="stDialog"] [data-testid="stWarning"] {{
+            background: rgba(178, 121, 96, 0.12) !important;
+            border: 1px solid rgba(178, 121, 96, 0.24) !important;
+            color: var(--deep-brown) !important;
         }}
 
         /* ALERTS */
