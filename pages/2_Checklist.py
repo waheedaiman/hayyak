@@ -172,39 +172,63 @@ st.markdown(
         background: #8C8A67; color: white;
     }}
 
-    /* checklist card */
+    /* checklist card anchor - invisible positioning marker */
     .checklist-card {{
+        display: none;  /* Don't render empty div */
+    }}
+
+    /* Apply card styling to first/only checkbox - top border and rounded corners */
+    .checklist-card + div[data-testid="stCheckbox"] {{
         background: #FFF9F0;
         border: 1px solid rgba(140, 138, 103, 0.18);
-        border-radius: 24px;
-        padding: 1.8rem 2rem;  /* slightly bigger padding */
-        margin-top: 1rem;
+        border-radius: 24px 24px 0 0;
+        padding: 1.2rem 2rem !important;
+        margin: 1rem 0 0 0 !important;
         box-shadow: 0 8px 18px rgba(100, 42, 22, 0.05);
     }}
 
-    /* task row – increased spacing and readability */
-    .checklist-card div[data-testid="stCheckbox"] {{
-        margin-bottom: 0.9rem;               /* space between tasks */
-        padding: 0.5rem 0;
-        border-bottom: 1px dashed rgba(140,138,103,0.12);  /* light separator */
-    }}
-    .checklist-card div[data-testid="stCheckbox"]:last-child {{
-        border-bottom: none;
-        margin-bottom: 0;
+    /* If there's only one checkbox, round the bottom too */
+    .checklist-card + div[data-testid="stCheckbox"]:only-of-type {{
+        border-radius: 24px;
+        border-bottom: 1px solid rgba(140, 138, 103, 0.18);
     }}
 
-    .checklist-card label {{
-        font-size: 1.05rem;                  /* larger text */
-        line-height: 1.55;                   /* more breathing room */
-        color: #2B1B14;                      /* almost black, good contrast */
-        font-weight: 450;                    /* slightly bolder than default */
-        padding-left: 0.4rem;
+    /* Checkboxes between first and last - straight edges */
+    .checklist-card + div[data-testid="stCheckbox"] ~ div[data-testid="stCheckbox"]:not(:last-of-type) {{
+        background: #FFF9F0;
+        border: 1px solid rgba(140, 138, 103, 0.18);
+        border-top: none;
+        border-radius: 0;
+        padding: 0.9rem 2rem !important;
+        margin: 0 !important;
+        border-bottom: 1px dashed rgba(140,138,103,0.12);
+    }}
+
+    /* Last checkbox - bottom border and rounded corners */
+    .checklist-card + div[data-testid="stCheckbox"] ~ div[data-testid="stCheckbox"]:last-of-type {{
+        background: #FFF9F0;
+        border: 1px solid rgba(140, 138, 103, 0.18);
+        border-top: none;
+        border-radius: 0 0 24px 24px;
+        padding: 0.9rem 2rem !important;
+        margin: 0 !important;
+        border-bottom: 1px solid rgba(140, 138, 103, 0.18);
+        box-shadow: 0 8px 18px rgba(100, 42, 22, 0.05);
+    }}
+
+    /* task label styling */
+    div[data-testid="stCheckbox"] label {{
+        font-size: 1.05rem !important;
+        line-height: 1.55 !important;
+        color: #2B1B14 !important;
+        font-weight: 450 !important;
+        padding-left: 0.4rem !important;
     }}
 
     /* checkbox itself */
-    .checklist-card input[type="checkbox"] {{
-        accent-color: #8C8A67;
-        transform: scale(1.3);               /* bigger checkbox */
+    div[data-testid="stCheckbox"] input[type="checkbox"] {{
+        accent-color: #8C8A67 !important;
+        transform: scale(1.3);
         margin-right: 0.7rem;
         cursor: pointer;
     }}
@@ -289,16 +313,15 @@ if "user_profile" in st.session_state and "recommendations" in st.session_state:
                 unsafe_allow_html=True,
             )
 
-            # card wrapper
-            st.markdown('<div class="checklist-card">', unsafe_allow_html=True)
+            # Anchor element for CSS targeting of checklist card
+            st.markdown('<div class="checklist-card"></div>', unsafe_allow_html=True)
 
+            # Render checkboxes - they will be visually styled as a card via CSS sibling selectors
             for task in tasks:
                 key = f"{phase_keys[idx]}_{hash(task)}"
                 checked = st.checkbox(task, key=key)
                 if checked:
                     checked_count += 1
-
-            st.markdown('</div>', unsafe_allow_html=True)
 
             # progress bar below the card
             progress = checked_count / total if total else 0
