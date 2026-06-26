@@ -231,7 +231,126 @@ st.markdown("</div>", unsafe_allow_html=True)
 
 st.markdown(
     """
-    <div class="movein-wrap">
+    <style>
+        .movein-shell {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(100, 42, 22, 0.15);
+        }
+
+        .movein-eyebrow {
+            color: #8F8C68;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.32rem;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+        }
+
+        .movein-task-count {
+            color: #642A16;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .active-tab-pill {
+            background: #8F8C68;
+            color: #FFFDF7;
+            border-radius: 999px;
+            padding: 0.85rem 1.25rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: inset 0 -3px 0 #FF4D4D;
+            white-space: nowrap;
+        }
+
+        /* Make only these checklist tab buttons look flat */
+        .st-key-movein_tab_Before_arrival button,
+        .st-key-movein_tab_First_week button,
+        .st-key-movein_tab_First_month button {
+            background: transparent !important;
+            color: #6F5D4F !important;
+            border: none !important;
+            border-radius: 999px !important;
+            padding: 0.85rem 1.25rem !important;
+            font-size: 1.05rem !important;
+            font-weight: 500 !important;
+            box-shadow: none !important;
+        }
+
+        .st-key-movein_tab_Before_arrival button:hover,
+        .st-key-movein_tab_First_week button:hover,
+        .st-key-movein_tab_First_month button:hover {
+            background: rgba(143, 140, 104, 0.12) !important;
+            color: #642A16 !important;
+        }
+
+        /* Real Streamlit container card */
+        .st-key-movein_checklist_card {
+            background: #FFF9EF !important;
+            border: 1px solid rgba(100, 42, 22, 0.12) !important;
+            border-radius: 28px !important;
+            padding: 1.3rem 2rem !important;
+            box-shadow: 0 10px 28px rgba(100, 42, 22, 0.05) !important;
+            margin-top: 0.5rem !important;
+            margin-bottom: 1.4rem !important;
+        }
+
+        .st-key-movein_checklist_card div[data-testid="stCheckbox"] {
+            padding: 1rem 0 !important;
+            border-bottom: 1px solid rgba(100, 42, 22, 0.10) !important;
+        }
+
+        .st-key-movein_checklist_card div[data-testid="stCheckbox"]:last-of-type {
+            border-bottom: none !important;
+        }
+
+        .st-key-movein_checklist_card div[data-testid="stCheckbox"] label {
+            display: flex !important;
+            align-items: center !important;
+            gap: 1rem !important;
+        }
+
+        .st-key-movein_checklist_card div[data-testid="stCheckbox"] label p {
+            color: #2A1B15 !important;
+            font-size: 1.05rem !important;
+            font-weight: 500 !important;
+            line-height: 1.45 !important;
+        }
+
+        .movein-progress-shell {
+            width: 100%;
+            height: 12px;
+            background: rgba(143, 140, 104, 0.24);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-top: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .movein-progress-fill {
+            height: 100%;
+            background: #8F8C68;
+            border-radius: 999px;
+        }
+
+        .movein-progress-label {
+            color: #786C63;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
+
+st.markdown(
+    """
+    <div class="movein-shell">
         <div class="movein-eyebrow">Your move-in timeline</div>
     </div>
     """,
@@ -251,7 +370,8 @@ for i, phase in enumerate(CHECKLISTS.keys()):
                 unsafe_allow_html=True,
             )
         else:
-            if st.button(label, key=f"movein_tab_{phase}", use_container_width=True):
+            button_key = f"movein_tab_{phase.replace(' ', '_')}"
+            if st.button(label, key=button_key, use_container_width=True):
                 st.session_state.movein_active_tab = phase
                 st.rerun()
 
@@ -269,25 +389,26 @@ total = len(tasks)
 progress = completed / total if total else 0
 
 
-st.markdown(f'<div class="task-count">{total} tasks</div>', unsafe_allow_html=True)
+st.markdown(
+    f'<div class="movein-task-count">{total} tasks</div>',
+    unsafe_allow_html=True,
+)
 
-st.markdown('<div class="checklist-card">', unsafe_allow_html=True)
 
-for i, task in enumerate(tasks):
-    st.checkbox(
-        task,
-        key=f"movein_{active_phase}_{i}",
-    )
-
-st.markdown("</div>", unsafe_allow_html=True)
+with st.container(key="movein_checklist_card"):
+    for i, task in enumerate(tasks):
+        st.checkbox(
+            task,
+            key=f"movein_{active_phase}_{i}",
+        )
 
 
 st.markdown(
     f"""
-    <div class="progress-shell">
-        <div class="progress-fill" style="width: {progress * 100}%;"></div>
+    <div class="movein-progress-shell">
+        <div class="movein-progress-fill" style="width: {progress * 100}%;"></div>
     </div>
-    <div class="progress-label">{completed} of {total} completed</div>
+    <div class="movein-progress-label">{completed} of {total} completed</div>
     """,
     unsafe_allow_html=True,
 )
