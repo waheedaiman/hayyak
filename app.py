@@ -178,6 +178,7 @@ if submitted:
 
 
 # ---------------- RESULTS ----------------
+# ---------- RESULTS (replace everything from "if 'recommendations' in st.session_state:" onwards) ----------
 
 if "recommendations" in st.session_state:
     profile = st.session_state["user_profile"]
@@ -237,7 +238,11 @@ if "recommendations" in st.session_state:
         </div>
         """
 
-        st.markdown(card_html, unsafe_allow_html=True)
+        # Use st.html if available (Streamlit >= 1.36), otherwise fallback to markdown
+        if hasattr(st, "html"):
+            st.html(card_html)
+        else:
+            st.markdown(card_html, unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
