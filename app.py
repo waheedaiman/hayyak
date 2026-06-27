@@ -27,6 +27,19 @@ st.set_page_config(
     layout="wide",
 )
 
+@st.dialog("Your Hayyak relocation brief")
+def show_ai_result_modal(ai_text):
+    st.markdown("""
+        <style>
+        [data-testid="stDialog"] * { color: white !important; }
+        [data-testid="stDialog"] { background: #2B1B14 !important; }
+        [data-testid="stDialog"] > div { background: #2B1B14 !important; }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    st.caption("Based on your quiz preferences and neighbourhood matches.")
+    ...
+
 apply_hayyak_theme()
 
 st.markdown(
