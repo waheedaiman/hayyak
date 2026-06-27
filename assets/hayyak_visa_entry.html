@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hayyak – Visa & Entry Setup</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brown: #8B5E2A;
+    --brown-dark: #6B4520;
+    --brown-light: #C8956A;
+    --cream: #F7F3EE;
+    --cream-dark: #EDE7DE;
+    --cream-mid: #F2EBE0;
+    --sidebar-bg: #FDFAF6;
+    --text-dark: #2C1A0E;
+    --text-mid: #5C4030;
+    --text-muted: #9C7A5E;
+    --border: #E2D5C5;
+    --white: #FFFFFF;
+    --sidebar-active: #7A4F22;
+  }
+
+  /* iframe-friendly: no vh units, no overflow:hidden on body */
+  html {
+    height: auto;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--cream);
+    color: var(--text-dark);
+    display: flex;
+    height: auto;
+    min-height: 0;
+    /* prevent horizontal scrollbar inside iframe */
+    overflow-x: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 210px;
+    min-width: 210px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
+    /* allow sidebar to grow with content */
+    height: auto;
+  }
+
+  .sidebar-logo {
+    padding: 20px 18px 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--brown);
+    line-height: 1;
+  }
+
+  .logo-arabic {
+    font-size: 18px;
+    color: var(--brown);
+    direction: rtl;
+    line-height: 1.2;
+  }
+
+  .sidebar-title {
+    padding: 12px 18px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dark);
+    letter-spacing: 0.01em;
+  }
+
+  .sidebar-subtitle {
+    padding: 0 18px 10px;
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  .sidebar-nav {
+    flex: 1;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 7px 18px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .nav-item:hover { background: var(--cream-dark); }
+
+  .nav-item.active {
+    background: var(--sidebar-active);
+    color: var(--white);
+  }
+
+  .nav-num {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1.5px solid var(--brown-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--brown);
+    flex-shrink: 0;
+  }
+
+  .nav-item.active .nav-num {
+    border-color: rgba(255,255,255,0.5);
+    color: var(--white);
+  }
+
+  .nav-label { font-size: 11px; font-weight: 600; color: var(--text-dark); }
+  .nav-sub { font-size: 9.5px; color: var(--text-muted); }
+  .nav-item.active .nav-label,
+  .nav-item.active .nav-sub { color: var(--white); }
+
+  .nav-item-text { display: flex; flex-direction: column; gap: 1px; }
+
+  .sidebar-tip {
+    margin: 10px 10px 0;
+    background: var(--cream-mid);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 9px 11px;
+    display: flex;
+    gap: 7px;
+  }
+
+  .tip-icon { font-size: 14px; flex-shrink: 0; color: var(--brown); }
+  .tip-label { font-size: 10px; font-weight: 700; color: var(--brown); margin-bottom: 2px; }
+  .tip-text { font-size: 9.5px; color: var(--text-mid); line-height: 1.4; }
+
+  /* ── MAIN ── */
+  .main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .content-area {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 255px;
+    gap: 0;
+    padding: 24px 24px 24px 28px;
+  }
+
+  /* ── LEFT COLUMN ── */
+  .left-col { padding-right: 22px; }
+
+  .step-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+
+  .step-icon-wrap {
+    width: 72px;
+    height: 72px;
+    background: var(--brown);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-icon-wrap svg { width: 38px; height: 38px; color: white; }
+
+  .step-meta { flex: 1; }
+
+  .step-badge {
+    display: inline-block;
+    background: var(--cream-mid);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3px 11px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 5px;
+    letter-spacing: 0.04em;
+  }
+
+  .step-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+
+  .step-desc { font-size: 12.5px; color: var(--text-muted); }
+
+  /* Info bar */
+  .info-bar {
+    display: flex;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    background: var(--white);
+    overflow: hidden;
+    margin-bottom: 22px;
+  }
+
+  .info-cell {
+    flex: 1;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border-right: 1px solid var(--border);
+  }
+
+  .info-cell:last-child { border-right: none; }
+  .info-cell svg { width: 16px; height: 16px; color: var(--brown-light); flex-shrink: 0; margin-top: 1px; }
+  .info-label { font-size: 10.5px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+  .info-val { font-size: 10.5px; color: var(--text-muted); }
+
+  /* Tasks */
+  .section-heading {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 12px;
+  }
+
+  .tasks-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+
+  .task-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 13px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+  }
+
+  .task-card:hover { box-shadow: 0 2px 8px rgba(139,94,42,0.08); }
+
+  .task-num {
+    width: 28px;
+    height: 28px;
+    background: var(--cream);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-dark);
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  .task-icon { width: 20px; height: 20px; color: var(--brown-light); flex-shrink: 0; }
+  .task-body { flex: 1; }
+  .task-title { font-size: 12.5px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+  .task-sub { font-size: 11px; color: var(--text-muted); }
+  .task-arrow { color: var(--text-muted); font-size: 16px; }
+
+  /* Pro tip */
+  .pro-tip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tip-icon-box {
+    width: 34px;
+    height: 34px;
+    background: var(--cream);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  .tip-icon-box svg { width: 17px; height: 17px; color: var(--brown); }
+  .pro-tip-label { font-size: 11px; font-weight: 700; color: var(--brown); margin-bottom: 2px; }
+  .pro-tip-text { font-size: 11.5px; color: var(--text-mid); }
+
+  .plane-deco {
+    position: absolute;
+    right: 16px;
+    bottom: 8px;
+    opacity: 0.2;
+    font-size: 36px;
+    transform: rotate(-15deg);
+    color: var(--brown);
+  }
+
+  /* ── RIGHT COLUMN ── */
+  .right-col { display: flex; flex-direction: column; gap: 16px; }
+
+  .info-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 14px 14px 12px;
+  }
+
+  .card-heading {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brown);
+    letter-spacing: 0.06em;
+    margin-bottom: 13px;
+  }
+
+  .card-heading svg { width: 14px; height: 14px; }
+
+  .info-row {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    margin-bottom: 11px;
+  }
+
+  .info-row:last-child { margin-bottom: 0; }
+  .info-row-icon { width: 26px; height: 26px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .info-row-icon svg { width: 16px; height: 16px; color: var(--brown-light); }
+  .info-row-text { font-size: 10.5px; color: var(--text-mid); line-height: 1.5; }
+
+  /* Official links */
+  .links-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 13px;
+    padding: 14px 14px 12px;
+  }
+
+  .links-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .links-label { font-size: 11px; font-weight: 700; color: var(--brown); letter-spacing: 0.06em; }
+  .links-arrow { color: var(--brown); font-size: 14px; }
+
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .link-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .link-globe { width: 16px; height: 16px; color: var(--brown-light); flex-shrink: 0; }
+  .link-text { flex: 1; }
+  .link-name { font-size: 11.5px; font-weight: 600; color: var(--brown); }
+  .link-url { font-size: 10px; color: var(--text-muted); }
+  .link-ext { font-size: 12px; color: var(--brown-light); }
+
+  /* Skyline */
+  .skyline-wrap { margin-top: 4px; opacity: 0.55; }
+  .skyline-wrap svg { width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Hayyak</div>
+    <div class="logo-arabic">حياك</div>
+  </div>
+  <div class="sidebar-title">Dubai Relocation Guide</div>
+  <div class="sidebar-subtitle">Step-by-step journey</div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-item active">
+      <div class="nav-num">01</div>
+      <div class="nav-item-text"><span class="nav-label">Visa &amp; Entry</span><span class="nav-sub">Residence route</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">02</div>
+      <div class="nav-item-text"><span class="nav-label">Medical Fitness</span><span class="nav-sub">Health check</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">03</div>
+      <div class="nav-item-text"><span class="nav-label">Emirates ID</span><span class="nav-sub">Identity card</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">04</div>
+      <div class="nav-item-text"><span class="nav-label">Housing Search</span><span class="nav-sub">Area &amp; budget</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">05</div>
+      <div class="nav-item-text"><span class="nav-label">Property Check</span><span class="nav-sub">Broker &amp; documents</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">06</div>
+      <div class="nav-item-text"><span class="nav-label">Tenancy Contract</span><span class="nav-sub">Rental agreement</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">07</div>
+      <div class="nav-item-text"><span class="nav-label">Ejari</span><span class="nav-sub">Rental registration</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">08</div>
+      <div class="nav-item-text"><span class="nav-label">DEWA</span><span class="nav-sub">Electricity &amp; water</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">09</div>
+      <div class="nav-item-text"><span class="nav-label">Move-in Permit</span><span class="nav-sub">Building approval</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">10</div>
+      <div class="nav-item-text"><span class="nav-label">Internet</span><span class="nav-sub">Home broadband</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">11</div>
+      <div class="nav-item-text"><span class="nav-label">Mobile SIM</span><span class="nav-sub">Phone &amp; data</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">12</div>
+      <div class="nav-item-text"><span class="nav-label">Cooling / Chiller</span><span class="nav-sub">If separate</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">13</div>
+      <div class="nav-item-text"><span class="nav-label">Handover</span><span class="nav-sub">Inspect the unit</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">14</div>
+      <div class="nav-item-text"><span class="nav-label">Essentials</span><span class="nav-sub">Furniture &amp; supplies</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">15</div>
+      <div class="nav-item-text"><span class="nav-label">Banking</span><span class="nav-sub">Money setup</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">16</div>
+      <div class="nav-item-text"><span class="nav-label">Healthcare</span><span class="nav-sub">Insurance &amp; clinics</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">17</div>
+      <div class="nav-item-text"><span class="nav-label">Transport</span><span class="nav-sub">Driving &amp; commute</span></div>
+    </div>
+    <div class="nav-item">
+      <div class="nav-num">18</div>
+      <div class="nav-item-text"><span class="nav-label">Docs Vault</span><span class="nav-sub">Save everything</span></div>
+    </div>
+  </nav>
+
+  <div class="sidebar-tip">
+    <div class="tip-icon">💡</div>
+    <div>
+      <div class="tip-label">Hayyak Tip</div>
+      <div class="tip-text">Complete Ejari before DEWA to avoid delays.</div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+  <div class="content-area">
+
+    <!-- LEFT COLUMN -->
+    <div class="left-col">
+
+      <div class="step-header">
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="2" y1="12" x2="22" y2="12"/>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            <rect x="7" y="8" width="10" height="8" rx="1" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="step-meta">
+          <div class="step-badge">STEP 01 OF 18</div>
+          <div class="step-title">Visa &amp; Entry Setup</div>
+          <div class="step-desc">Understand and complete your UAE entry and residency process.</div>
+        </div>
+      </div>
+
+      <div class="info-bar">
+        <div class="info-cell">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <div><div class="info-label">Timeline</div><div class="info-val">1–3 weeks</div></div>
+        </div>
+        <div class="info-cell">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <div><div class="info-label">Key Documents</div><div class="info-val">Passport, photos, employment/sponsorship docs</div></div>
+        </div>
+        <div class="info-cell">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+          <div><div class="info-label">Difficulty</div><div class="info-val">Easy</div></div>
+        </div>
+      </div>
+
+      <div class="section-heading">What you need to do</div>
+
+      <div class="tasks-list">
+        <div class="task-card">
+          <div class="task-num">1</div>
+          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <div class="task-body">
+            <div class="task-title">Confirm your sponsorship type</div>
+            <div class="task-sub">Check if your employer, family member, free zone, or yourself will sponsor the visa.</div>
+          </div>
+          <span class="task-arrow">›</span>
+        </div>
+
+        <div class="task-card">
+          <div class="task-num">2</div>
+          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
+          </svg>
+          <div class="task-body">
+            <div class="task-title">Check your entry status</div>
+            <div class="task-sub">Know whether you have an entry permit or are entering on a tourist/visit visa.</div>
+          </div>
+          <span class="task-arrow">›</span>
+        </div>
+
+        <div class="task-card">
+          <div class="task-num">3</div>
+          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+          </svg>
+          <div class="task-body">
+            <div class="task-title">Prepare required documents</div>
+            <div class="task-sub">Passport copy, passport photos, employment or sponsorship documents.</div>
+          </div>
+          <span class="task-arrow">›</span>
+        </div>
+
+        <div class="task-card">
+          <div class="task-num">4</div>
+          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+          </svg>
+          <div class="task-body">
+            <div class="task-title">Apply for entry/residency</div>
+            <div class="task-sub">Submit your application through the relevant UAE authority or sponsor.</div>
+          </div>
+          <span class="task-arrow">›</span>
+        </div>
+
+        <div class="task-card">
+          <div class="task-num">5</div>
+          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <div class="task-body">
+            <div class="task-title">Track approval</div>
+            <div class="task-sub">Monitor your application status until it is approved.</div>
+          </div>
+          <span class="task-arrow">›</span>
+        </div>
+
+        <div class="task-card">
+          <div class="task-num">6</div>
+          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <div class="task-body">
+            <div class="task-title">Proceed to next steps</div>
+            <div class="task-sub">Once approved, move to medical fitness and Emirates ID application.</div>
+          </div>
+          <span class="task-arrow">›</span>
+        </div>
+      </div>
+
+      <div class="pro-tip">
+        <div class="tip-icon-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            <polyline points="9 16 11 18 15 14"/>
+          </svg>
+        </div>
+        <div>
+          <div class="pro-tip-label">Pro Tip</div>
+          <div class="pro-tip-text">Start your visa process early to avoid delays in your move-in timeline.</div>
+        </div>
+        <div class="plane-deco">✈</div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right-col">
+
+      <div class="info-card">
+        <div class="card-heading">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          IMPORTANT TO KNOW
+        </div>
+
+        <div class="info-row">
+          <div class="info-row-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
+            </svg>
+          </div>
+          <div class="info-row-text">Residency and identity services are handled through UAE authorities such as ICP, and sometimes GDRFA Dubai depending on your case.</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-row-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </div>
+          <div class="info-row-text">Do not sign long-term commitments until you know when your residency process will be completed.</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-row-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <div class="info-row-text">Requirements vary by visa type, sponsor, nationality, and free zone.</div>
+        </div>
+      </div>
+
+      <div class="links-card">
+        <div class="links-heading">
+          <span class="links-label">OFFICIAL LINKS</span>
+          <span class="links-arrow">↗</span>
+        </div>
+
+        <a class="link-row" href="https://icp.gov.ae" target="_blank">
+          <svg class="link-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <div class="link-text">
+            <div class="link-name">ICP UAE Official Website</div>
+            <div class="link-url">icp.gov.ae</div>
+          </div>
+          <span class="link-ext">↗</span>
+        </a>
+
+        <a class="link-row" href="https://gdrfad.gov.ae" target="_blank">
+          <svg class="link-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <div class="link-text">
+            <div class="link-name">GDRFA Dubai</div>
+            <div class="link-url">gdrfad.gov.ae</div>
+          </div>
+          <span class="link-ext">↗</span>
+        </a>
+
+        <a class="link-row" href="https://u.ae" target="_blank">
+          <svg class="link-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <div class="link-text">
+            <div class="link-name">UAE Gov Portal</div>
+            <div class="link-url">u.ae</div>
+          </div>
+          <span class="link-ext">↗</span>
+        </a>
+      </div>
+
+      <div class="skyline-wrap">
+        <svg viewBox="0 0 270 120" xmlns="http://www.w3.org/2000/svg" fill="none">
+          <line x1="18" y1="110" x2="18" y2="75" stroke="#8B5E2A" stroke-width="2"/>
+          <path d="M18 75 Q10 65 4 60" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <path d="M18 75 Q14 62 12 55" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <path d="M18 75 Q22 62 26 55" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <path d="M18 75 Q26 65 32 62" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <rect x="30" y="90" width="14" height="20" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
+          <line x1="37" y1="90" x2="37" y2="110" stroke="#8B5E2A" stroke-width="0.7" opacity="0.5"/>
+          <rect x="47" y="78" width="16" height="32" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
+          <line x1="55" y1="78" x2="55" y2="110" stroke="#8B5E2A" stroke-width="0.7" opacity="0.5"/>
+          <rect x="70" y="30" width="8" height="80" rx="1" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
+          <rect x="66" y="55" width="16" height="55" rx="1" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
+          <rect x="62" y="72" width="24" height="38" rx="1" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
+          <line x1="74" y1="10" x2="74" y2="30" stroke="#8B5E2A" stroke-width="1.2"/>
+          <rect x="90" y="65" width="18" height="45" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
+          <rect x="94" y="58" width="10" height="7" stroke="#8B5E2A" stroke-width="1" fill="none"/>
+          <path d="M118 110 L118 55 L145 110 Z" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
+          <path d="M118 90 Q131 82 145 90" stroke="#8B5E2A" stroke-width="1" fill="none"/>
+          <line x1="131" y1="55" x2="131" y2="40" stroke="#8B5E2A" stroke-width="1.2"/>
+          <rect x="150" y="72" width="14" height="38" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
+          <rect x="167" y="60" width="18" height="50" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
+          <rect x="172" y="50" width="8" height="10" stroke="#8B5E2A" stroke-width="1" fill="none"/>
+          <rect x="190" y="80" width="16" height="30" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
+          <rect x="210" y="70" width="20" height="40" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
+          <rect x="215" y="58" width="10" height="12" stroke="#8B5E2A" stroke-width="1" fill="none"/>
+          <line x1="245" y1="110" x2="245" y2="75" stroke="#8B5E2A" stroke-width="2"/>
+          <path d="M245 75 Q237 65 231 62" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <path d="M245 75 Q241 62 239 55" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <path d="M245 75 Q249 62 253 55" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <path d="M245 75 Q253 65 259 62" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
+          <line x1="0" y1="110" x2="270" y2="110" stroke="#8B5E2A" stroke-width="1" opacity="0.4"/>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
