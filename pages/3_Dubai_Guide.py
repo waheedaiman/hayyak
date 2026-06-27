@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import os
 
 # Hide Streamlit chrome
+# Add this to your existing CSS block:
 st.markdown(
     """
     <style>
@@ -14,6 +15,11 @@ st.markdown(
             max-width: 100% !important;
         }
         .stApp { background: #F7F3EE; }
+
+        /* Remove top padding that Streamlit adds on multi-page apps */
+        [data-testid="stAppViewContainer"] > section > div:first-child {
+            padding-top: 0 !important;
+        }
     </style>
     """,
     unsafe_allow_html=True,
