@@ -4,6 +4,8 @@ Run with:
     streamlit run app.py
 """
 
+import re
+
 import streamlit as st
 
 from src.ai_helper import generate_ai_explanation
