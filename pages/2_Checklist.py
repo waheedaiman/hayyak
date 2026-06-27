@@ -3,7 +3,7 @@ from src.ui import apply_hayyak_theme, render_nav, arabic_divider
 
 st.set_page_config(
     page_title="Hayyak | Your Dubai Checklist",
-    page_icon="✅",
+    page_icon="",
     layout="wide",
 )
 
@@ -24,25 +24,25 @@ def build_personalised_checklist(profile, top_recs):
         first_steps_all.extend(rec.get("first_steps", []))
 
     before = [
-        "Shortlist 3–5 neighbourhoods based on your budget & commute",
+        "Shortlist 35 neighbourhoods based on your budget & commute",
         "Prepare identity documents (passport, visa, Emirates ID if applicable)",
-        "Estimate total move‑in costs (rent + deposit + agency fee + DEWA + internet)",
+        "Estimate total movein costs (rent + deposit + agency fee + DEWA + internet)",
     ]
 
     if needs_metro.lower().startswith("metro"):
         before.append("Research metro routes and Nol card options")
     else:
-        before.append("Compare car ownership costs vs. taxi / ride‑hail budgets")
+        before.append("Compare car ownership costs vs. taxi / ridehail budgets")
 
     if "family" in household.lower():
         before.append("Check school and nursery catchments in shortlisted areas")
-        before.append("Look up family‑friendly community facilities (parks, clinics)")
+        before.append("Look up familyfriendly community facilities (parks, clinics)")
 
     if "professional" in household.lower() or "couple" in household.lower():
         before.append("Confirm rental budget allows for a second bedroom / home office")
 
     if budget <= 6000:
-        before.append("Explore studio / shared‑apartment options to stay within budget")
+        before.append("Explore studio / sharedapartment options to stay within budget")
     elif budget >= 12000:
         before.append("Research premium buildings with gym, pool, and covered parking")
 
@@ -83,7 +83,7 @@ def build_personalised_checklist(profile, top_recs):
     if "family" in household.lower():
         first_month.append("Attend a community event or join a local parenting group")
     else:
-        first_month.append("Check out social meet‑ups or sports clubs in the area")
+        first_month.append("Check out social meetups or sports clubs in the area")
 
     if "budget" in priority.lower():
         first_month.append("Track monthly expenses against your projected budget")
@@ -105,11 +105,11 @@ def build_personalised_checklist(profile, top_recs):
         "first_month": unique_ordered(first_month),
     }
 
-# ---------- page‑wide styling (inspired by Utilities) ----------
+# ---------- pagewide styling (inspired by Utilities) ----------
 st.markdown(
     f"""
     <style>
-    /* hero – same as before */
+    /* hero  same as before */
     .checklist-hero {{
         position: relative;
         padding: 2.5rem 1.5rem 2rem 1.5rem;
@@ -262,9 +262,9 @@ st.markdown(
     <div class="checklist-hero">
         <div class="hero-pattern"></div>
         <div class="hero-content">
-            <div class="hero-icon">📋</div>
+            <div class="hero-icon"></div>
             <h1>Dubai Checklist</h1>
-            <p>Your personalised move‑in timeline, built from your quiz. Tick things off as you go – each step brings you closer to home.</p>
+            <p>Your personalised movein timeline, built from your quiz. Tick things off as you go  each step brings you closer to home.</p>
             <div class="hero-underline"></div>
         </div>
     </div>
@@ -272,18 +272,18 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# ---------- tip ----------
-st.markdown(
-    """
-    <div class="tip-card">
-        <div class="tip-icon">💡</div>
-        <div class="tip-text">
-            <strong>Tip:</strong> This checklist adapts to your quiz profile. Update your answers on the Home page and return here to see your latest action plan.
-        </div>
-    </div>
-    """,
-    unsafe_allow_html=True,
-)
+# ---------- tip ---------- 
+st.markdown( 
+    """ 
+    <div class="tip-card"> 
+    <div class="tip-icon">💡</div> 
+    <div class="tip-text"> 
+    <strong>Tip:</strong> This checklist adapts to your quiz profile. Update your answers on the Home page and return here to see your latest action plan. 
+    </div> 
+    </div> 
+    """, 
+    unsafe_allow_html=True, 
+    )
 
 arabic_divider()
 
@@ -294,11 +294,11 @@ if "user_profile" in st.session_state and "recommendations" in st.session_state:
     checklist = build_personalised_checklist(profile, recs)
 
     st.markdown(
-        '<div style="margin-bottom:0.5rem;"><span style="font-size:0.72rem; font-weight:800; letter-spacing:0.3em; text-transform:uppercase; color:#8C8A67;">Your Move‑in Timeline</span></div>',
+        '<div style="margin-bottom:0.5rem;"><span style="font-size:0.72rem; font-weight:800; letter-spacing:0.3em; text-transform:uppercase; color:#8C8A67;">Your Movein Timeline</span></div>',
         unsafe_allow_html=True,
     )
 
-    tabs = st.tabs(["🌅 Before arrival", "🏡 First week", "🌿 First month"])
+    tabs = st.tabs([" Before arrival", " First week", " First month"])
     phase_keys = ["before_arrival", "first_week", "first_month"]
 
     for idx, tab in enumerate(tabs):
@@ -332,8 +332,8 @@ else:
     # fallback (no quiz completed)
     st.info(
         """
-        🧭 **Your checklist is waiting.**  
-        Complete the quiz on the **Home** page and come back – we'll build a step‑by‑step timeline just for you.
+         **Your checklist is waiting.**  
+        Complete the quiz on the **Home** page and come back  we'll build a stepbystep timeline just for you.
         """
     )
     # static sample (optional)

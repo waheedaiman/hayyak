@@ -569,9 +569,9 @@ def render_nav(active="home"):
     )
 
     pages = [
-        ("home",      "Home / Quiz",     "app.py"),
+        ("home",      "Home",     "app.py"),
         ("utilities", "Utilities",       "pages/1_Utilities.py"),
-        ("checklist", "Dubai Checklist", "pages/2_Checklist.py"),
+        ("checklist", "Checklist", "pages/2_Checklist.py"),
         ("guide",     "Dubai Guide",     "pages/3_Dubai_Guide.py"),
     ]
 
