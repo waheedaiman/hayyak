@@ -2,27 +2,23 @@ import streamlit as st
 import streamlit.components.v1 as components
 import os
 
-st.set_page_config(layout="wide")
+st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
 
 st.markdown(
     """
     <style>
-        /* Remove the black top header bar */
-        [data-testid="stHeader"]   { display: none !important; }
-        [data-testid="stToolbar"]  { display: none !important; }
-        footer                     { display: none !important; }
+        /* Hide Streamlit's own sidebar completely */
+        [data-testid="stSidebar"]        { display: none !important; }
+        [data-testid="stSidebarNav"]     { display: none !important; }
+        [data-testid="collapsedControl"] { display: none !important; }
+        [data-testid="stToolbar"]        { display: none !important; }
+        [data-testid="stHeader"]         { display: none !important; }
+        footer                           { display: none !important; }
 
-        /* Kill all padding around the iframe */
         .block-container {
             padding: 0 !important;
             margin: 0 !important;
             max-width: 100% !important;
-        }
-        [data-testid="stAppViewContainer"] > section {
-            padding: 0 !important;
-        }
-        [data-testid="stAppViewContainer"] > section > div {
-            padding: 0 !important;
         }
         .stApp { background: #F7F3EE; }
     </style>
