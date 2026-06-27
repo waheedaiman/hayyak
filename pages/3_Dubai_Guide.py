@@ -1,17 +1,19 @@
+import streamlit as st
+
+st.set_page_config(page_title="Hayyak – Dubai Relocation Guide", layout="wide")
+
+html_code = """
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Hayyak – Dubai Relocation Guide</title>
-
-    <!-- Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
-
     <style>
-        /* ---------- RESET & BASE ---------- */
+        /* ---------- 所有 CSS 样式 (与您提供的一致) ---------- */
         *,
         *::before,
         *::after {
@@ -19,7 +21,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: #f0f2f5;
@@ -29,7 +30,6 @@
             min-height: 100vh;
             padding: 32px 24px;
         }
-
         .app {
             max-width: 1440px;
             width: 100%;
@@ -41,8 +41,7 @@
             overflow: hidden;
             min-height: 860px;
         }
-
-        /* ---------- SIDEBAR ---------- */
+        /* 侧边栏 */
         .sidebar {
             background: #fafbfc;
             padding: 36px 24px 32px 28px;
@@ -50,11 +49,9 @@
             display: flex;
             flex-direction: column;
         }
-
         .sidebar-header {
             margin-bottom: 32px;
         }
-
         .sidebar-header .logo {
             font-size: 28px;
             font-weight: 800;
@@ -62,11 +59,9 @@
             color: #0b1a33;
             line-height: 1.1;
         }
-
         .sidebar-header .logo span {
             color: #0066ff;
         }
-
         .sidebar-header .subtitle {
             font-size: 15px;
             font-weight: 500;
@@ -74,7 +69,6 @@
             margin-top: 4px;
             letter-spacing: -0.2px;
         }
-
         .sidebar-header .journey-label {
             font-size: 13px;
             font-weight: 500;
@@ -83,15 +77,12 @@
             letter-spacing: 0.3px;
             text-transform: uppercase;
         }
-
-        /* step list */
         .step-list {
             flex: 1;
             overflow-y: auto;
             margin-top: 4px;
             padding-right: 4px;
         }
-
         .step-list::-webkit-scrollbar {
             width: 4px;
         }
@@ -103,7 +94,6 @@
             background: #c0c8d4;
             border-radius: 8px;
         }
-
         .step-item {
             display: flex;
             align-items: center;
@@ -117,7 +107,6 @@
             cursor: default;
             margin-bottom: 2px;
         }
-
         .step-item .num {
             display: flex;
             align-items: center;
@@ -132,38 +121,29 @@
             transition: background 0.15s, color 0.15s;
             flex-shrink: 0;
         }
-
         .step-item .label {
             line-height: 1.3;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        /* active step */
         .step-item.active {
             background: #eef4ff;
             color: #0b1a33;
         }
-
         .step-item.active .num {
             background: #0066ff;
             color: #ffffff;
         }
-
-        /* completed style (optional) */
         .step-item.completed .num {
             background: #e6edf5;
             color: #1f2a44;
         }
-
-        /* ---------- MAIN CONTENT ---------- */
+        /* 主内容 */
         .main {
             padding: 36px 44px 40px 40px;
             background: #ffffff;
         }
-
-        /* breadcrumb / step badge */
         .step-badge {
             display: inline-flex;
             align-items: center;
@@ -177,7 +157,6 @@
             letter-spacing: 0.2px;
             margin-bottom: 16px;
         }
-
         .step-badge .dot {
             display: inline-block;
             width: 8px;
@@ -185,7 +164,6 @@
             background: #0066ff;
             border-radius: 50%;
         }
-
         .main-title {
             font-size: 34px;
             font-weight: 700;
@@ -194,7 +172,6 @@
             line-height: 1.2;
             margin-bottom: 6px;
         }
-
         .main-sub {
             font-size: 17px;
             color: #4a5a72;
@@ -203,8 +180,6 @@
             line-height: 1.5;
             max-width: 620px;
         }
-
-        /* info chips */
         .info-chips {
             display: flex;
             flex-wrap: wrap;
@@ -215,7 +190,6 @@
             margin-bottom: 28px;
             border: 1px solid #eef0f2;
         }
-
         .chip {
             display: flex;
             align-items: center;
@@ -224,17 +198,14 @@
             font-weight: 500;
             color: #1f2a44;
         }
-
         .chip .label {
             color: #6b7a93;
             font-weight: 400;
         }
-
         .chip .value {
             font-weight: 600;
             color: #0b1a33;
         }
-
         .chip .badge {
             background: #e6edf5;
             padding: 2px 12px;
@@ -243,8 +214,6 @@
             font-weight: 500;
             color: #1f2a44;
         }
-
-        /* section headings */
         .section-heading {
             font-size: 18px;
             font-weight: 600;
@@ -252,12 +221,9 @@
             margin-bottom: 16px;
             margin-top: 28px;
         }
-
         .section-heading:first-of-type {
             margin-top: 0;
         }
-
-        /* checklist */
         .checklist {
             list-style: none;
             padding: 0;
@@ -266,7 +232,6 @@
             gap: 6px;
             margin-bottom: 8px;
         }
-
         .checklist li {
             display: flex;
             align-items: flex-start;
@@ -278,7 +243,6 @@
             transition: background 0.1s;
             line-height: 1.5;
         }
-
         .checklist li .check {
             display: inline-flex;
             align-items: center;
@@ -293,12 +257,9 @@
             flex-shrink: 0;
             margin-top: 1px;
         }
-
         .checklist li .text {
             flex: 1;
         }
-
-        /* important box */
         .important-box {
             background: #faf3e8;
             border-left: 4px solid #f5a623;
@@ -306,7 +267,6 @@
             border-radius: 12px;
             margin: 20px 0 24px 0;
         }
-
         .important-box .title {
             font-size: 14px;
             font-weight: 700;
@@ -315,13 +275,11 @@
             letter-spacing: 0.4px;
             margin-bottom: 8px;
         }
-
         .important-box ul {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-
         .important-box ul li {
             font-size: 14px;
             color: #2d2a24;
@@ -329,7 +287,6 @@
             position: relative;
             line-height: 1.6;
         }
-
         .important-box ul li::before {
             content: "•";
             position: absolute;
@@ -337,8 +294,6 @@
             color: #b8955a;
             font-weight: 700;
         }
-
-        /* official links */
         .links-grid {
             display: flex;
             flex-wrap: wrap;
@@ -349,7 +304,6 @@
             border: 1px solid #eef0f2;
             margin-top: 4px;
         }
-
         .links-grid .link-item {
             display: flex;
             align-items: center;
@@ -359,13 +313,10 @@
             color: #0066ff;
             text-decoration: none;
         }
-
         .links-grid .link-item .domain {
             color: #1f2a44;
             font-weight: 400;
         }
-
-        /* diagram / pro tip */
         .diagram-box {
             margin-top: 28px;
             background: #f2f6fe;
@@ -377,7 +328,6 @@
             gap: 16px;
             flex-wrap: wrap;
         }
-
         .diagram-box .icon {
             display: flex;
             align-items: center;
@@ -391,11 +341,9 @@
             font-weight: 700;
             flex-shrink: 0;
         }
-
         .diagram-box .content {
             flex: 1;
         }
-
         .diagram-box .content .label {
             font-size: 13px;
             font-weight: 600;
@@ -403,15 +351,12 @@
             text-transform: uppercase;
             letter-spacing: 0.3px;
         }
-
         .diagram-box .content .text {
             font-size: 15px;
             font-weight: 500;
             color: #0b1a33;
             margin-top: 2px;
         }
-
-        /* ---------- RESPONSIVE ---------- */
         @media (max-width: 1024px) {
             .app {
                 grid-template-columns: 260px 1fr;
@@ -423,7 +368,6 @@
                 padding: 28px 16px 24px 20px;
             }
         }
-
         @media (max-width: 768px) {
             .app {
                 grid-template-columns: 1fr;
@@ -474,7 +418,6 @@
                 align-items: flex-start;
             }
         }
-
         @media (max-width: 480px) {
             body {
                 padding: 12px 8px;
@@ -497,19 +440,15 @@
     </style>
 </head>
 <body>
-
     <div class="app">
-
-        <!-- ===== SIDEBAR ===== -->
+        <!-- 侧边栏 -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="logo">Hay<span>yak</span></div>
                 <div class="subtitle">Dubai Relocation Guide</div>
                 <div class="journey-label">Step-by-step journey</div>
             </div>
-
             <nav class="step-list" role="navigation" aria-label="Relocation steps">
-                <!-- 01 active -->
                 <div class="step-item active">
                     <span class="num">01</span>
                     <span class="label">Visa &amp; Entry</span>
@@ -589,22 +528,14 @@
             </nav>
         </aside>
 
-        <!-- ===== MAIN CONTENT ===== -->
+        <!-- 主内容 -->
         <main class="main">
-
-            <!-- step badge -->
             <div class="step-badge">
                 <span class="dot"></span>
                 STEP 01 OF 18
             </div>
-
-            <!-- title -->
             <h1 class="main-title">Visa &amp; Entry Setup</h1>
-            <p class="main-sub">
-                Understand and complete your UAE entry and residency process.
-            </p>
-
-            <!-- info chips -->
+            <p class="main-sub">Understand and complete your UAE entry and residency process.</p>
             <div class="info-chips">
                 <div class="chip">
                     <span class="label">⏱ Timeline</span>
@@ -619,8 +550,6 @@
                     <span class="badge">Easy</span>
                 </div>
             </div>
-
-            <!-- What you need to do -->
             <h2 class="section-heading">What you need to do</h2>
             <ul class="checklist">
                 <li>
@@ -648,8 +577,6 @@
                     <span class="text"><strong>Proceed to next steps</strong><br />Once approved, move to medical fitness and Emirates ID application.</span>
                 </li>
             </ul>
-
-            <!-- IMPORTANT TO KNOW -->
             <div class="important-box">
                 <div class="title">⚠ IMPORTANT TO KNOW</div>
                 <ul>
@@ -658,8 +585,6 @@
                     <li>Requirements vary by visa type, sponsor, nationality, and free zone.</li>
                 </ul>
             </div>
-
-            <!-- OFFICIAL LINKS -->
             <h2 class="section-heading">OFFICIAL LINKS</h2>
             <div class="links-grid">
                 <a href="#" class="link-item">
@@ -672,8 +597,6 @@
                     <span>🔗</span> UAE Gov Portal <span class="domain">u.ae</span>
                 </a>
             </div>
-
-            <!-- Diagram / Pro Tip -->
             <div class="diagram-box">
                 <div class="icon">💡</div>
                 <div class="content">
@@ -681,10 +604,10 @@
                     <div class="text">Start your visa process early to avoid delays in your move-in timeline.</div>
                 </div>
             </div>
-
         </main>
-
     </div>
-
 </body>
 </html>
+"""
+
+st.components.v1.html(html_code, height=1200, scrolling=True)
