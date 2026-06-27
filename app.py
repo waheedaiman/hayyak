@@ -186,6 +186,8 @@ if submitted:
 if "recommendations" in st.session_state:
     profile = st.session_state["user_profile"]
     recommendations = st.session_state["recommendations"]
+else:
+    recommendations = []
 
     st.markdown(
         """
