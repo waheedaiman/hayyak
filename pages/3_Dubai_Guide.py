@@ -1,414 +1,690 @@
-import streamlit as st
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hayyak – Dubai Relocation Guide</title>
 
-from src.ui import apply_hayyak_theme, render_nav
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
 
-
-st.set_page_config(
-    page_title="Hayyak | Dubai Guide",
-    page_icon="🕌",
-    layout="wide",
-)
-
-apply_hayyak_theme()
-render_nav(active="guide")
-
-
-CHECKLISTS = {
-    "Before arrival": {
-        "emoji": "🌅",
-        "tasks": [
-            "Shortlist 3–5 neighbourhoods based on your budget & commute",
-            "Prepare identity documents (passport, visa, Emirates ID if applicable)",
-            "Estimate total move-in costs (rent + deposit + agency fee + DEWA + internet)",
-            "Compare car ownership costs vs. taxi / ride-hail budgets",
-        ],
-    },
-    "First week": {
-        "emoji": "🏠",
-        "tasks": [
-            "Complete move-in inspection and document apartment condition",
-            "Activate DEWA connection",
-            "Set up internet and mobile plan",
-            "Register Ejari if required",
-        ],
-    },
-    "First month": {
-        "emoji": "🌿",
-        "tasks": [
-            "Review actual monthly spending against your planned budget",
-            "Test commute routes during peak hours",
-            "Explore nearby communities, gyms, cafes, and services",
-            "Set up recurring rent and utility payment reminders",
-        ],
-    },
-}
-
-
-if "movein_active_tab" not in st.session_state:
-    st.session_state.movein_active_tab = "Before arrival"
-
-for phase, data in CHECKLISTS.items():
-    for index, _ in enumerate(data["tasks"]):
-        key = f"movein_{phase}_{index}"
-        if key not in st.session_state:
-            st.session_state[key] = False
-
-
-st.markdown(
-    """
     <style>
-        .movein-wrap {
-            margin-top: 2.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(100, 42, 22, 0.14);
+        /* ---------- RESET & BASE ---------- */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        .movein-eyebrow {
-            color: #8F8C68;
-            font-size: 0.78rem;
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 32px 24px;
+        }
+
+        .app {
+            max-width: 1440px;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.15);
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            overflow: hidden;
+            min-height: 860px;
+        }
+
+        /* ---------- SIDEBAR ---------- */
+        .sidebar {
+            background: #fafbfc;
+            padding: 36px 24px 32px 28px;
+            border-right: 1px solid #eef0f2;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            margin-bottom: 32px;
+        }
+
+        .sidebar-header .logo {
+            font-size: 28px;
             font-weight: 800;
-            letter-spacing: 0.34rem;
+            letter-spacing: -0.5px;
+            color: #0b1a33;
+            line-height: 1.1;
+        }
+
+        .sidebar-header .logo span {
+            color: #0066ff;
+        }
+
+        .sidebar-header .subtitle {
+            font-size: 15px;
+            font-weight: 500;
+            color: #1f2a44;
+            margin-top: 4px;
+            letter-spacing: -0.2px;
+        }
+
+        .sidebar-header .journey-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6b7a93;
+            margin-top: 12px;
+            letter-spacing: 0.3px;
             text-transform: uppercase;
-            margin-bottom: 1.25rem;
         }
 
-        .task-count {
-            color: #642A16;
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-top: 1.75rem;
-            margin-bottom: 1rem;
+        /* step list */
+        .step-list {
+            flex: 1;
+            overflow-y: auto;
+            margin-top: 4px;
+            padding-right: 4px;
         }
 
-        .checklist-card {
-            background: #FFF9EF;
-            border: 1px solid rgba(100, 42, 22, 0.10);
-            border-radius: 28px;
-            padding: 1.45rem 2rem;
-            box-shadow: 0 10px 26px rgba(100, 42, 22, 0.05);
-            margin-bottom: 1.4rem;
+        .step-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .step-list::-webkit-scrollbar-track {
+            background: #eef0f2;
+            border-radius: 8px;
+        }
+        .step-list::-webkit-scrollbar-thumb {
+            background: #c0c8d4;
+            border-radius: 8px;
         }
 
-        .checklist-card [data-testid="stVerticalBlock"] {
-            gap: 0rem;
-        }
-
-        .checklist-card div[data-testid="stCheckbox"] {
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(100, 42, 22, 0.10);
-        }
-
-        .checklist-card div[data-testid="stCheckbox"]:last-child {
-            border-bottom: none;
-        }
-
-        .checklist-card div[data-testid="stCheckbox"] label {
+        .step-item {
+            display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 12px;
+            padding: 8px 12px 8px 8px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #6b7a93;
+            transition: background 0.15s, color 0.15s;
+            cursor: default;
+            margin-bottom: 2px;
         }
 
-        .checklist-card div[data-testid="stCheckbox"] label p {
-            color: #2A1B15 !important;
-            font-size: 1.05rem !important;
-            font-weight: 500 !important;
-            line-height: 1.45 !important;
-        }
-
-        .checklist-card div[data-testid="stCheckbox"] input:checked + div {
-            background-color: #8F8C68 !important;
-            border-color: #8F8C68 !important;
-        }
-
-        .progress-shell {
-            width: 100%;
-            height: 12px;
-            background: rgba(143, 140, 104, 0.25);
-            border-radius: 999px;
-            overflow: hidden;
-            margin-top: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #8F8C68;
-            border-radius: 999px;
-        }
-
-        .progress-label {
-            color: #786C63;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        div[data-testid="stButton"] > button {
+        .step-item .num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
             background: transparent;
-            color: #6F5D4F;
-            border: none;
-            border-radius: 999px;
-            padding: 0.85rem 1.3rem;
-            font-size: 1.05rem;
-            font-weight: 500;
-            box-shadow: none;
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7a93;
+            transition: background 0.15s, color 0.15s;
+            flex-shrink: 0;
         }
 
-        div[data-testid="stButton"] > button:hover {
-            background: rgba(143, 140, 104, 0.12);
-            color: #642A16;
-            border: none;
-        }
-
-        .active-tab-pill {
-            background: #8F8C68;
-            color: #FFFDF7;
-            border-radius: 999px;
-            padding: 0.85rem 1.35rem;
-            font-size: 1.05rem;
-            font-weight: 700;
-            text-align: center;
-            box-shadow: inset 0 -3px 0 #FF4D4D;
-        }
-
-        .inactive-tab-pill {
-            color: #6F5D4F;
-            padding: 0.85rem 1.35rem;
-            font-size: 1.05rem;
-            font-weight: 500;
-            text-align: center;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-st.markdown(
-    """
-    <section class="hero-shell">
-        <div class="hero-grid">
-            <div>
-                <div class="eyebrow">City guide</div>
-                <h1 class="hero-title">Dubai Guide</h1>
-                <p class="hero-copy">
-                    A future A-Z guide for newcomers moving to Dubai, covering
-                    neighbourhoods, commute, documents, utilities, and daily life.
-                </p>
-            </div>
-            <div class="brand-card">
-                <h3 style="color:#642A16;">Grounded guidance</h3>
-                <p class="muted-text">
-                    Designed to feel practical, local, and culturally aware.
-                </p>
-            </div>
-        </div>
-    </section>
-    """,
-    unsafe_allow_html=True,
-)
-
-
-st.markdown('<div class="section-card">', unsafe_allow_html=True)
-st.subheader("Guide structure preview")
-
-st.markdown(
-    """
-    **1. Choosing where to live**  
-    Budget, commute, metro access, lifestyle, and household needs.
-
-    **2. Understanding rental basics**  
-    Contracts, deposits, Ejari, and building/community checks.
-
-    **3. Setting up essentials**  
-    DEWA, mobile, internet, banking, and local services.
-
-    **4. Settling into daily life**  
-    Groceries, clinics, transport, delivery apps, and community routines.
-    """
-)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-
-st.markdown(
-    """
-    <style>
-        .movein-shell {
-            margin-top: 2.5rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(100, 42, 22, 0.15);
-        }
-
-        .movein-eyebrow {
-            color: #8F8C68;
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 0.32rem;
-            text-transform: uppercase;
-            margin-bottom: 1.4rem;
-        }
-
-        .movein-task-count {
-            color: #642A16;
-            font-size: 1.25rem;
-            font-weight: 800;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .active-tab-pill {
-            background: #8F8C68;
-            color: #FFFDF7;
-            border-radius: 999px;
-            padding: 0.85rem 1.25rem;
-            font-size: 1.05rem;
-            font-weight: 700;
-            text-align: center;
-            box-shadow: inset 0 -3px 0 #FF4D4D;
+        .step-item .label {
+            line-height: 1.3;
             white-space: nowrap;
-        }
-
-        /* Make only these checklist tab buttons look flat */
-        .st-key-movein_tab_Before_arrival button,
-        .st-key-movein_tab_First_week button,
-        .st-key-movein_tab_First_month button {
-            background: transparent !important;
-            color: #6F5D4F !important;
-            border: none !important;
-            border-radius: 999px !important;
-            padding: 0.85rem 1.25rem !important;
-            font-size: 1.05rem !important;
-            font-weight: 500 !important;
-            box-shadow: none !important;
-        }
-
-        .st-key-movein_tab_Before_arrival button:hover,
-        .st-key-movein_tab_First_week button:hover,
-        .st-key-movein_tab_First_month button:hover {
-            background: rgba(143, 140, 104, 0.12) !important;
-            color: #642A16 !important;
-        }
-
-        /* Real Streamlit container card */
-        .st-key-movein_checklist_card {
-            background: #FFF9EF !important;
-            border: 1px solid rgba(100, 42, 22, 0.12) !important;
-            border-radius: 28px !important;
-            padding: 1.3rem 2rem !important;
-            box-shadow: 0 10px 28px rgba(100, 42, 22, 0.05) !important;
-            margin-top: 0.5rem !important;
-            margin-bottom: 1.4rem !important;
-        }
-
-        .st-key-movein_checklist_card div[data-testid="stCheckbox"] {
-            padding: 1rem 0 !important;
-            border-bottom: 1px solid rgba(100, 42, 22, 0.10) !important;
-        }
-
-        .st-key-movein_checklist_card div[data-testid="stCheckbox"]:last-of-type {
-            border-bottom: none !important;
-        }
-
-        .st-key-movein_checklist_card div[data-testid="stCheckbox"] label {
-            display: flex !important;
-            align-items: center !important;
-            gap: 1rem !important;
-        }
-
-        .st-key-movein_checklist_card div[data-testid="stCheckbox"] label p {
-            color: #2A1B15 !important;
-            font-size: 1.05rem !important;
-            font-weight: 500 !important;
-            line-height: 1.45 !important;
-        }
-
-        .movein-progress-shell {
-            width: 100%;
-            height: 12px;
-            background: rgba(143, 140, 104, 0.24);
-            border-radius: 999px;
             overflow: hidden;
-            margin-top: 1.2rem;
-            margin-bottom: 1rem;
+            text-overflow: ellipsis;
         }
 
-        .movein-progress-fill {
-            height: 100%;
-            background: #8F8C68;
-            border-radius: 999px;
+        /* active step */
+        .step-item.active {
+            background: #eef4ff;
+            color: #0b1a33;
         }
 
-        .movein-progress-label {
-            color: #786C63;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
+        .step-item.active .num {
+            background: #0066ff;
+            color: #ffffff;
+        }
+
+        /* completed style (optional) */
+        .step-item.completed .num {
+            background: #e6edf5;
+            color: #1f2a44;
+        }
+
+        /* ---------- MAIN CONTENT ---------- */
+        .main {
+            padding: 36px 44px 40px 40px;
+            background: #ffffff;
+        }
+
+        /* breadcrumb / step badge */
+        .step-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #eef4ff;
+            color: #0066ff;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 16px 6px 14px;
+            border-radius: 40px;
+            letter-spacing: 0.2px;
+            margin-bottom: 16px;
+        }
+
+        .step-badge .dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #0066ff;
+            border-radius: 50%;
+        }
+
+        .main-title {
+            font-size: 34px;
+            font-weight: 700;
+            color: #0b1a33;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .main-sub {
+            font-size: 17px;
+            color: #4a5a72;
+            font-weight: 400;
+            margin-bottom: 24px;
+            line-height: 1.5;
+            max-width: 620px;
+        }
+
+        /* info chips */
+        .info-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px 32px;
+            background: #f8f9fb;
+            padding: 16px 24px;
+            border-radius: 16px;
+            margin-bottom: 28px;
+            border: 1px solid #eef0f2;
+        }
+
+        .chip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f2a44;
+        }
+
+        .chip .label {
+            color: #6b7a93;
+            font-weight: 400;
+        }
+
+        .chip .value {
+            font-weight: 600;
+            color: #0b1a33;
+        }
+
+        .chip .badge {
+            background: #e6edf5;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #1f2a44;
+        }
+
+        /* section headings */
+        .section-heading {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0b1a33;
+            margin-bottom: 16px;
+            margin-top: 28px;
+        }
+
+        .section-heading:first-of-type {
+            margin-top: 0;
+        }
+
+        /* checklist */
+        .checklist {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 15px;
+            color: #1f2a44;
+            padding: 6px 12px 6px 8px;
+            border-radius: 10px;
+            transition: background 0.1s;
+            line-height: 1.5;
+        }
+
+        .checklist li .check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            background: #eef4ff;
+            border-radius: 6px;
+            color: #0066ff;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .checklist li .text {
+            flex: 1;
+        }
+
+        /* important box */
+        .important-box {
+            background: #faf3e8;
+            border-left: 4px solid #f5a623;
+            padding: 18px 22px;
+            border-radius: 12px;
+            margin: 20px 0 24px 0;
+        }
+
+        .important-box .title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #8b6f3c;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 8px;
+        }
+
+        .important-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .important-box ul li {
+            font-size: 14px;
+            color: #2d2a24;
+            padding: 4px 0 4px 20px;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .important-box ul li::before {
+            content: "•";
+            position: absolute;
+            left: 4px;
+            color: #b8955a;
+            font-weight: 700;
+        }
+
+        /* official links */
+        .links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px 24px;
+            background: #f8f9fb;
+            padding: 16px 20px;
+            border-radius: 14px;
+            border: 1px solid #eef0f2;
+            margin-top: 4px;
+        }
+
+        .links-grid .link-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #0066ff;
+            text-decoration: none;
+        }
+
+        .links-grid .link-item .domain {
+            color: #1f2a44;
+            font-weight: 400;
+        }
+
+        /* diagram / pro tip */
+        .diagram-box {
+            margin-top: 28px;
+            background: #f2f6fe;
+            border-radius: 16px;
+            padding: 20px 24px;
+            border: 1px solid #dfe8f5;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .diagram-box .icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: #0066ff;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .diagram-box .content {
+            flex: 1;
+        }
+
+        .diagram-box .content .label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0066ff;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .diagram-box .content .text {
+            font-size: 15px;
+            font-weight: 500;
+            color: #0b1a33;
+            margin-top: 2px;
+        }
+
+        /* ---------- RESPONSIVE ---------- */
+        @media (max-width: 1024px) {
+            .app {
+                grid-template-columns: 260px 1fr;
+            }
+            .main {
+                padding: 28px 28px 32px 28px;
+            }
+            .sidebar {
+                padding: 28px 16px 24px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app {
+                grid-template-columns: 1fr;
+                border-radius: 24px;
+            }
+            .sidebar {
+                border-right: none;
+                border-bottom: 1px solid #eef0f2;
+                padding: 20px 20px 12px 20px;
+            }
+            .sidebar-header .logo {
+                font-size: 24px;
+            }
+            .step-list {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 4px;
+                padding-bottom: 6px;
+                margin-top: 8px;
+            }
+            .step-item {
+                flex-shrink: 0;
+                padding: 6px 12px 6px 8px;
+                font-size: 13px;
+                white-space: nowrap;
+            }
+            .step-item .label {
+                white-space: nowrap;
+            }
+            .main {
+                padding: 20px 20px 28px 20px;
+            }
+            .main-title {
+                font-size: 26px;
+            }
+            .info-chips {
+                flex-direction: column;
+                gap: 10px;
+                padding: 14px 18px;
+            }
+            .links-grid {
+                flex-direction: column;
+                gap: 8px;
+            }
+            .diagram-box {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px 8px;
+            }
+            .app {
+                border-radius: 20px;
+            }
+            .main-title {
+                font-size: 22px;
+            }
+            .step-badge {
+                font-size: 12px;
+                padding: 4px 12px 4px 10px;
+            }
+            .checklist li {
+                font-size: 14px;
+                padding: 4px 8px 4px 4px;
+            }
         }
     </style>
-    """,
-    unsafe_allow_html=True,
-)
+</head>
+<body>
 
+    <div class="app">
 
-st.markdown(
-    """
-    <div class="movein-shell">
-        <div class="movein-eyebrow">Your move-in timeline</div>
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">Hay<span>yak</span></div>
+                <div class="subtitle">Dubai Relocation Guide</div>
+                <div class="journey-label">Step-by-step journey</div>
+            </div>
+
+            <nav class="step-list" role="navigation" aria-label="Relocation steps">
+                <!-- 01 active -->
+                <div class="step-item active">
+                    <span class="num">01</span>
+                    <span class="label">Visa &amp; Entry</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">02</span>
+                    <span class="label">Medical Fitness</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">03</span>
+                    <span class="label">Emirates ID</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">04</span>
+                    <span class="label">Housing Search</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">05</span>
+                    <span class="label">Property Check</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">06</span>
+                    <span class="label">Tenancy Contract</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">07</span>
+                    <span class="label">Ejari</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">08</span>
+                    <span class="label">DEWA</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">09</span>
+                    <span class="label">Move-in Permit</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">10</span>
+                    <span class="label">Internet</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">11</span>
+                    <span class="label">Mobile SIM</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">12</span>
+                    <span class="label">Cooling / Chiller</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">13</span>
+                    <span class="label">Handover</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">14</span>
+                    <span class="label">Essentials</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">15</span>
+                    <span class="label">Banking</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">16</span>
+                    <span class="label">Healthcare</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">17</span>
+                    <span class="label">Transport</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">18</span>
+                    <span class="label">Docs Vault</span>
+                </div>
+                <div class="step-item">
+                    <span class="num">19</span>
+                    <span class="label">Hayyak Tip</span>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <main class="main">
+
+            <!-- step badge -->
+            <div class="step-badge">
+                <span class="dot"></span>
+                STEP 01 OF 18
+            </div>
+
+            <!-- title -->
+            <h1 class="main-title">Visa &amp; Entry Setup</h1>
+            <p class="main-sub">
+                Understand and complete your UAE entry and residency process.
+            </p>
+
+            <!-- info chips -->
+            <div class="info-chips">
+                <div class="chip">
+                    <span class="label">⏱ Timeline</span>
+                    <span class="value">1–3 weeks</span>
+                </div>
+                <div class="chip">
+                    <span class="label">📄 Key Documents</span>
+                    <span class="value">Passport, photos, employment/sponsorship docs</span>
+                </div>
+                <div class="chip">
+                    <span class="label">⚡ Difficulty</span>
+                    <span class="badge">Easy</span>
+                </div>
+            </div>
+
+            <!-- What you need to do -->
+            <h2 class="section-heading">What you need to do</h2>
+            <ul class="checklist">
+                <li>
+                    <span class="check">✔</span>
+                    <span class="text"><strong>Confirm your sponsorship type</strong><br />Check if your employer, family member, free zone, or yourself will sponsor the visa.</span>
+                </li>
+                <li>
+                    <span class="check">✔</span>
+                    <span class="text"><strong>Check your entry status</strong><br />Know whether you have an entry permit or are entering on a tourist/visit visa.</span>
+                </li>
+                <li>
+                    <span class="check">✔</span>
+                    <span class="text"><strong>Prepare required documents</strong><br />Passport copy, passport photos, employment or sponsorship documents.</span>
+                </li>
+                <li>
+                    <span class="check">✔</span>
+                    <span class="text"><strong>Apply for entry/residency</strong><br />Submit your application through the relevant UAE authority or sponsor.</span>
+                </li>
+                <li>
+                    <span class="check">✔</span>
+                    <span class="text"><strong>Track approval</strong><br />Monitor your application status until it is approved.</span>
+                </li>
+                <li>
+                    <span class="check">✔</span>
+                    <span class="text"><strong>Proceed to next steps</strong><br />Once approved, move to medical fitness and Emirates ID application.</span>
+                </li>
+            </ul>
+
+            <!-- IMPORTANT TO KNOW -->
+            <div class="important-box">
+                <div class="title">⚠ IMPORTANT TO KNOW</div>
+                <ul>
+                    <li>Residency and identity services are handled through UAE authorities such as ICP, and sometimes GDRFA Dubai depending on your case.</li>
+                    <li>Do not sign long-term commitments until you know when your residency process will be completed.</li>
+                    <li>Requirements vary by visa type, sponsor, nationality, and free zone.</li>
+                </ul>
+            </div>
+
+            <!-- OFFICIAL LINKS -->
+            <h2 class="section-heading">OFFICIAL LINKS</h2>
+            <div class="links-grid">
+                <a href="#" class="link-item">
+                    <span>🔗</span> ICP UAE Official Website <span class="domain">icp.gov.ae</span>
+                </a>
+                <a href="#" class="link-item">
+                    <span>🔗</span> GDRFA Dubai <span class="domain">gdrfad.gov.ae</span>
+                </a>
+                <a href="#" class="link-item">
+                    <span>🔗</span> UAE Gov Portal <span class="domain">u.ae</span>
+                </a>
+            </div>
+
+            <!-- Diagram / Pro Tip -->
+            <div class="diagram-box">
+                <div class="icon">💡</div>
+                <div class="content">
+                    <div class="label">Pro Tip</div>
+                    <div class="text">Start your visa process early to avoid delays in your move-in timeline.</div>
+                </div>
+            </div>
+
+        </main>
+
     </div>
-    """,
-    unsafe_allow_html=True,
-)
 
-
-tab_cols = st.columns([1.2, 1.2, 1.2, 5])
-
-for i, phase in enumerate(CHECKLISTS.keys()):
-    with tab_cols[i]:
-        label = f"{CHECKLISTS[phase]['emoji']} {phase}"
-
-        if st.session_state.movein_active_tab == phase:
-            st.markdown(
-                f'<div class="active-tab-pill">{label}</div>',
-                unsafe_allow_html=True,
-            )
-        else:
-            button_key = f"movein_tab_{phase.replace(' ', '_')}"
-            if st.button(label, key=button_key, use_container_width=True):
-                st.session_state.movein_active_tab = phase
-                st.rerun()
-
-
-active_phase = st.session_state.movein_active_tab
-tasks = CHECKLISTS[active_phase]["tasks"]
-
-completed = sum(
-    1
-    for i in range(len(tasks))
-    if st.session_state.get(f"movein_{active_phase}_{i}", False)
-)
-
-total = len(tasks)
-progress = completed / total if total else 0
-
-
-st.markdown(
-    f'<div class="movein-task-count">{total} tasks</div>',
-    unsafe_allow_html=True,
-)
-
-
-with st.container(key="movein_checklist_card"):
-    for i, task in enumerate(tasks):
-        st.checkbox(
-            task,
-            key=f"movein_{active_phase}_{i}",
-        )
-
-
-st.markdown(
-    f"""
-    <div class="movein-progress-shell">
-        <div class="movein-progress-fill" style="width: {progress * 100}%;"></div>
-    </div>
-    <div class="movein-progress-label">{completed} of {total} completed</div>
-    """,
-    unsafe_allow_html=True,
-)
+</body>
+</html>
