@@ -31,23 +31,34 @@ apply_hayyak_theme()
 
 st.markdown(
     """
-    <style>
+        <style>
     header[data-testid="stHeader"] {
         display: none !important;
     }
-
     #MainMenu {
         visibility: hidden !important;
     }
-
     footer {
         visibility: hidden !important;
     }
-
     .block-container {
         padding-top: 1rem !important;
     }
-    </style>
+
+    /* Give the slider a matching card/box look */
+    .slider-box {
+        border: 1px solid #e0e0e0;
+        border-radius: 0.5rem;
+        padding: 0.75rem 1rem 0.25rem 1rem;
+        margin-bottom: 1rem;
+        background: var(--secondary-background-color, #f8f9fa);
+    }
+
+    /* Optional: make the slider value label look consistent */
+    .slider-box .stSlider {
+        padding-bottom: 0.5rem;
+    }
+        </style>
     """,
     unsafe_allow_html=True,
 )
@@ -162,7 +173,7 @@ with st.form("hayyak_quiz"):
         )
 
     submitted = st.form_submit_button("Find my neighbourhoods")
-    
+
 
 if submitted:
     user_profile = {
