@@ -440,14 +440,23 @@ def apply_hayyak_theme():
             }}
         }}
 
-        /* NEW STREAMLIT NAVBAR */
+        /* HIDE STREAMLIT CHROME */
+        header[data-testid="stHeader"] {{
+            display: none !important;
+        }}
+
+        #MainMenu, footer {{
+            visibility: hidden !important;
+        }}
+
+        /* FIXED CUSTOM NAVBAR */
         .hayyak-navbar-streamlit {{
             position: sticky;
             top: 0.75rem;
             z-index: 999;
             width: 100%;
-            margin-bottom: 0.85rem;
-            padding: 0.52rem 0.7rem;
+            margin: 0 auto 1.2rem auto;
+            padding: 0.65rem 1rem;
             border: 1px solid rgba(140, 138, 103, 0.28);
             border-radius: 999px;
             background: rgba(255, 249, 240, 0.90);
@@ -455,35 +464,83 @@ def apply_hayyak_theme():
             backdrop-filter: blur(12px);
         }}
 
-        .hayyak-navbar-streamlit > .stHorizontalBlock {{
+        .hayyak-navbar-inner {{
+            display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 1rem;
         }}
 
-        .hayyak-navbar-streamlit .hayyak-logo {{
+        .hayyak-brand {{
+            display: flex;
+            align-items: center;
+            min-width: 72px;
+        }}
+
+        .hayyak-logo {{
             width: 54px;
             height: 54px;
             object-fit: contain;
+            display: block;
         }}
 
-        .hayyak-navbar-streamlit .stPageLink > button {{
-            background: transparent;
-            border: none;
+        .hayyak-logo-fallback {{
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(140, 138, 103, 0.14);
             color: var(--deep-brown);
-            font-size: 0.88rem;
-            padding: 0.46rem 0.78rem;
+            font-weight: 900;
+        }}
+
+        .hayyak-links {{
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            gap: 0.75rem;
+        }}
+
+        .hayyak-nav-link {{
+            color: var(--deep-brown) !important;
+            text-decoration: none !important;
+            font-size: 0.95rem;
+            font-weight: 800;
+            padding: 0.55rem 1.2rem;
             border-radius: 999px;
             transition: 0.18s ease;
-            font-weight: 400;
+            white-space: nowrap;
         }}
 
-        .hayyak-navbar-streamlit .stPageLink > button:hover {{
+        .hayyak-nav-link:hover {{
             background: rgba(140, 138, 103, 0.14);
         }}
 
-        .hayyak-navbar-streamlit .stPageLink.active > button {{
-            background: var(--olive);
-            color: white !important;
+        .hayyak-nav-link.active {{
+            background: rgba(140, 138, 103, 0.18);
+            color: var(--deep-brown) !important;
+        }}
+
+        @media (max-width: 820px) {{
+            .hayyak-navbar-streamlit {{
+                border-radius: 24px;
+                position: relative;
+                top: 0;
+            }}
+
+            .hayyak-navbar-inner {{
+                flex-direction: column;
+                align-items: flex-start;
+            }}
+
+            .hayyak-links {{
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }}
         }}
         </style>
         """,
@@ -495,40 +552,38 @@ def render_nav(active="home"):
     logo_uri = _image_to_data_uri("assets/hayyak-logo.png")
 
     pages = [
-        ("home", "Home / Quiz", "app.py"),
-        ("utilities", "Utilities", "pages/1_Utilities.py"),
-        ("checklist", "Dubai Checklist", "pages/2_Checklist.py"),
-        ("guide", "Dubai Guide", "pages/3_Dubai_Guide.py"),
+        ("home", "Home / Quiz", "/"),
+        ("utilities", "Utilities", "/Utilities"),
+        ("checklist", "Dubai Checklist", "/Checklist"),
+        ("guide", "Dubai Guide", "/Dubai_Guide"),
     ]
 
-    with st.container():
-        st.markdown('<div class="hayyak-navbar-streamlit">', unsafe_allow_html=True)
+    logo_html = (
+        f'<img class="hayyak-logo" src="{logo_uri}" alt="Hayyak logo">'
+        if logo_uri
+        else '<div class="hayyak-logo-fallback">H</div>'
+    )
 
-        col_logo, col_links = st.columns([1, 4])
+    links_html = "".join(
+        f'<a class="hayyak-nav-link {"active" if active == key else ""}" href="{url}" target="_self">{label}</a>'
+        for key, label, url in pages
+    )
 
-        with col_logo:
-            if logo_uri:
-                st.markdown(
-                    f'<img class="hayyak-logo" src="{logo_uri}" alt="Hayyak logo" style="width:54px;height:54px;">',
-                    unsafe_allow_html=True,
-                )
-            else:
-                st.markdown('<div class="hayyak-logo-fallback">H</div>', unsafe_allow_html=True)
-
-        with col_links:
-            link_cols = st.columns(len(pages))
-            for i, (key, label, page_file) in enumerate(pages):
-                with link_cols[i]:
-                    active_class = "active" if active == key else ""
-                    st.markdown(
-                        f'<div class="stPageLink {active_class}">',
-                        unsafe_allow_html=True,
-                    )
-                    st.page_link(page_file, label=label, use_container_width=True)
-                    st.markdown("</div>", unsafe_allow_html=True)
-
-        st.markdown("</div>", unsafe_allow_html=True)
-
+    st.markdown(
+        f"""
+        <nav class="hayyak-navbar-streamlit">
+            <div class="hayyak-navbar-inner">
+                <div class="hayyak-brand">
+                    {logo_html}
+                </div>
+                <div class="hayyak-links">
+                    {links_html}
+                </div>
+            </div>
+        </nav>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def arabic_divider():
     st.markdown(
