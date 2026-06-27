@@ -13,6 +13,7 @@ PALETTE = {
     "ink": "#2B1B14",
 }
 
+
 def _image_to_data_uri(path):
     image_path = Path(path)
     if not image_path.exists():
@@ -23,8 +24,10 @@ def _image_to_data_uri(path):
         suffix = "jpeg"
     return f"data:image/{suffix};base64,{encoded}"
 
+
 def get_image_data_uri(path):
     return _image_to_data_uri(path)
+
 
 def apply_hayyak_theme():
     st.markdown(
@@ -42,7 +45,9 @@ def apply_hayyak_theme():
             color: var(--ink) !important;
         }}
 
-        [data-testid="stSidebar"] {{ display: none !important; }}
+        [data-testid="stSidebar"] {{
+            display: none !important;
+        }}
 
         .block-container {{
             max-width: 1120px;
@@ -50,7 +55,7 @@ def apply_hayyak_theme():
             padding-bottom: 2.5rem;
         }}
 
-        /* OLD NAVBAR (can be removed later, but keep for now) */
+        /* OLD NAVBAR */
         .hayyak-navbar {{
             position: sticky;
             top: 0.75rem;
@@ -64,10 +69,33 @@ def apply_hayyak_theme():
             box-shadow: 0 12px 28px rgba(100, 42, 22, 0.09);
             backdrop-filter: blur(12px);
         }}
-        .hayyak-navbar-inner {{ display: flex; align-items: center; justify-content: space-between; gap: 1rem; }}
-        .hayyak-brand {{ display: flex; align-items: center; min-width: 72px; }}
-        .hayyak-logo {{ width: 54px; height: 54px; object-fit: contain; }}
-        .hayyak-links {{ display: flex; align-items: center; gap: 0.35rem; flex-wrap: wrap; }}
+
+        .hayyak-navbar-inner {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }}
+
+        .hayyak-brand {{
+            display: flex;
+            align-items: center;
+            min-width: 72px;
+        }}
+
+        .hayyak-logo {{
+            width: 54px;
+            height: 54px;
+            object-fit: contain;
+        }}
+
+        .hayyak-links {{
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+        }}
+
         .hayyak-links a {{
             color: var(--deep-brown) !important;
             text-decoration: none !important;
@@ -76,10 +104,17 @@ def apply_hayyak_theme():
             border-radius: 999px;
             transition: 0.18s ease;
         }}
-        .hayyak-links a:hover {{ background: rgba(140, 138, 103, 0.14); }}
-        .hayyak-links a.active {{ background: var(--olive); color: white !important; }}
 
-        /* HERO IMAGE – no shadow, no border */
+        .hayyak-links a:hover {{
+            background: rgba(140, 138, 103, 0.14);
+        }}
+
+        .hayyak-links a.active {{
+            background: var(--olive);
+            color: white !important;
+        }}
+
+        /* HERO IMAGE */
         .hero-image-container {{
             width: 100%;
             max-width: 980px;
@@ -87,6 +122,7 @@ def apply_hayyak_theme():
             text-align: center;
             animation: fadeIn 1s ease-out both;
         }}
+
         .hero-image-container img {{
             width: 100%;
             height: auto;
@@ -96,9 +132,16 @@ def apply_hayyak_theme():
             box-shadow: none !important;
             border-radius: 0 !important;
         }}
+
         @keyframes fadeIn {{
-            from {{ opacity: 0; transform: translateY(8px); }}
-            to {{ opacity: 1; transform: translateY(0); }}
+            from {{
+                opacity: 0;
+                transform: translateY(8px);
+            }}
+            to {{
+                opacity: 1;
+                transform: translateY(0);
+            }}
         }}
 
         /* SECTION CARDS */
@@ -110,9 +153,25 @@ def apply_hayyak_theme():
             padding: 1.25rem;
             margin: 0.45rem 0 1rem 0;
         }}
-        .section-heading {{ display: flex; justify-content: space-between; gap: 1rem; align-items: flex-end; margin-bottom: 0.85rem; }}
-        .section-heading h2 {{ margin: 0; font-size: 1.55rem; color: var(--deep-brown); }}
-        .section-heading p {{ margin: 0.3rem 0 0 0; color: #735A4C; }}
+
+        .section-heading {{
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: flex-end;
+            margin-bottom: 0.85rem;
+        }}
+
+        .section-heading h2 {{
+            margin: 0;
+            font-size: 1.55rem;
+            color: var(--deep-brown);
+        }}
+
+        .section-heading p {{
+            margin: 0.3rem 0 0 0;
+            color: #735A4C;
+        }}
 
         .result-card {{
             border: 1px solid rgba(140, 138, 103, 0.24);
@@ -121,8 +180,21 @@ def apply_hayyak_theme():
             padding: 1rem;
             margin-bottom: 0.8rem;
         }}
-        .result-topline {{ display: flex; justify-content: space-between; align-items: center; gap: 1rem; }}
-        .result-title {{ color: var(--deep-brown); font-size: 1.15rem; font-weight: 800; margin: 0; }}
+
+        .result-topline {{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }}
+
+        .result-title {{
+            color: var(--deep-brown);
+            font-size: 1.15rem;
+            font-weight: 800;
+            margin: 0;
+        }}
+
         .match-pill {{
             background: rgba(140, 138, 103, 0.14);
             color: var(--olive);
@@ -133,7 +205,10 @@ def apply_hayyak_theme():
             font-weight: 800;
             white-space: nowrap;
         }}
-        .muted-text {{ color: #735A4C; }}
+
+        .muted-text {{
+            color: #735A4C;
+        }}
 
         /* CUSTOM SLIDER WRAPPER */
         .custom-slider-wrapper {{
@@ -143,12 +218,14 @@ def apply_hayyak_theme():
             padding: 0.85rem 0.9rem;
             margin-bottom: 0.75rem;
         }}
+
         .custom-slider-wrapper label {{
             color: var(--deep-brown) !important;
             font-weight: 800 !important;
             display: block;
             margin-bottom: 0.4rem;
         }}
+
         .custom-slider-wrapper input[type="range"] {{
             width: 100%;
             height: 6px;
@@ -157,6 +234,7 @@ def apply_hayyak_theme():
             outline: none;
             -webkit-appearance: none;
         }}
+
         .custom-slider-wrapper input[type="range"]::-webkit-slider-thumb {{
             -webkit-appearance: none;
             width: 20px;
@@ -167,6 +245,7 @@ def apply_hayyak_theme():
             border: 2px solid var(--paper);
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }}
+
         .custom-slider-wrapper input[type="range"]::-moz-range-thumb {{
             width: 20px;
             height: 20px;
@@ -175,6 +254,7 @@ def apply_hayyak_theme():
             cursor: pointer;
             border: 2px solid var(--paper);
         }}
+
         div[data-testid="stTextInput"] {{
             display: none !important;
         }}
@@ -198,6 +278,7 @@ def apply_hayyak_theme():
         input[type="radio"] {{
             accent-color: var(--olive) !important;
         }}
+
         div[role="radiogroup"] label {{
             background: rgba(140, 138, 103, 0.09) !important;
             border: 1px solid rgba(140, 138, 103, 0.18) !important;
@@ -206,8 +287,31 @@ def apply_hayyak_theme():
             margin-right: 0.25rem !important;
             color: var(--ink) !important;
         }}
+
         div[role="radiogroup"] label:hover {{
             background: rgba(140, 138, 103, 0.16) !important;
+        }}
+
+        /* CHECKBOX TEXT FIX */
+        div[data-testid="stCheckbox"] label,
+        div[data-testid="stCheckbox"] label p,
+        div[data-testid="stCheckbox"] span,
+        div[data-testid="stCheckbox"] p {{
+            color: #2B1B14 !important;
+        }}
+
+        div[data-testid="stCheckbox"] label p {{
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+            line-height: 1.45 !important;
+        }}
+
+        div[data-testid="stCheckbox"] svg {{
+            color: #2B1B14 !important;
+        }}
+
+        input[type="checkbox"] {{
+            accent-color: var(--olive) !important;
         }}
 
         /* SELECTBOX */
@@ -218,16 +322,22 @@ def apply_hayyak_theme():
             color: var(--ink) !important;
             box-shadow: none !important;
         }}
-        div[data-baseweb="select"] span {{ color: var(--ink) !important; }}
+
+        div[data-baseweb="select"] span {{
+            color: var(--ink) !important;
+        }}
+
         div[data-baseweb="popover"] div[role="listbox"] {{
             background-color: #FFF9F0 !important;
             border: 1px solid rgba(140, 138, 103, 0.24) !important;
             border-radius: 16px !important;
         }}
+
         div[data-baseweb="popover"] div[role="option"] {{
             background-color: #FFF9F0 !important;
             color: var(--ink) !important;
         }}
+
         div[data-baseweb="popover"] div[role="option"]:hover {{
             background-color: rgba(140, 138, 103, 0.14) !important;
         }}
@@ -243,6 +353,7 @@ def apply_hayyak_theme():
             font-weight: 800 !important;
             transition: 0.18s ease !important;
         }}
+
         div[data-testid="stButton"] > button:hover,
         div[data-testid="stFormSubmitButton"] > button:hover {{
             background: #6F7A52 !important;
@@ -254,9 +365,11 @@ def apply_hayyak_theme():
         [data-testid="stDialog"] {{
             z-index: 1000 !important;
         }}
+
         [data-testid="stDialog"]::backdrop {{
             background: rgba(0, 0, 0, 0.4) !important;
         }}
+
         [data-testid="stDialog"] > div {{
             background: rgba(255, 249, 240, 0.98) !important;
             backdrop-filter: blur(4px);
@@ -265,9 +378,11 @@ def apply_hayyak_theme():
             box-shadow: 0 20px 48px rgba(100, 42, 22, 0.15) !important;
             color: var(--ink) !important;
         }}
+
         [data-testid="stDialog"] * {{
             color: var(--ink) !important;
         }}
+
         [data-testid="stDialog"] h1,
         [data-testid="stDialog"] h2,
         [data-testid="stDialog"] h3,
@@ -276,17 +391,21 @@ def apply_hayyak_theme():
         [data-testid="stDialog"] h6 {{
             color: var(--deep-brown) !important;
         }}
+
         [data-testid="stDialog"] p {{
             color: var(--ink) !important;
         }}
+
         [data-testid="stDialog"] [data-testid="stCaption"] {{
             color: #735A4C !important;
         }}
+
         [data-testid="stDialog"] [data-testid="stSuccess"] {{
             background: rgba(140, 138, 103, 0.12) !important;
             border: 1px solid rgba(140, 138, 103, 0.24) !important;
             color: var(--deep-brown) !important;
         }}
+
         [data-testid="stDialog"] [data-testid="stWarning"] {{
             background: rgba(178, 121, 96, 0.12) !important;
             border: 1px solid rgba(178, 121, 96, 0.24) !important;
@@ -301,13 +420,27 @@ def apply_hayyak_theme():
         }}
 
         @media (max-width: 820px) {{
-            .hayyak-navbar {{ border-radius: 24px; position: relative; top: 0; }}
-            .hayyak-navbar-inner {{ flex-direction: column; align-items: flex-start; }}
-            .hero-image-container img {{ max-height: 250px; }}
-            .section-card {{ padding: 1rem; }}
+            .hayyak-navbar {{
+                border-radius: 24px;
+                position: relative;
+                top: 0;
+            }}
+
+            .hayyak-navbar-inner {{
+                flex-direction: column;
+                align-items: flex-start;
+            }}
+
+            .hero-image-container img {{
+                max-height: 250px;
+            }}
+
+            .section-card {{
+                padding: 1rem;
+            }}
         }}
 
-        /* ----- NEW STREAMLIT NAVBAR (state‑safe) ----- */
+        /* NEW STREAMLIT NAVBAR */
         .hayyak-navbar-streamlit {{
             position: sticky;
             top: 0.75rem;
@@ -361,12 +494,11 @@ def apply_hayyak_theme():
 def render_nav(active="home"):
     logo_uri = _image_to_data_uri("assets/hayyak-logo.png")
 
-    # ----- page definitions (must match your filenames inside pages/) -----
     pages = [
-        ("home",      "Home / Quiz",      "app.py"),
-        ("utilities", "Utilities",        "pages/1_Utilities.py"),
-        ("checklist", "Dubai Checklist",  "pages/2_Checklist.py"),
-        ("guide",     "Dubai Guide",      "pages/3_Dubai_Guide.py"),
+        ("home", "Home / Quiz", "app.py"),
+        ("utilities", "Utilities", "pages/1_Utilities.py"),
+        ("checklist", "Dubai Checklist", "pages/2_Checklist.py"),
+        ("guide", "Dubai Guide", "pages/3_Dubai_Guide.py"),
     ]
 
     with st.container():
@@ -388,11 +520,14 @@ def render_nav(active="home"):
             for i, (key, label, page_file) in enumerate(pages):
                 with link_cols[i]:
                     active_class = "active" if active == key else ""
-                    st.markdown(f'<div class="stPageLink {active_class}">', unsafe_allow_html=True)
+                    st.markdown(
+                        f'<div class="stPageLink {active_class}">',
+                        unsafe_allow_html=True,
+                    )
                     st.page_link(page_file, label=label, use_container_width=True)
-                    st.markdown('</div>', unsafe_allow_html=True)
+                    st.markdown("</div>", unsafe_allow_html=True)
 
-        st.markdown('</div>', unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
 
 def arabic_divider():
