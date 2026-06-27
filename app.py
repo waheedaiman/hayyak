@@ -255,10 +255,5 @@ if "recommendations" in st.session_state:
 
             show_ai_result_modal(ai_response)
 
-    with col_b:
-        st.caption(
-            "The relocation brief opens as a modal so users do not need to scroll away from their results."
-        )
-
 else:
     st.info("Complete the quiz to generate your first neighbourhood matches.")
