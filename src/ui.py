@@ -551,39 +551,38 @@ def apply_hayyak_theme():
 def render_nav(active="home"):
     logo_uri = _image_to_data_uri("assets/hayyak-logo.png")
 
-    pages = [
-        ("home", "Home / Quiz", "/"),
-        ("utilities", "Utilities", "/Utilities"),
-        ("checklist", "Dubai Checklist", "/Checklist"),
-        ("guide", "Dubai Guide", "/Dubai_Guide"),
-    ]
-
     logo_html = (
         f'<img class="hayyak-logo" src="{logo_uri}" alt="Hayyak logo">'
         if logo_uri
         else '<div class="hayyak-logo-fallback">H</div>'
     )
 
-    links_html = "".join(
-        f'<a class="hayyak-nav-link {"active" if active == key else ""}" href="{url}" target="_self">{label}</a>'
-        for key, label, url in pages
-    )
-
     st.markdown(
         f"""
-        <nav class="hayyak-navbar-streamlit">
+        <div class="hayyak-navbar-streamlit">
             <div class="hayyak-navbar-inner">
-                <div class="hayyak-brand">
-                    {logo_html}
-                </div>
-                <div class="hayyak-links">
-                    {links_html}
-                </div>
+                <div class="hayyak-brand">{logo_html}</div>
             </div>
-        </nav>
+        </div>
         """,
         unsafe_allow_html=True,
     )
+
+    pages = [
+        ("home",      "Home / Quiz",     "app.py"),
+        ("utilities", "Utilities",       "pages/1_Utilities.py"),
+        ("checklist", "Dubai Checklist", "pages/2_Checklist.py"),
+        ("guide",     "Dubai Guide",     "pages/3_Dubai_Guide.py"),
+    ]
+
+    cols = st.columns(len(pages))
+    for col, (key, label, path) in zip(cols, pages):
+        with col:
+            if active != key:
+                if st.button(label, key=f"nav_{key}", use_container_width=True):
+                    st.switch_page(path)
+            else:
+                st.button(label, key=f"nav_{key}", disabled=True, use_container_width=True)
 
 def arabic_divider():
     st.markdown(
