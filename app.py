@@ -24,7 +24,41 @@ st.set_page_config(
     layout="wide",
 )
 
+st.set_page_config(
+    page_title="Hayyak | Dubai neighbourhood matching",
+    page_icon="🏡",
+    layout="wide",
+)
+
 apply_hayyak_theme()
+
+st.markdown("""
+<style>
+/* Hide Streamlit's top black header */
+header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+/* Remove the blank space left behind */
+div[data-testid="stAppViewContainer"] {
+    padding-top: 0 !important;
+}
+
+section.main > div {
+    padding-top: 0 !important;
+}
+
+/* Hide Streamlit menu and footer */
+#MainMenu {
+    visibility: hidden !important;
+}
+
+footer {
+    visibility: hidden !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 render_nav(active="home")
 
 
