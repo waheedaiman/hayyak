@@ -26,12 +26,6 @@ st.set_page_config(
     layout="wide",
 )
 
-st.set_page_config(
-    page_title="Hayyak | Dubai neighbourhood matching",
-    page_icon="🏡",
-    layout="wide",
-)
-
 apply_hayyak_theme()
 
 st.markdown("""
@@ -183,11 +177,11 @@ if submitted:
 
 # ---------------- RESULTS ----------------
 
+# ---------------- RESULTS ----------------
+
 if "recommendations" in st.session_state:
     profile = st.session_state["user_profile"]
     recommendations = st.session_state["recommendations"]
-else:
-    recommendations = []
 
     st.markdown(
         """
@@ -202,51 +196,56 @@ else:
         unsafe_allow_html=True,
     )
 
-for rank, rec in enumerate(recommendations, start=1):
-    reasons = rec.get("reasons", [])
-    cautions = rec.get("cautions", [])
+    for rank, rec in enumerate(recommendations, start=1):
+        reasons = rec.get("reasons", [])
+        cautions = rec.get("cautions", [])
 
-    reasons_html = "".join(
-        [f"<li>{reason.capitalize()}.</li>" for reason in reasons[:3]]
-    ) or "<li>This area is a possible match, but more detail would improve the recommendation.</li>"
+        reasons_html = "".join(
+            [f"<li>{reason.capitalize()}.</li>" for reason in reasons[:3]]
+        ) or "<li>This area is a possible match, but more detail would improve the recommendation.</li>"
 
-    cautions_html = "".join(
-        [f"<li>{caution.capitalize()}.</li>" for caution in cautions[:2]]
-    )
+        cautions_html = "".join(
+            [f"<li>{caution.capitalize()}.</li>" for caution in cautions[:2]]
+        )
 
-    caution_block = ""
-    if cautions_html:
-        caution_block = f"""
-        <p style="margin:.7rem 0 .25rem 0;"><strong>Cautions</strong></p>
-        <ul>{cautions_html}</ul>
-        """
+        caution_block = ""
+        if cautions_html:
+            caution_block = f"""
+            <p style="margin:.7rem 0 .25rem 0;"><strong>Cautions</strong></p>
+            <ul>{cautions_html}</ul>
+            """
 
-    raw_downside = rec.get("downside", "")
-    downside_text = re.sub(r"<[^>]+>", "", raw_downside).replace("Possible downside:", "").strip()
+        raw_downside = rec.get("downside", "")
+        downside_text = re.sub(r"<[^>]+>", "", str(raw_downside))
+        downside_text = downside_text.replace("Possible downside:", "").strip()
 
-    st.markdown(
-        f"""
-        <div class="result-card">
-            <div class="result-topline">
-                <h3 class="result-title">{rank}. {rec.get("name")}</h3>
-                <span class="match-pill">{rec.get("match_percent")}% match</span>
+        st.markdown(
+            f"""
+            <div class="result-card">
+                <div class="result-topline">
+                    <h3 class="result-title">{rank}. {rec.get("name")}</h3>
+                    <span class="match-pill">{rec.get("match_percent")}% match</span>
+                </div>
+
+                <p class="muted-text">{rec.get("summary")}</p>
+
+                <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
+                <ul>{reasons_html}</ul>
+
+                {caution_block}
+
+                <p><strong>Possible downside:</strong> {downside_text}</p>
             </div>
-            <p class="muted-text">{rec.get("summary")}</p>
-            <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
-            <ul>{reasons_html}</ul>
-            {caution_block}
-            <p><strong>Possible downside:</strong> {downside_text}</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+            """,
+            unsafe_allow_html=True,
+        )
 
     st.markdown("</div>", unsafe_allow_html=True)
 
     col_a, col_b = st.columns([1, 2])
 
     with col_a:
-        if st.button("Generate relocation brief"):
+        if st.button("Generate relocation brief", key="generate_relocation_brief"):
             with st.spinner("Preparing your Hayyak relocation brief..."):
                 ai_response = generate_ai_explanation(profile, recommendations)
 
