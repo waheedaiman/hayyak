@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hayyak – Visa & Entry Setup</title>
+<title>Hayyak – Dubai Relocation Guide</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,20 +70,9 @@
     display: block;
   }
 
-  .sidebar-subtitle {
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--text-muted);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
+  .sidebar-subtitle { font-size: 10px; font-weight: 600; color: var(--text-muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .sidebar-subtitle-sub { font-size: 10px; color: var(--text-muted); }
 
-  .sidebar-subtitle-sub {
-    font-size: 10px;
-    color: var(--text-muted);
-  }
-
-  /* Nav steps */
   .sidebar-nav { flex: 1; padding: 10px 0; overflow-y: auto; }
 
   .nav-step {
@@ -92,51 +81,21 @@
     gap: 9px;
     padding: 8px 14px;
     cursor: pointer;
-    border-radius: 0;
     transition: background 0.15s;
     text-decoration: none;
     border-left: 3px solid transparent;
   }
 
   .nav-step:hover { background: var(--cream); }
+  .nav-step.active { background: var(--cream-mid); border-left-color: var(--brown); }
 
-  .nav-step.active {
-    background: var(--cream-mid);
-    border-left-color: var(--brown);
-  }
-
-  .nav-step-num {
-    font-size: 9.5px;
-    font-weight: 700;
-    color: var(--brown-light);
-    width: 16px;
-    flex-shrink: 0;
-  }
-
+  .nav-step-num { font-size: 9.5px; font-weight: 700; color: var(--brown-light); width: 16px; flex-shrink: 0; }
   .nav-step.active .nav-step-num { color: var(--brown); }
-
   .nav-step-body { flex: 1; min-width: 0; }
-
-  .nav-step-name {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text-dark);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
+  .nav-step-name { font-size: 11px; font-weight: 600; color: var(--text-dark); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .nav-step.active .nav-step-name { color: var(--brown-dark); }
+  .nav-step-sub { font-size: 9.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  .nav-step-sub {
-    font-size: 9.5px;
-    color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Hayyak tip at bottom */
   .sidebar-tip {
     margin: 10px 12px 16px;
     background: var(--cream-mid);
@@ -156,20 +115,10 @@
   }
 
   .sidebar-tip-label svg { width: 12px; height: 12px; }
-
-  .sidebar-tip-text {
-    font-size: 10px;
-    color: var(--text-mid);
-    line-height: 1.5;
-  }
+  .sidebar-tip-text { font-size: 10px; color: var(--text-mid); line-height: 1.5; }
 
   /* ── MAIN ── */
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
+  .main { flex: 1; display: flex; flex-direction: column; min-width: 0; }
 
   .content-area {
     width: 100%;
@@ -179,29 +128,19 @@
     padding: 28px 28px 28px 28px;
   }
 
-  /* ── LEFT COLUMN ── */
   .left-col { padding-right: 24px; }
 
-  .step-header {
-    display: flex;
-    align-items: flex-start;
-    gap: 18px;
-    margin-bottom: 20px;
-  }
+  .step-header { display: flex; align-items: flex-start; gap: 18px; margin-bottom: 20px; }
 
   .step-icon-wrap {
-    width: 64px;
-    height: 64px;
+    width: 64px; height: 64px;
     background: var(--brown);
     border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
 
   .step-icon-wrap svg { width: 32px; height: 32px; color: white; }
-
   .step-meta { flex: 1; }
 
   .step-badge {
@@ -210,25 +149,16 @@
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 3px 11px;
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 10px; font-weight: 700;
     color: var(--brown);
     margin-bottom: 5px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
-  .step-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: var(--text-dark);
-    line-height: 1.15;
-    margin-bottom: 4px;
-  }
-
+  .step-title { font-size: 26px; font-weight: 700; color: var(--text-dark); line-height: 1.15; margin-bottom: 4px; }
   .step-desc { font-size: 12px; color: var(--text-muted); }
 
-  /* Info bar */
   .info-bar {
     display: flex;
     border: 1px solid var(--border);
@@ -239,11 +169,8 @@
   }
 
   .info-cell {
-    flex: 1;
-    padding: 11px 13px;
-    display: flex;
-    gap: 9px;
-    align-items: flex-start;
+    flex: 1; padding: 11px 13px;
+    display: flex; gap: 9px; align-items: flex-start;
     border-right: 1px solid var(--border);
   }
 
@@ -252,13 +179,7 @@
   .info-label { font-size: 10px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
   .info-val { font-size: 10px; color: var(--text-muted); }
 
-  /* Tasks */
-  .section-heading {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--brown);
-    margin-bottom: 11px;
-  }
+  .section-heading { font-size: 13px; font-weight: 700; color: var(--brown); margin-bottom: 11px; }
 
   .tasks-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
 
@@ -267,60 +188,44 @@
     border: 1px solid var(--border);
     border-radius: 11px;
     padding: 12px 13px;
-    display: flex;
-    align-items: center;
-    gap: 11px;
+    display: flex; align-items: flex-start; gap: 11px;
     cursor: pointer;
     transition: box-shadow 0.15s, border-color 0.15s;
   }
 
-  .task-card:hover {
-    box-shadow: 0 2px 8px rgba(139,94,42,0.1);
-    border-color: var(--brown-light);
-  }
+  .task-card:hover { box-shadow: 0 2px 8px rgba(139,94,42,0.1); border-color: var(--brown-light); }
 
   .task-num {
-    width: 26px;
-    height: 26px;
+    width: 26px; height: 26px;
     background: var(--cream);
     border-radius: 7px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: var(--text-dark);
     flex-shrink: 0;
     border: 1px solid var(--border);
+    margin-top: 1px;
   }
 
-  .task-icon { width: 18px; height: 18px; color: var(--brown-light); flex-shrink: 0; }
+  .task-icon { width: 18px; height: 18px; color: var(--brown-light); flex-shrink: 0; margin-top: 3px; }
   .task-body { flex: 1; }
   .task-title { font-size: 12px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
-  .task-sub { font-size: 10.5px; color: var(--text-muted); }
-  .task-arrow { color: var(--text-muted); font-size: 16px; }
+  .task-sub { font-size: 10.5px; color: var(--text-muted); line-height: 1.5; }
+  .task-arrow { color: var(--text-muted); font-size: 16px; margin-top: 2px; }
 
-  /* Pro tip */
   .pro-tip {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 11px;
     padding: 13px 15px;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    position: relative;
-    overflow: hidden;
+    display: flex; align-items: center; gap: 13px;
+    position: relative; overflow: hidden;
   }
 
   .tip-icon-box {
-    width: 32px;
-    height: 32px;
+    width: 32px; height: 32px;
     background: var(--cream);
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
     border: 1px solid var(--border);
   }
@@ -330,13 +235,9 @@
   .pro-tip-text { font-size: 11px; color: var(--text-mid); }
 
   .plane-deco {
-    position: absolute;
-    right: 14px;
-    bottom: 6px;
-    opacity: 0.18;
-    font-size: 34px;
-    transform: rotate(-15deg);
-    color: var(--brown);
+    position: absolute; right: 14px; bottom: 6px;
+    opacity: 0.18; font-size: 34px;
+    transform: rotate(-15deg); color: var(--brown);
   }
 
   /* ── RIGHT COLUMN ── */
@@ -350,11 +251,8 @@
   }
 
   .card-heading {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 10.5px;
-    font-weight: 700;
+    display: flex; align-items: center; gap: 7px;
+    font-size: 10.5px; font-weight: 700;
     color: var(--brown);
     letter-spacing: 0.06em;
     margin-bottom: 12px;
@@ -363,19 +261,12 @@
 
   .card-heading svg { width: 13px; height: 13px; }
 
-  .info-row {
-    display: flex;
-    gap: 9px;
-    align-items: flex-start;
-    margin-bottom: 10px;
-  }
-
+  .info-row { display: flex; gap: 9px; align-items: flex-start; margin-bottom: 10px; }
   .info-row:last-child { margin-bottom: 0; }
   .info-row-icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
   .info-row-icon svg { width: 15px; height: 15px; color: var(--brown-light); }
   .info-row-text { font-size: 10px; color: var(--text-mid); line-height: 1.5; }
 
-  /* Official links */
   .links-card {
     background: var(--white);
     border: 1px solid var(--border);
@@ -383,24 +274,15 @@
     padding: 13px 13px 11px;
   }
 
-  .links-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 11px;
-  }
-
+  .links-heading { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; }
   .links-label { font-size: 10.5px; font-weight: 700; color: var(--brown); letter-spacing: 0.06em; text-transform: uppercase; }
   .links-arrow { color: var(--brown); font-size: 14px; }
 
   .link-row {
-    display: flex;
-    align-items: center;
-    gap: 9px;
+    display: flex; align-items: center; gap: 9px;
     padding: 8px 0;
     border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    text-decoration: none;
+    cursor: pointer; text-decoration: none;
     transition: opacity 0.15s;
   }
 
@@ -412,9 +294,11 @@
   .link-url { font-size: 9.5px; color: var(--text-muted); }
   .link-ext { font-size: 12px; color: var(--brown-light); }
 
-  /* Skyline */
   .skyline-wrap { margin-top: 4px; opacity: 0.55; }
   .skyline-wrap svg { width: 100%; height: auto; }
+
+  #links-section { display: block; }
+  #links-section.hidden { display: none; }
 </style>
 </head>
 <body>
@@ -429,142 +313,32 @@
   </div>
 
   <nav class="sidebar-nav">
-    <a class="nav-step active" href="#" data-step="1">
-      <span class="nav-step-num">01</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Visa &amp; Entry</div>
-        <div class="nav-step-sub">Residence route</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="2">
-      <span class="nav-step-num">02</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Medical Fitness</div>
-        <div class="nav-step-sub">Health check</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="3">
-      <span class="nav-step-num">03</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Emirates ID</div>
-        <div class="nav-step-sub">Identity card</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="4">
-      <span class="nav-step-num">04</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Housing Search</div>
-        <div class="nav-step-sub">Area &amp; budget</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="5">
-      <span class="nav-step-num">05</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Property Check</div>
-        <div class="nav-step-sub">Broker &amp; documents</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="6">
-      <span class="nav-step-num">06</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Tenancy Contract</div>
-        <div class="nav-step-sub">Rental agreement</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="7">
-      <span class="nav-step-num">07</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Ejari</div>
-        <div class="nav-step-sub">Rental registration</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="8">
-      <span class="nav-step-num">08</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">DEWA</div>
-        <div class="nav-step-sub">Electricity &amp; water</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="9">
-      <span class="nav-step-num">09</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Move-in Permit</div>
-        <div class="nav-step-sub">Building approval</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="10">
-      <span class="nav-step-num">10</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Internet</div>
-        <div class="nav-step-sub">Home broadband</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="11">
-      <span class="nav-step-num">11</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Mobile SIM</div>
-        <div class="nav-step-sub">Phone &amp; data</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="12">
-      <span class="nav-step-num">12</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Cooling / Chiller</div>
-        <div class="nav-step-sub">If separate</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="13">
-      <span class="nav-step-num">13</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Handover</div>
-        <div class="nav-step-sub">Inspect the unit</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="14">
-      <span class="nav-step-num">14</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Essentials</div>
-        <div class="nav-step-sub">Furniture &amp; supplies</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="15">
-      <span class="nav-step-num">15</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Banking</div>
-        <div class="nav-step-sub">Money setup</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="16">
-      <span class="nav-step-num">16</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Healthcare</div>
-        <div class="nav-step-sub">Insurance &amp; clinics</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="17">
-      <span class="nav-step-num">17</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Transport</div>
-        <div class="nav-step-sub">Driving &amp; commute</div>
-      </div>
-    </a>
-    <a class="nav-step" href="#" data-step="18">
-      <span class="nav-step-num">18</span>
-      <div class="nav-step-body">
-        <div class="nav-step-name">Docs Vault</div>
-        <div class="nav-step-sub">Save everything</div>
-      </div>
-    </a>
+    <a class="nav-step active" href="#" data-step="1"><span class="nav-step-num">01</span><div class="nav-step-body"><div class="nav-step-name">Visa &amp; Entry</div><div class="nav-step-sub">Residence route</div></div></a>
+    <a class="nav-step" href="#" data-step="2"><span class="nav-step-num">02</span><div class="nav-step-body"><div class="nav-step-name">Medical Fitness</div><div class="nav-step-sub">Residency health check</div></div></a>
+    <a class="nav-step" href="#" data-step="3"><span class="nav-step-num">03</span><div class="nav-step-body"><div class="nav-step-name">Emirates ID</div><div class="nav-step-sub">Identity card</div></div></a>
+    <a class="nav-step" href="#" data-step="4"><span class="nav-step-num">04</span><div class="nav-step-body"><div class="nav-step-name">Housing Search</div><div class="nav-step-sub">Area &amp; budget</div></div></a>
+    <a class="nav-step" href="#" data-step="5"><span class="nav-step-num">05</span><div class="nav-step-body"><div class="nav-step-name">Property Check</div><div class="nav-step-sub">Broker &amp; documents</div></div></a>
+    <a class="nav-step" href="#" data-step="6"><span class="nav-step-num">06</span><div class="nav-step-body"><div class="nav-step-name">Tenancy Contract</div><div class="nav-step-sub">Rental agreement</div></div></a>
+    <a class="nav-step" href="#" data-step="7"><span class="nav-step-num">07</span><div class="nav-step-body"><div class="nav-step-name">Ejari</div><div class="nav-step-sub">Rental registration</div></div></a>
+    <a class="nav-step" href="#" data-step="8"><span class="nav-step-num">08</span><div class="nav-step-body"><div class="nav-step-name">DEWA</div><div class="nav-step-sub">Electricity &amp; water</div></div></a>
+    <a class="nav-step" href="#" data-step="9"><span class="nav-step-num">09</span><div class="nav-step-body"><div class="nav-step-name">Move-in Permit</div><div class="nav-step-sub">Community approval</div></div></a>
+    <a class="nav-step" href="#" data-step="10"><span class="nav-step-num">10</span><div class="nav-step-body"><div class="nav-step-name">Internet</div><div class="nav-step-sub">Home broadband</div></div></a>
+    <a class="nav-step" href="#" data-step="11"><span class="nav-step-num">11</span><div class="nav-step-body"><div class="nav-step-name">Mobile SIM</div><div class="nav-step-sub">Phone &amp; data</div></div></a>
+    <a class="nav-step" href="#" data-step="12"><span class="nav-step-num">12</span><div class="nav-step-body"><div class="nav-step-name">Cooling / Chiller</div><div class="nav-step-sub">Chiller setup</div></div></a>
+    <a class="nav-step" href="#" data-step="13"><span class="nav-step-num">13</span><div class="nav-step-body"><div class="nav-step-name">Handover</div><div class="nav-step-sub">Inspect the unit</div></div></a>
+    <a class="nav-step" href="#" data-step="14"><span class="nav-step-num">14</span><div class="nav-step-body"><div class="nav-step-name">Essentials</div><div class="nav-step-sub">Furniture &amp; supplies</div></div></a>
+    <a class="nav-step" href="#" data-step="15"><span class="nav-step-num">15</span><div class="nav-step-body"><div class="nav-step-name">Banking</div><div class="nav-step-sub">Money setup</div></div></a>
+    <a class="nav-step" href="#" data-step="16"><span class="nav-step-num">16</span><div class="nav-step-body"><div class="nav-step-name">Healthcare</div><div class="nav-step-sub">Insurance &amp; clinics</div></div></a>
+    <a class="nav-step" href="#" data-step="17"><span class="nav-step-num">17</span><div class="nav-step-body"><div class="nav-step-name">Transport</div><div class="nav-step-sub">Driving &amp; commute</div></div></a>
+    <a class="nav-step" href="#" data-step="18"><span class="nav-step-num">18</span><div class="nav-step-body"><div class="nav-step-name">Docs Vault</div><div class="nav-step-sub">Save everything</div></div></a>
   </nav>
 
   <div class="sidebar-tip">
     <div class="sidebar-tip-label">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       Hayyak Tip
     </div>
-    <div class="sidebar-tip-text">Complete Ejari before DEWA to avoid delays.</div>
+    <div class="sidebar-tip-text" id="sidebar-tip-text">Complete Ejari before DEWA to avoid delays.</div>
   </div>
 </aside>
 
@@ -574,130 +348,45 @@
 
     <!-- LEFT COLUMN -->
     <div class="left-col">
-
       <div class="step-header">
         <div class="step-icon-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="2" y1="12" x2="22" y2="12"/>
+          <svg id="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-            <rect x="7" y="8" width="10" height="8" rx="1" fill="rgba(255,255,255,0.15)" stroke="white" stroke-width="1.5"/>
           </svg>
         </div>
         <div class="step-meta">
-          <div class="step-badge">Step 01 of 18</div>
-          <div class="step-title">Visa &amp; Entry Setup</div>
-          <div class="step-desc">Understand and complete your UAE entry and residency process.</div>
+          <div class="step-badge" id="step-badge">Step 01 of 18</div>
+          <div class="step-title" id="step-title">Visa &amp; Entry Setup</div>
+          <div class="step-desc" id="step-desc">Understand and complete your UAE entry and residency process.</div>
         </div>
       </div>
 
       <div class="info-bar">
         <div class="info-cell">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-          <div><div class="info-label">Timeline</div><div class="info-val">1–3 weeks</div></div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div><div class="info-label">Timeline</div><div class="info-val" id="info-timeline">1–3 weeks</div></div>
         </div>
         <div class="info-cell">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-          </svg>
-          <div><div class="info-label">Key Documents</div><div class="info-val">Passport, photos, employment/sponsorship docs</div></div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+          <div><div class="info-label">Key Documents</div><div class="info-val" id="info-docs">Passport, photos, employment/sponsorship docs</div></div>
         </div>
         <div class="info-cell">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-          </svg>
-          <div><div class="info-label">Difficulty</div><div class="info-val">Easy</div></div>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <div><div class="info-label">Difficulty</div><div class="info-val" id="info-difficulty">Easy</div></div>
         </div>
       </div>
 
       <div class="section-heading">What you need to do</div>
-
-      <div class="tasks-list">
-        <div class="task-card">
-          <div class="task-num">1</div>
-          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-          <div class="task-body">
-            <div class="task-title">Confirm your sponsorship type</div>
-            <div class="task-sub">Check if your employer, family member, free zone, or yourself will sponsor the visa.</div>
-          </div>
-          <span class="task-arrow">›</span>
-        </div>
-
-        <div class="task-card">
-          <div class="task-num">2</div>
-          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/>
-          </svg>
-          <div class="task-body">
-            <div class="task-title">Check your entry status</div>
-            <div class="task-sub">Know whether you have an entry permit or are entering on a tourist/visit visa.</div>
-          </div>
-          <span class="task-arrow">›</span>
-        </div>
-
-        <div class="task-card">
-          <div class="task-num">3</div>
-          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
-          </svg>
-          <div class="task-body">
-            <div class="task-title">Prepare required documents</div>
-            <div class="task-sub">Passport copy, passport photos, employment or sponsorship documents.</div>
-          </div>
-          <span class="task-arrow">›</span>
-        </div>
-
-        <div class="task-card">
-          <div class="task-num">4</div>
-          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
-          </svg>
-          <div class="task-body">
-            <div class="task-title">Apply for entry/residency</div>
-            <div class="task-sub">Submit your application through the relevant UAE authority or sponsor.</div>
-          </div>
-          <span class="task-arrow">›</span>
-        </div>
-
-        <div class="task-card">
-          <div class="task-num">5</div>
-          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-          <div class="task-body">
-            <div class="task-title">Track approval</div>
-            <div class="task-sub">Monitor your application status until it is approved.</div>
-          </div>
-          <span class="task-arrow">›</span>
-        </div>
-
-        <div class="task-card">
-          <div class="task-num">6</div>
-          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-          </svg>
-          <div class="task-body">
-            <div class="task-title">Proceed to next steps</div>
-            <div class="task-sub">Once approved, move to medical fitness and Emirates ID application.</div>
-          </div>
-          <span class="task-arrow">›</span>
-        </div>
-      </div>
+      <div class="tasks-list" id="tasks-list"></div>
 
       <div class="pro-tip">
         <div class="tip-icon-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-            <polyline points="9 16 11 18 15 14"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="9 16 11 18 15 14"/></svg>
         </div>
         <div>
           <div class="pro-tip-label">Pro Tip</div>
-          <div class="pro-tip-text">Start your visa process early to avoid delays in your move-in timeline.</div>
+          <div class="pro-tip-text" id="pro-tip-text">Start your visa process early to avoid delays in your move-in timeline.</div>
         </div>
         <div class="plane-deco">✈</div>
       </div>
@@ -705,81 +394,20 @@
 
     <!-- RIGHT COLUMN -->
     <div class="right-col">
-
       <div class="info-card">
         <div class="card-heading">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
           Important to Know
         </div>
-
-        <div class="info-row">
-          <div class="info-row-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>
-            </svg>
-          </div>
-          <div class="info-row-text">Residency and identity services are handled through UAE authorities such as ICP, and sometimes GDRFA Dubai depending on your case.</div>
-        </div>
-
-        <div class="info-row">
-          <div class="info-row-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
-            </svg>
-          </div>
-          <div class="info-row-text">Do not sign long-term commitments until you know when your residency process will be completed.</div>
-        </div>
-
-        <div class="info-row">
-          <div class="info-row-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <div class="info-row-text">Requirements vary by visa type, sponsor, nationality, and free zone.</div>
-        </div>
+        <div id="important-list"></div>
       </div>
 
-      <div class="links-card">
+      <div class="links-card" id="links-section">
         <div class="links-heading">
           <span class="links-label">Official Links</span>
           <span class="links-arrow">↗</span>
         </div>
-
-        <a class="link-row" href="https://icp.gov.ae" target="_blank">
-          <svg class="link-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-          <div class="link-text">
-            <div class="link-name">ICP UAE Official Website</div>
-            <div class="link-url">icp.gov.ae</div>
-          </div>
-          <span class="link-ext">↗</span>
-        </a>
-
-        <a class="link-row" href="https://gdrfad.gov.ae" target="_blank">
-          <svg class="link-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-          <div class="link-text">
-            <div class="link-name">GDRFA Dubai</div>
-            <div class="link-url">gdrfad.gov.ae</div>
-          </div>
-          <span class="link-ext">↗</span>
-        </a>
-
-        <a class="link-row" href="https://u.ae" target="_blank">
-          <svg class="link-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-          </svg>
-          <div class="link-text">
-            <div class="link-name">UAE Gov Portal</div>
-            <div class="link-url">u.ae</div>
-          </div>
-          <span class="link-ext">↗</span>
-        </a>
+        <div id="links-list"></div>
       </div>
 
       <div class="skyline-wrap">
@@ -790,24 +418,19 @@
           <path d="M18 75 Q22 62 26 55" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
           <path d="M18 75 Q26 65 32 62" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
           <rect x="30" y="90" width="14" height="20" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
-          <line x1="37" y1="90" x2="37" y2="110" stroke="#8B5E2A" stroke-width="0.7" opacity="0.5"/>
           <rect x="47" y="78" width="16" height="32" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
-          <line x1="55" y1="78" x2="55" y2="110" stroke="#8B5E2A" stroke-width="0.7" opacity="0.5"/>
           <rect x="70" y="30" width="8" height="80" rx="1" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
           <rect x="66" y="55" width="16" height="55" rx="1" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
           <rect x="62" y="72" width="24" height="38" rx="1" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
           <line x1="74" y1="10" x2="74" y2="30" stroke="#8B5E2A" stroke-width="1.2"/>
           <rect x="90" y="65" width="18" height="45" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
-          <rect x="94" y="58" width="10" height="7" stroke="#8B5E2A" stroke-width="1" fill="none"/>
           <path d="M118 110 L118 55 L145 110 Z" stroke="#8B5E2A" stroke-width="1.3" fill="none"/>
           <path d="M118 90 Q131 82 145 90" stroke="#8B5E2A" stroke-width="1" fill="none"/>
           <line x1="131" y1="55" x2="131" y2="40" stroke="#8B5E2A" stroke-width="1.2"/>
           <rect x="150" y="72" width="14" height="38" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
           <rect x="167" y="60" width="18" height="50" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
-          <rect x="172" y="50" width="8" height="10" stroke="#8B5E2A" stroke-width="1" fill="none"/>
           <rect x="190" y="80" width="16" height="30" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
           <rect x="210" y="70" width="20" height="40" rx="1" stroke="#8B5E2A" stroke-width="1.2" fill="none"/>
-          <rect x="215" y="58" width="10" height="12" stroke="#8B5E2A" stroke-width="1" fill="none"/>
           <line x1="245" y1="110" x2="245" y2="75" stroke="#8B5E2A" stroke-width="2"/>
           <path d="M245 75 Q237 65 231 62" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
           <path d="M245 75 Q241 62 239 55" stroke="#8B5E2A" stroke-width="1.5" fill="none"/>
@@ -816,318 +439,555 @@
           <line x1="0" y1="110" x2="270" y2="110" stroke="#8B5E2A" stroke-width="1" opacity="0.4"/>
         </svg>
       </div>
-
     </div>
   </div>
 </main>
 
 <script>
-  // Step data - each step can have its own content
-  const stepData = {
-    1: {
-      badge: 'Step 01 of 18',
-      title: 'Visa &amp; Entry Setup',
-      desc: 'Understand and complete your UAE entry and residency process.',
-      timeline: '1–3 weeks',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Confirm your sponsorship type', sub: 'Check if your employer, family member, free zone, or yourself will sponsor the visa.' },
-        { title: 'Check your entry status', sub: 'Know whether you have an entry permit or are entering on a tourist/visit visa.' },
-        { title: 'Prepare required documents', sub: 'Passport copy, passport photos, employment or sponsorship documents.' },
-        { title: 'Apply for entry/residency', sub: 'Submit your application through the relevant UAE authority or sponsor.' },
-        { title: 'Track approval', sub: 'Monitor your application status until it is approved.' },
-        { title: 'Proceed to next steps', sub: 'Once approved, move to medical fitness and Emirates ID application.' },
-      ],
-      tip: 'Start your visa process early to avoid delays in your move-in timeline.',
-      tipLabel: 'Hayyak Tip: Complete Ejari before DEWA to avoid delays.',
-    },
-    2: {
-      badge: 'Step 02 of 18',
-      title: 'Medical Fitness',
-      desc: 'Complete your mandatory health check as part of the UAE residency process.',
-      timeline: '1–3 days',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Book your medical appointment', sub: 'Visit an approved health center such as HAAD or DHA.' },
-        { title: 'Complete blood tests & chest X-ray', sub: 'Standard tests required for all residency applicants.' },
-        { title: 'Receive fitness certificate', sub: 'Your certificate is linked digitally to your Emirates ID application.' },
-      ],
-      tip: 'Bring your original passport and entry permit to the medical center.',
-      tipLabel: 'Hayyak Tip: Some centers allow online booking to save time.',
-    },
-    3: {
-      badge: 'Step 03 of 18',
-      title: 'Emirates ID',
-      desc: 'Apply for your Emirates ID — your official identity card in the UAE.',
-      timeline: '1–2 weeks',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Submit Emirates ID application', sub: 'Apply via ICP (icp.gov.ae) or through your employer/sponsor.' },
-        { title: 'Biometrics appointment', sub: 'Visit an ICP center to submit fingerprints and photo.' },
-        { title: 'Collect your Emirates ID', sub: 'Delivered by Emirates Post or collected in person.' },
-      ],
-      tip: 'You need your Emirates ID before opening a bank account or signing contracts.',
-      tipLabel: 'Hayyak Tip: Track your ID status on the ICP app.',
-    },
-    4: {
-      badge: 'Step 04 of 18',
-      title: 'Housing Search',
-      desc: 'Research neighbourhoods, set your budget, and shortlist properties.',
-      timeline: '1–4 weeks',
-      difficulty: 'Medium',
-      tasks: [
-        { title: 'Research areas by lifestyle', sub: 'Consider proximity to work, schools, and amenities.' },
-        { title: 'Set a monthly budget', sub: 'Account for rent, chiller, service charges, and parking.' },
-        { title: 'Browse listings', sub: 'Use Bayut, Property Finder, or Dubizzle to explore options.' },
-        { title: 'Schedule viewings', sub: 'Visit shortlisted properties with a licensed broker.' },
-      ],
-      tip: 'Prices are negotiable — especially if you offer multiple cheques upfront.',
-      tipLabel: 'Hayyak Tip: Factor in chiller fees as they can add AED 500–1500/month.',
-    },
-    5: {
-      badge: 'Step 05 of 18',
-      title: 'Property Check',
-      desc: 'Verify the property and broker before committing.',
-      timeline: '1–3 days',
-      difficulty: 'Medium',
-      tasks: [
-        { title: 'Verify broker RERA license', sub: 'All brokers must be RERA-registered in Dubai.' },
-        { title: 'Check title deed and ownership', sub: 'Request a copy of the title deed from the landlord.' },
-        { title: 'Inspect the unit thoroughly', sub: 'Check for maintenance issues before signing anything.' },
-      ],
-      tip: 'Use the Dubai REST app to verify property ownership.',
-      tipLabel: 'Hayyak Tip: Never pay before viewing and verifying the property.',
-    },
-    6: {
-      badge: 'Step 06 of 18',
-      title: 'Tenancy Contract',
-      desc: 'Sign your rental agreement and secure your home.',
-      timeline: '1–2 days',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Review contract terms', sub: 'Check rent, payment schedule, notice periods, and renewal clauses.' },
-        { title: 'Sign and stamp the contract', sub: 'Ensure both parties sign; landlord may notarise.' },
-        { title: 'Issue post-dated cheques', sub: 'Prepare cheques as agreed (1, 2, 4, or 6 per year).' },
-      ],
-      tip: 'Read the maintenance clause carefully — who is responsible for what?',
-      tipLabel: 'Hayyak Tip: Keep a signed copy of your contract at all times.',
-    },
-    7: {
-      badge: 'Step 07 of 18',
-      title: 'Ejari Registration',
-      desc: 'Register your tenancy contract with the Dubai Land Department.',
-      timeline: '1–2 days',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Register on Ejari portal', sub: 'Go to ejari.gov.ae or use the Ejari app.' },
-        { title: 'Upload required documents', sub: 'Tenancy contract, Emirates IDs, and title deed.' },
-        { title: 'Receive Ejari certificate', sub: 'Your official rental registration document.' },
-      ],
-      tip: 'Ejari is required before connecting DEWA utilities.',
-      tipLabel: 'Hayyak Tip: Complete Ejari before DEWA to avoid delays.',
-    },
-    8: {
-      badge: 'Step 08 of 18',
-      title: 'DEWA Setup',
-      desc: 'Connect your electricity and water supply with DEWA.',
-      timeline: '2–5 days',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Create DEWA account', sub: 'Register at dewa.gov.ae or via the DEWA app.' },
-        { title: 'Submit connection request', sub: 'Upload Ejari certificate and Emirates ID.' },
-        { title: 'Pay activation deposit', sub: 'AED 2,000 for apartments, AED 4,000 for villas.' },
-      ],
-      tip: 'DEWA connection typically happens within 2 business days after approval.',
-      tipLabel: 'Hayyak Tip: The DEWA app makes bill payments and tracking easy.',
-    },
-    9: {
-      badge: 'Step 09 of 18',
-      title: 'Move-in Permit',
-      desc: 'Get building approval before moving furniture into your new home.',
-      timeline: '1–3 days',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Contact building management', sub: 'Request move-in procedure from your building\'s facilities team.' },
-        { title: 'Book the service elevator', sub: 'Reserve a time slot for moving furniture.' },
-        { title: 'Obtain move-in permit', sub: 'Some buildings require a formal written permit or deposit.' },
-      ],
-      tip: 'Moving on weekdays avoids the weekend rush and extra fees.',
-      tipLabel: 'Hayyak Tip: Confirm if parking for the moving truck needs pre-approval.',
-    },
-    10: {
-      badge: 'Step 10 of 18',
-      title: 'Internet Setup',
-      desc: 'Set up your home broadband connection.',
-      timeline: '3–7 days',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Choose a provider', sub: 'Etisalat (eLife) or du are the two options in the UAE.' },
-        { title: 'Submit your application', sub: 'Apply online or visit a store with your Emirates ID and Ejari.' },
-        { title: 'Schedule technician visit', sub: 'A technician will install your router and activate the connection.' },
-      ],
-      tip: 'Check coverage maps — some buildings are serviced by only one provider.',
-      tipLabel: 'Hayyak Tip: Bundle internet with TV and calls for better value.',
-    },
-    11: {
-      badge: 'Step 11 of 18',
-      title: 'Mobile SIM',
-      desc: 'Get a UAE mobile number for calls and data.',
-      timeline: '1 day',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Choose Etisalat or du', sub: 'Both offer prepaid and postpaid options.' },
-        { title: 'Visit a store or apply online', sub: 'Bring your passport and Emirates ID.' },
-        { title: 'Activate your SIM', sub: 'Postpaid requires Emirates ID; prepaid is immediate.' },
-      ],
-      tip: 'Postpaid plans often include data roaming across GCC countries.',
-      tipLabel: 'Hayyak Tip: Register your SIM with your Emirates ID for full features.',
-    },
-    12: {
-      badge: 'Step 12 of 18',
-      title: 'Cooling / Chiller',
-      desc: 'Set up district cooling if it\'s billed separately in your building.',
-      timeline: '2–5 days',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Check if chiller is included', sub: 'Ask your landlord if cooling is included in rent or separate.' },
-        { title: 'Register with provider', sub: 'Common providers: Emicool, Empower, Tabreed, Palm Utilities.' },
-        { title: 'Pay the connection deposit', sub: 'Typically AED 1,000–2,000 depending on the provider.' },
-      ],
-      tip: 'Chiller costs can be significant — factor this into your monthly budget.',
-      tipLabel: 'Hayyak Tip: Check your chiller bill on the provider\'s app monthly.',
-    },
-    13: {
-      badge: 'Step 13 of 18',
-      title: 'Handover Inspection',
-      desc: 'Inspect your unit thoroughly before officially accepting the keys.',
-      timeline: '1 day',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Walk through with landlord/agent', sub: 'Check all rooms, fixtures, and appliances.' },
-        { title: 'Document existing damage', sub: 'Take timestamped photos of any pre-existing issues.' },
-        { title: 'Sign handover checklist', sub: 'Get a written record of the unit\'s condition.' },
-      ],
-      tip: 'Test all lights, taps, AC units, and appliances during inspection.',
-      tipLabel: 'Hayyak Tip: Send photos via WhatsApp to the agent to create a record.',
-    },
-    14: {
-      badge: 'Step 14 of 18',
-      title: 'Essentials Setup',
-      desc: 'Furnish and stock your new home with everything you need.',
-      timeline: '1–2 weeks',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Prioritise essentials first', sub: 'Bed, kitchen basics, and bathroom supplies before decorating.' },
-        { title: 'Explore furniture options', sub: 'IKEA, Home Centre, and Danube Home are popular choices.' },
-        { title: 'Set up kitchen supplies', sub: 'Carrefour, Lulu, and Spinneys for everyday household items.' },
-      ],
-      tip: 'Facebook Marketplace and Dubizzle have great second-hand furniture deals.',
-      tipLabel: 'Hayyak Tip: IKEA Family card gives discounts on furniture and food.',
-    },
-    15: {
-      badge: 'Step 15 of 18',
-      title: 'Banking Setup',
-      desc: 'Open a UAE bank account for salary and expenses.',
-      timeline: '1–2 weeks',
-      difficulty: 'Medium',
-      tasks: [
-        { title: 'Choose a bank', sub: 'Emirates NBD, ADCB, Mashreq, FAB, or digital banks like Liv.' },
-        { title: 'Gather documents', sub: 'Emirates ID, passport, visa, salary certificate, and proof of address.' },
-        { title: 'Open your account', sub: 'Visit a branch or apply online with some banks.' },
-      ],
-      tip: 'Some banks offer instant account opening via app with just your Emirates ID.',
-      tipLabel: 'Hayyak Tip: Liv. by Emirates NBD is popular for expats with no minimum balance.',
-    },
-    16: {
-      badge: 'Step 16 of 18',
-      title: 'Healthcare',
-      desc: 'Set up your health insurance and find local clinics.',
-      timeline: '1–2 weeks',
-      difficulty: 'Medium',
-      tasks: [
-        { title: 'Confirm employer insurance', sub: 'Health insurance is mandatory — most employers provide it.' },
-        { title: 'Add dependants if needed', sub: 'Sponsor family members through your insurer or DHA.' },
-        { title: 'Find nearby clinics', sub: 'Register with a clinic on your insurance network.' },
-      ],
-      tip: 'Dubai residents must have DHA-approved health insurance by law.',
-      tipLabel: 'Hayyak Tip: Use the insurer app to find in-network clinics quickly.',
-    },
-    17: {
-      badge: 'Step 17 of 18',
-      title: 'Transport',
-      desc: 'Sort out how you\'ll get around Dubai.',
-      timeline: '1–4 weeks',
-      difficulty: 'Medium',
-      tasks: [
-        { title: 'Get a Nol card', sub: 'Use the Nol card for Metro, buses, trams, and RTA ferries.' },
-        { title: 'Consider a UAE driving licence', sub: 'Convert your home country licence or take lessons.' },
-        { title: 'Explore car options', sub: 'Buy, lease, or use ride-hailing apps like Uber or Careem.' },
-      ],
-      tip: 'If your home country qualifies, licence conversion can be done in one visit.',
-      tipLabel: 'Hayyak Tip: The RTA app covers Nol top-up and taxi booking in one place.',
-    },
-    18: {
-      badge: 'Step 18 of 18',
-      title: 'Docs Vault',
-      desc: 'Organise and back up all your important documents.',
-      timeline: 'Ongoing',
-      difficulty: 'Easy',
-      tasks: [
-        { title: 'Scan all key documents', sub: 'Passport, visa, Emirates ID, tenancy contract, Ejari.' },
-        { title: 'Store in a secure cloud folder', sub: 'Google Drive, iCloud, or a password-protected service.' },
-        { title: 'Share access with a trusted person', sub: 'In case of emergency, someone should have access.' },
-      ],
-      tip: 'Keep physical originals in a fireproof folder at home.',
-      tipLabel: 'Hayyak Tip: Update your vault every time a document renews.',
-    },
-  };
+const STEPS = {
+  1: {
+    badge: 'Step 01 of 18',
+    title: 'Visa &amp; Entry Setup',
+    desc: 'Understand and complete your UAE entry and residency process.',
+    timeline: '1–3 weeks',
+    docs: 'Passport, photos, employment/sponsorship docs',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Confirm your sponsorship type', sub: 'Check whether your employer, free zone, family member, or yourself will sponsor the visa.' },
+      { title: 'Check your entry status', sub: 'Know whether you already have an entry permit or are entering on a tourist/visit visa.' },
+      { title: 'Prepare required documents', sub: 'Passport copy, passport photo, employment documents, or sponsorship documents.' },
+      { title: 'Complete the visa application', sub: 'Apply through the relevant UAE authority based on your visa type and sponsor.' },
+      { title: 'Track approval', sub: 'Monitor your application status before moving to medical fitness and Emirates ID.' },
+    ],
+    important: [
+      'Residency and identity services are handled through UAE authorities such as ICP, while Dubai-specific residency services may also involve GDRFA Dubai depending on the case.',
+      'Do not sign long-term commitments unless you know when your residency process will be completed.',
+      'Requirements vary by visa type, sponsor, nationality, and free zone.',
+    ],
+    links: [
+      { name: 'ICP UAE Official Portal', url: 'icp.gov.ae', href: 'https://icp.gov.ae' },
+    ],
+    tip: 'Start your visa process early to avoid delays in your move-in timeline.',
+    sidebarTip: 'Complete Ejari before DEWA to avoid delays.',
+  },
+  2: {
+    badge: 'Step 02 of 18',
+    title: 'Medical Fitness Test',
+    desc: 'Complete your mandatory health check as part of the UAE residency process.',
+    timeline: '1–3 days',
+    docs: 'Passport/Emirates ID, e-visa copy, application form, passport photo',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Apply or book your appointment', sub: 'Use the approved medical fitness service channel to book your visit.' },
+      { title: 'Bring required documents', sub: 'Passport or Emirates ID, e-visa copy if applicable, application form, and passport-size photo.' },
+      { title: 'Visit the medical fitness centre', sub: 'Attend your appointment at an approved centre.' },
+      { title: 'Complete blood test and chest X-ray', sub: 'Standard checks required for all residency applicants.' },
+      { title: 'Wait for results', sub: 'Results are typically delivered by SMS or email.' },
+      { title: 'Proceed to next steps', sub: 'Continue to Emirates ID and visa stamping once medically fit.' },
+    ],
+    important: [
+      'Dubai Health lists medical fitness as a mandatory residency-related service.',
+      'Some job categories may require additional checks or vaccinations.',
+      'Results and timelines vary depending on service package and centre.',
+    ],
+    links: [
+      { name: 'Dubai Health – Medical Fitness Exam', url: 'dubaihealth.ae', href: 'https://dubaihealth.ae/service/medical-fitness-exam' },
+    ],
+    tip: 'Bring your original passport and entry permit to the medical centre — photocopies alone are often not accepted.',
+    sidebarTip: 'Some medical centres allow online booking to save time.',
+  },
+  3: {
+    badge: 'Step 03 of 18',
+    title: 'Emirates ID Application',
+    desc: 'Apply for your Emirates ID — required for almost every service in the UAE.',
+    timeline: '1–2 weeks',
+    docs: 'Passport, visa/entry permit, application confirmation',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Submit your Emirates ID application', sub: 'Apply through the relevant official channel, via ICP or through your employer/sponsor.' },
+      { title: 'Book a biometrics appointment', sub: 'Schedule fingerprint and photo capture if required.' },
+      { title: 'Bring required documents', sub: 'Passport, visa/entry permit details, and your application confirmation.' },
+      { title: 'Complete biometric capture', sub: 'Visit an ICP centre to submit fingerprints and photo.' },
+      { title: 'Track your card status', sub: 'Monitor progress using the application number provided.' },
+      { title: 'Receive your Emirates ID', sub: 'Delivered by Emirates Post or collected in person once issued.' },
+    ],
+    important: [
+      'Emirates ID is essential for almost every official and private service in Dubai — banking, tenancy, SIM cards, government apps, and more.',
+      'Some services may accept the digital Emirates ID while the physical card is still being delivered.',
+      'Keep your application number as it may be needed for status tracking.',
+    ],
+    links: [
+      { name: 'ICP UAE Official Portal', url: 'icp.gov.ae', href: 'https://icp.gov.ae' },
+    ],
+    tip: 'You will need your Emirates ID before opening a bank account or signing most official contracts.',
+    sidebarTip: 'Track your Emirates ID status on the ICP app.',
+  },
+  4: {
+    badge: 'Step 04 of 18',
+    title: 'Find the Right Dubai Area',
+    desc: 'Research neighbourhoods, set your budget, and shortlist properties.',
+    timeline: '1–4 weeks',
+    docs: 'Budget plan, commute requirements',
+    difficulty: 'Medium',
+    tasks: [
+      { title: 'Set your monthly or annual rent budget', sub: 'Account for rent plus security deposit, agency fee, Ejari, DEWA deposit, chiller, and moving costs.' },
+      { title: 'Define your commute target', sub: 'Consider distance to office, school, university, metro station, or family.' },
+      { title: 'Shortlist areas', sub: 'Compare JVC, Dubai Marina, Business Bay, Downtown, Deira, Al Barsha, Dubai Silicon Oasis, Dubai Hills, and others.' },
+      { title: 'Compare building factors', sub: 'Check building age, parking, maintenance quality, amenities, chiller arrangement, and nearby grocery/pharmacy access.' },
+      { title: 'Visit units in person', sub: 'When possible, inspect units before committing.' },
+      { title: 'Check the agent is RERA-registered', sub: 'Ask for the broker\'s RERA card or registration details before proceeding.' },
+      { title: 'Ask for the total move-in cost', sub: 'Get a written breakdown of all costs before making a decision.' },
+    ],
+    important: [
+      'Rent is not the only cost. Add security deposit, agency fee, Ejari, DEWA deposit, internet, moving, furnishing, and possibly chiller/cooling charges.',
+      'Commute in Dubai can change significantly based on traffic and metro access — test the route at peak hours if possible.',
+      'Always inspect AC, water pressure, appliances, parking access, and maintenance condition during viewings.',
+    ],
+    links: [],
+    tip: 'Prices are negotiable — especially if you offer more cheques or a longer lease upfront.',
+    sidebarTip: 'Factor in chiller fees — they can add AED 500–1,500 per month.',
+  },
+  5: {
+    badge: 'Step 05 of 18',
+    title: 'Verify the Property Before Paying',
+    desc: 'Confirm the broker, landlord, and documents are legitimate before paying anything.',
+    timeline: '1–3 days',
+    docs: 'Title deed, broker RERA card, landlord ID or authorisation letter',
+    difficulty: 'Medium',
+    tasks: [
+      { title: 'Verify the broker\'s RERA registration', sub: 'Ask for the RERA card or registration number — all Dubai brokers must be registered.' },
+      { title: 'Confirm the landlord identity', sub: 'Check that the landlord name matches the title deed or authorised representative documents.' },
+      { title: 'Request a copy of the title deed', sub: 'This confirms legal ownership of the property.' },
+      { title: 'Confirm all payment amounts in writing', sub: 'Get a clear breakdown of rent, deposit, and agency fee before signing anything.' },
+      { title: 'Avoid unreceipted cash payments', sub: 'Use cheques or official payment methods and always get receipts.' },
+      { title: 'Check the unit is vacant and ready', sub: 'Confirm the property is available and ready for handover on the agreed date.' },
+      { title: 'Clarify maintenance responsibilities', sub: 'Confirm in writing which repairs are landlord responsibility before signing.' },
+    ],
+    important: [
+      'Never transfer large deposits without a clear paper trail — use cheques where possible.',
+      'Make sure the tenancy contract has the correct tenant name, landlord name, property details, rent amount, payment schedule, and contract dates.',
+      'Use the Dubai REST app to verify property ownership independently.',
+    ],
+    links: [],
+    tip: 'Never pay before viewing and verifying the property in person.',
+    sidebarTip: 'Use the Dubai REST app to independently verify property ownership.',
+  },
+  6: {
+    badge: 'Step 06 of 18',
+    title: 'Tenancy Contract',
+    desc: 'Sign your rental agreement and secure your home.',
+    timeline: '1–2 days',
+    docs: 'Signed tenancy contract, post-dated cheques, receipts',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Review the tenancy contract carefully', sub: 'Check annual rent, number of cheques, security deposit, agency fee, contract start/end date, and maintenance terms.' },
+      { title: 'Confirm chiller arrangement', sub: 'Check whether the unit is chiller-free or has separate cooling charges.' },
+      { title: 'Sign the tenancy contract', sub: 'Both parties sign; landlord may notarise depending on the arrangement.' },
+      { title: 'Issue post-dated cheques', sub: 'Prepare cheques as agreed — 1, 2, 4, or 6 per year.' },
+      { title: 'Agree on handover timing', sub: 'Collect keys or confirm a handover date in writing.' },
+      { title: 'Keep copies of all documents', sub: 'Save signed contracts and all receipts — physical and digital copies.' },
+    ],
+    important: [
+      'The tenancy contract is the agreement between you and the landlord. Ejari is the government registration of that agreement — both are needed.',
+      'You usually need the signed tenancy contract before you can register Ejari.',
+      'Check if the building or community requires separate move-in approval before your move date.',
+    ],
+    links: [
+      { name: 'Dubai Land Department – Ejari Contract Template', url: 'dubailand.gov.ae', href: 'https://dubailand.gov.ae/en/eservices/ejari-templates/download-unified-ejari-tenancy-contract/' },
+    ],
+    tip: 'Read the maintenance clause carefully — know exactly what is landlord responsibility versus tenant responsibility.',
+    sidebarTip: 'Keep a signed physical copy of your tenancy contract in a safe place.',
+  },
+  7: {
+    badge: 'Step 07 of 18',
+    title: 'Ejari Registration',
+    desc: 'Register your tenancy contract with the Dubai Land Department.',
+    timeline: '1–2 days',
+    docs: 'Tenancy contract, Emirates IDs, title deed, DEWA premise number',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Prepare all required documents', sub: 'Tenancy contract, tenant Emirates ID or passport/visa, landlord documents, title deed or property details, and DEWA premise number if available.' },
+      { title: 'Register through an authorised channel', sub: 'Use Dubai REST app or an approved Ejari service centre.' },
+      { title: 'Pay the Ejari registration fee', sub: 'A small fee is charged for the official registration.' },
+      { title: 'Download and save the Ejari certificate', sub: 'Save as PDF — you will need this for DEWA, internet, and other services.' },
+      { title: 'Use the certificate for move-in tasks', sub: 'Ejari is required for DEWA activation, move-in permit, and proof of address.' },
+    ],
+    important: [
+      'Ejari must be completed before DEWA activation — DEWA\'s move-in process is integrated with Ejari and uses the same property/customer details.',
+      'Incorrect property details in Ejari can delay utility connection.',
+      'Keep the Ejari certificate saved as PDF and always accessible.',
+    ],
+    links: [
+      { name: 'Dubai Land Department', url: 'dubailand.gov.ae', href: 'https://dubailand.gov.ae' },
+      { name: 'DEWA – Move-in Activation', url: 'dewa.gov.ae', href: 'https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in' },
+    ],
+    tip: 'Complete Ejari before DEWA — the two systems are linked and DEWA draws from Ejari details.',
+    sidebarTip: 'Complete Ejari before DEWA to avoid delays.',
+  },
+  8: {
+    badge: 'Step 08 of 18',
+    title: 'DEWA Activation',
+    desc: 'Connect electricity and water for your new home.',
+    timeline: '2–5 days',
+    docs: 'Ejari certificate, Emirates ID, payment for deposit',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Complete Ejari first', sub: 'DEWA activation is linked to Ejari — do not attempt activation before Ejari is issued.' },
+      { title: 'Log in or register on DEWA', sub: 'Use the DEWA app or website — the move-in process is automatically initiated using your Ejari details.' },
+      { title: 'Review your account and premise details', sub: 'Confirm the property address and details are correct.' },
+      { title: 'Pay the DEWA security deposit and fees', sub: 'Deposit is typically AED 2,000 for apartments and AED 4,000 for villas.' },
+      { title: 'Save your payment receipt', sub: 'Keep this for the deposit refund when you eventually move out.' },
+      { title: 'Wait for supply activation', sub: 'Electricity and water are typically activated within 1–2 business days.' },
+      { title: 'Contact DEWA if activation is delayed', sub: 'Use the DEWA app or customer care if connection is not active within the expected timeframe.' },
+    ],
+    important: [
+      'DEWA activation is linked with Ejari issuance — when Ejari is issued, the DEWA move-in process is automatically initiated using those details.',
+      'Do not rely on third-party activation services unless verified as official.',
+      'Keep all DEWA receipts — the deposit is refundable at move-out.',
+    ],
+    links: [
+      { name: 'DEWA – Activation of Electricity/Water (Move-in)', url: 'dewa.gov.ae', href: 'https://dewa.gov.ae/en/consumer/supply-management/activation-of-electricity-water-move-in' },
+      { name: 'DEWA & Dubai Land Department Integration FAQ', url: 'ejari.dubailand.gov.ae', href: 'https://ejari.dubailand.gov.ae/PublicPages/PDF/DEWA_DOCUMENTS_FAQ_En_03.pdf' },
+    ],
+    tip: 'The DEWA app makes bill payment, consumption tracking, and support requests easy to manage.',
+    sidebarTip: 'Keep your DEWA deposit receipt — it is refundable when you move out.',
+  },
+  9: {
+    badge: 'Step 09 of 18',
+    title: 'Move-in Permit',
+    desc: 'Get building approval before moving furniture into your new home.',
+    timeline: '1–3 days',
+    docs: 'Ejari, tenancy contract, Emirates ID/passport, mover details',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Check if a move-in permit is required', sub: 'Ask building management — towers, gated communities, and master developers often require formal approval.' },
+      { title: 'Submit required documents', sub: 'Ejari, tenancy contract, Emirates ID or passport, vehicle details, and mover company details if required.' },
+      { title: 'Book the service elevator', sub: 'Reserve a time slot for moving furniture in advance.' },
+      { title: 'Confirm move-in date and time with security', sub: 'Coordinate with building management and security to ensure smooth entry.' },
+      { title: 'Share the approval with your movers', sub: 'Give a copy to the moving company so they have access on the day.' },
+      { title: 'Keep a copy on your phone', sub: 'Have the permit accessible digitally in case it is needed at entry.' },
+    ],
+    important: [
+      'Some buildings do not allow moving during certain hours or on Fridays — confirm restrictions before booking movers.',
+      'The permit may be rejected if Ejari or DEWA is not yet completed.',
+      'Book early if you are moving into a busy building or large community.',
+    ],
+    links: [],
+    tip: 'Moving on weekdays avoids the weekend rush and potential extra fees from movers.',
+    sidebarTip: 'Confirm if parking for the moving truck needs pre-approval from building management.',
+  },
+  10: {
+    badge: 'Step 10 of 18',
+    title: 'Home Internet Setup',
+    desc: 'Choose and activate a home broadband plan.',
+    timeline: '3–7 days',
+    docs: 'Emirates ID, visa/residency details, Ejari or tenancy contract',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Check which provider is available in your building', sub: 'In many Dubai buildings, available providers depend on existing infrastructure.' },
+      { title: 'Compare fibre and home wireless plans', sub: 'Fibre is more stable; home wireless may be faster to activate.' },
+      { title: 'Prepare required documents', sub: 'Emirates ID, visa/residency details, Ejari or tenancy contract, and address.' },
+      { title: 'Submit your application', sub: 'Apply online or visit a store in person.' },
+      { title: 'Book an installation appointment', sub: 'A technician will install your router and activate the connection.' },
+      { title: 'Test Wi-Fi coverage after installation', sub: 'Check all rooms and report weak coverage immediately.' },
+      { title: 'Save your account number and billing details', sub: 'You will need these for support requests and billing queries.' },
+    ],
+    important: [
+      'Some buildings support only one fixed-line provider — check before choosing.',
+      'Home wireless may be faster to activate but can be less stable than fibre.',
+      'Installation slots can take longer during peak moving periods like September and January.',
+    ],
+    links: [],
+    tip: 'Bundle internet with TV and calls for better value — both Etisalat and du offer package deals.',
+    sidebarTip: 'Check coverage maps before choosing a provider — some buildings only support one option.',
+  },
+  11: {
+    badge: 'Step 11 of 18',
+    title: 'Mobile SIM Setup',
+    desc: 'Get a UAE mobile number for calls, OTPs, banking, and daily apps.',
+    timeline: '1 day',
+    docs: 'Passport and/or Emirates ID',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Choose prepaid or postpaid', sub: 'Prepaid is available immediately; postpaid requires residency and Emirates ID.' },
+      { title: 'Bring your passport and/or Emirates ID', sub: 'Document requirements depend on the account type you choose.' },
+      { title: 'Choose physical SIM or eSIM', sub: 'eSIM is available from both Etisalat and du if your phone supports it.' },
+      { title: 'Activate your number', sub: 'Follow the provider\'s activation steps in-store or via app.' },
+      { title: 'Download the provider app', sub: 'Track data, balance, bills, and manage your account easily.' },
+      { title: 'Use your UAE number for key services', sub: 'Banking, DEWA, Ejari, delivery apps, and government apps all require OTP verification via UAE number.' },
+    ],
+    important: [
+      'A UAE mobile number is essential for OTP verification across banking, government, and utility services.',
+      'Postpaid contracts require Emirates ID and may require residency to be active.',
+      'Check cancellation terms before committing to a long postpaid contract.',
+    ],
+    links: [],
+    tip: 'Postpaid plans often include data roaming across GCC countries — useful if you travel frequently in the region.',
+    sidebarTip: 'Register your SIM with your Emirates ID for access to the full range of services.',
+  },
+  12: {
+    badge: 'Step 12 of 18',
+    title: 'Cooling / Chiller Setup',
+    desc: 'Set up district cooling if billed separately in your building.',
+    timeline: '2–5 days',
+    docs: 'Tenancy contract, Ejari, Emirates ID, DEWA premise details',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Confirm if chiller is included in rent', sub: 'Ask your landlord or building management whether cooling is included or billed separately.' },
+      { title: 'Identify the cooling provider', sub: 'Common providers include Emicool, Empower, Tabreed, and Palm Utilities.' },
+      { title: 'Prepare required documents', sub: 'Tenancy contract, Ejari certificate, Emirates ID, and DEWA premise details if required.' },
+      { title: 'Register your cooling account', sub: 'Submit your application to the provider online or in person.' },
+      { title: 'Pay the deposit or connection fee', sub: 'Typically AED 1,000–2,000 depending on the provider and unit size.' },
+      { title: 'Test AC before final move-in', sub: 'Confirm the air conditioning is cooling properly before settling in.' },
+    ],
+    important: [
+      '"Chiller-free" means cooling cost is typically included in rent — but always confirm this explicitly with your landlord before signing.',
+      'Separate cooling bills can add significantly to monthly costs — factor this into your budget from the start.',
+      'Test all AC units during the handover inspection before accepting the keys.',
+    ],
+    links: [],
+    tip: 'Check your chiller bill monthly via the provider app — unexpected charges are easier to dispute quickly.',
+    sidebarTip: 'Always confirm in writing whether cooling is included in your rent or billed separately.',
+  },
+  13: {
+    badge: 'Step 13 of 18',
+    title: 'Move-in Inspection',
+    desc: 'Inspect the property thoroughly before accepting the keys.',
+    timeline: '1 day',
+    docs: 'Phone/camera for documentation, snag list',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Take photos and videos of every room', sub: 'Do this before any furniture is moved in — document walls, floors, ceilings, and fixtures.' },
+      { title: 'Check all key areas', sub: 'Walls, flooring, doors, windows, locks, kitchen appliances, bathrooms, AC, water pressure, electrical sockets, and lights.' },
+      { title: 'Record all existing damage', sub: 'Note scratches, stains, marks, broken fittings, and anything not in good condition.' },
+      { title: 'Send a snag list to the landlord or agent', sub: 'Email or WhatsApp the issues — written communication creates a clear record.' },
+      { title: 'Confirm repair responsibilities', sub: 'Get written confirmation of which repairs are landlord responsibility and by when.' },
+      { title: 'Keep all written communication', sub: 'Do not rely on verbal promises — everything should be in writing.' },
+    ],
+    important: [
+      'Thorough documentation protects your security deposit when you eventually move out.',
+      'Report defects immediately at handover — not days or weeks later.',
+      'Verbal promises from agents or landlords about repairs are not reliable — always get written confirmation.',
+    ],
+    links: [],
+    tip: 'Send photos via WhatsApp to the agent immediately after inspection — this creates a timestamped record.',
+    sidebarTip: 'Document everything with photos before moving a single item into the apartment.',
+  },
+  14: {
+    badge: 'Step 14 of 18',
+    title: 'Home Essentials Setup',
+    desc: 'Furnish and prepare your apartment for daily living.',
+    timeline: '1–2 weeks',
+    docs: 'Building approval for deliveries/drilling if required',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Prioritise essential items first', sub: 'Bed, mattress, kitchen basics, bathroom supplies, and cleaning products before decorating.' },
+      { title: 'Arrange furniture', sub: 'IKEA, Home Centre, and Danube Home are popular options across Dubai.' },
+      { title: 'Stock kitchen and household supplies', sub: 'Carrefour, Lulu, and Spinneys cover everyday household items.' },
+      { title: 'Arrange maintenance for fitting work', sub: 'Book for curtain installation, TV mounting, drilling, or appliance setup.' },
+      { title: 'Confirm waste disposal rules', sub: 'Check building rules for waste, recycling, and bulky item disposal.' },
+      { title: 'Save emergency contacts', sub: 'Building security, maintenance, and your landlord or agent.' },
+      { title: 'Register car parking and access cards', sub: 'If applicable, register your vehicle and collect any access fobs or cards.' },
+    ],
+    important: [
+      'Some buildings require prior approval for drilling or large furniture deliveries.',
+      'Check whether the kitchen uses gas, electric hobs, or cylinder-based gas before buying appliances.',
+      'Keep receipts for all major purchases for warranty claims.',
+    ],
+    links: [],
+    tip: 'Facebook Marketplace and Dubizzle often have great second-hand furniture deals from people leaving the country.',
+    sidebarTip: 'The IKEA Family card gives discounts on furniture, food, and delivery.',
+  },
+  15: {
+    badge: 'Step 15 of 18',
+    title: 'Banking &amp; Payments',
+    desc: 'Open a UAE bank account and set up your payment methods.',
+    timeline: '1–2 weeks',
+    docs: 'Emirates ID, passport, visa/residency, salary certificate or employment letter',
+    difficulty: 'Medium',
+    tasks: [
+      { title: 'Gather required documents', sub: 'Emirates ID, passport, visa/residency details, and a salary certificate or employment letter if required.' },
+      { title: 'Choose a bank account', sub: 'Options include Emirates NBD, ADCB, Mashreq, FAB, or digital banks like Liv. by Emirates NBD.' },
+      { title: 'Open your account', sub: 'Visit a branch or apply online — some banks offer instant account opening via app.' },
+      { title: 'Activate debit card and online banking', sub: 'Set up your card and digital banking before you need them.' },
+      { title: 'Set up mobile payments', sub: 'Add Apple Pay, Google Pay, or Samsung Pay if supported by your bank.' },
+      { title: 'Add utility and service billers', sub: 'Connect DEWA, telecom, and other billers to simplify monthly payments.' },
+      { title: 'Track rent cheque dates', sub: 'Keep a calendar reminder for all post-dated cheque dates.' },
+    ],
+    important: [
+      'Some banks allow account opening while Emirates ID is being processed, but full services may require the physical or digital Emirates ID to be active.',
+      'Keep sufficient balance for rent cheques — returned cheques carry legal consequences in the UAE.',
+      'Do not miss rent cheque dates — it is a serious matter under UAE law.',
+    ],
+    links: [],
+    tip: 'Liv. by Emirates NBD is popular with expats as it has no minimum balance requirement and a fast setup.',
+    sidebarTip: 'Keep a calendar reminder for every post-dated rent cheque date.',
+  },
+  16: {
+    badge: 'Step 16 of 18',
+    title: 'Healthcare Setup',
+    desc: 'Confirm your health insurance and find nearby medical care.',
+    timeline: '1–2 weeks',
+    docs: 'Insurance card/app, Emirates ID',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Confirm health insurance coverage', sub: 'Check that your employer, sponsor, or private plan is active and covers you from your move-in date.' },
+      { title: 'Download your insurance card or app', sub: 'Keep digital and physical insurance details accessible.' },
+      { title: 'Find in-network clinics and hospitals', sub: 'Check which clinics, hospitals, and specialists are covered by your plan near your home.' },
+      { title: 'Locate the nearest 24-hour pharmacy', sub: 'Save this as a contact for urgent after-hours needs.' },
+      { title: 'Save emergency contact numbers', sub: 'Ambulance (998), police (999), and your insurance emergency line.' },
+      { title: 'Transfer prescriptions or medical records', sub: 'If you have ongoing treatment, arrange transfer of records and prescriptions.' },
+    ],
+    important: [
+      'Insurance network matters — not every clinic or hospital will be covered by your plan.',
+      'For emergencies, go directly to emergency services regardless of network coverage.',
+      'Health insurance is mandatory for Dubai residents — confirm coverage is active from day one.',
+    ],
+    links: [],
+    tip: 'Use your insurer\'s app to find in-network clinics quickly — saves time and avoids unexpected bills.',
+    sidebarTip: 'Health insurance is mandatory in Dubai — confirm it is active from your first day.',
+  },
+  17: {
+    badge: 'Step 17 of 18',
+    title: 'Transport Setup',
+    desc: 'Sort out how you will get around Dubai day to day.',
+    timeline: '1–4 weeks',
+    docs: 'Emirates ID, existing driving licence, vehicle documents if applicable',
+    difficulty: 'Medium',
+    tasks: [
+      { title: 'Decide your primary commute mode', sub: 'Metro, car, taxi, bus, or cycling/scooter where permitted.' },
+      { title: 'Get a Nol card for public transport', sub: 'Works across Dubai Metro, buses, trams, and RTA ferries.' },
+      { title: 'Check driving licence eligibility', sub: 'Find out if your home country licence can be exchanged directly or if you need lessons and a test.' },
+      { title: 'Register Salik if you own a car', sub: 'Salik is Dubai\'s toll road system — registration is mandatory if driving on toll routes.' },
+      { title: 'Check parking rules around home and work', sub: 'Paid parking zones, timings, and permits vary by area.' },
+      { title: 'Save building parking access details', sub: 'Collect access cards, fobs, or parking permits from building management.' },
+    ],
+    important: [
+      'Metro access can significantly affect quality of life and commute time — factor this into your area choice.',
+      'Paid parking areas vary by zone, timing, and day — check RTA rules for your home area.',
+      'Driving licence exchange eligibility depends on your home country — check current RTA rules as these change periodically.',
+    ],
+    links: [],
+    tip: 'The RTA app covers Nol card top-up, taxi booking, and parking payment all in one place.',
+    sidebarTip: 'The RTA app handles Nol top-up, taxi booking, and parking payments in one place.',
+  },
+  18: {
+    badge: 'Step 18 of 18',
+    title: 'Relocation Document Vault',
+    desc: 'Store all important documents in one secure, accessible place.',
+    timeline: 'Ongoing',
+    docs: 'All documents from steps 1–17',
+    difficulty: 'Easy',
+    tasks: [
+      { title: 'Save all core documents', sub: 'Passport copy, visa/residency copy, Emirates ID copy, tenancy contract, Ejari certificate, DEWA account and receipts.' },
+      { title: 'Save service and utility documents', sub: 'Internet and mobile contracts, insurance card, rent cheques and payment receipts.' },
+      { title: 'Save move-in records', sub: 'Move-in inspection photos with timestamps and building access or parking documents.' },
+      { title: 'Use clear, consistent file names', sub: 'Examples: Ejari_2026.pdf, DEWA_Deposit_Receipt.pdf, Tenancy_Contract_JVC.pdf.' },
+      { title: 'Store both cloud and offline copies', sub: 'Use Google Drive, iCloud, or a secure cloud service and keep a local backup.' },
+      { title: 'Share access with a trusted person', sub: 'In case of emergency, someone you trust should be able to access your key documents.' },
+    ],
+    important: [
+      'Store both cloud and offline copies of every important document.',
+      'Keep receipts until after you have moved out and received all deposits back.',
+      'Use clear file names so documents are easy to find under pressure.',
+    ],
+    links: [],
+    tip: 'Keep a fireproof folder at home with physical originals of your most critical documents.',
+    sidebarTip: 'Update your vault every time a document renews or a new one is issued.',
+  },
+};
 
-  // Nav click handler
-  document.querySelectorAll('.nav-step').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const step = parseInt(this.dataset.step);
+const globeIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
 
-      // Update active state
-      document.querySelectorAll('.nav-step').forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
+const shieldIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>`;
+const warnIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+const usersIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`;
 
-      const data = stepData[step];
-      if (!data) return;
+const importantIcons = [shieldIcon, warnIcon, usersIcon, shieldIcon, warnIcon, usersIcon];
 
-      // Update badge and title
-      document.querySelector('.step-badge').innerHTML = data.badge;
-      document.querySelector('.step-title').innerHTML = data.title;
-      document.querySelector('.step-desc').textContent = data.desc;
+function taskIcon(i) {
+  const icons = [
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>`,
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>`,
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+    `<svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>`,
+  ];
+  return icons[i % icons.length];
+}
 
-      // Update info bar
-      const infoCells = document.querySelectorAll('.info-cell .info-val');
-      infoCells[0].textContent = data.timeline;
-      infoCells[2].textContent = data.difficulty;
+function renderStep(num) {
+  const d = STEPS[num];
+  if (!d) return;
 
-      // Update tasks
-      const tasksList = document.querySelector('.tasks-list');
-      tasksList.innerHTML = data.tasks.map((t, i) => `
-        <div class="task-card">
-          <div class="task-num">${i + 1}</div>
-          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-          </svg>
-          <div class="task-body">
-            <div class="task-title">${t.title}</div>
-            <div class="task-sub">${t.sub}</div>
-          </div>
-          <span class="task-arrow">›</span>
+  document.getElementById('step-badge').innerHTML = d.badge;
+  document.getElementById('step-title').innerHTML = d.title;
+  document.getElementById('step-desc').textContent = d.desc;
+  document.getElementById('info-timeline').textContent = d.timeline;
+  document.getElementById('info-docs').textContent = d.docs;
+  document.getElementById('info-difficulty').textContent = d.difficulty;
+  document.getElementById('pro-tip-text').textContent = d.tip;
+  document.getElementById('sidebar-tip-text').textContent = d.sidebarTip;
+
+  // Tasks
+  document.getElementById('tasks-list').innerHTML = d.tasks.map((t, i) => `
+    <div class="task-card">
+      <div class="task-num">${i + 1}</div>
+      ${taskIcon(i)}
+      <div class="task-body">
+        <div class="task-title">${t.title}</div>
+        <div class="task-sub">${t.sub}</div>
+      </div>
+      <span class="task-arrow">›</span>
+    </div>
+  `).join('');
+
+  // Important to know
+  document.getElementById('important-list').innerHTML = d.important.map((text, i) => `
+    <div class="info-row">
+      <div class="info-row-icon">${importantIcons[i % importantIcons.length]}</div>
+      <div class="info-row-text">${text}</div>
+    </div>
+  `).join('');
+
+  // Links
+  const linksSection = document.getElementById('links-section');
+  if (d.links && d.links.length > 0) {
+    linksSection.style.display = 'block';
+    document.getElementById('links-list').innerHTML = d.links.map(l => `
+      <a class="link-row" href="${l.href}" target="_blank">
+        <svg class="link-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        <div class="link-text">
+          <div class="link-name">${l.name}</div>
+          <div class="link-url">${l.url}</div>
         </div>
-      `).join('');
+        <span class="link-ext">↗</span>
+      </a>
+    `).join('');
+  } else {
+    linksSection.style.display = 'none';
+  }
+}
 
-      // Update pro tip
-      document.querySelector('.pro-tip-text').textContent = data.tip;
-
-      // Update sidebar tip
-      document.querySelector('.sidebar-tip-text').textContent = data.tipLabel;
-    });
+// Nav click handler
+document.querySelectorAll('.nav-step').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelectorAll('.nav-step').forEach(l => l.classList.remove('active'));
+    this.classList.add('active');
+    renderStep(parseInt(this.dataset.step));
+    window.scrollTo(0, 0);
   });
+});
+
+// Initial render
+renderStep(1);
 </script>
 
 </body>
