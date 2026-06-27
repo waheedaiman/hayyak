@@ -20,27 +20,152 @@
     --text-muted: #9C7A5E;
     --border: #E2D5C5;
     --white: #FFFFFF;
+    --sidebar-w: 200px;
   }
 
-  /* iframe-friendly: no vh units, no overflow:hidden on body */
-  html {
-    height: auto;
-  }
+  html { height: auto; }
 
   body {
     font-family: 'Inter', sans-serif;
     background: var(--cream);
     color: var(--text-dark);
     display: flex;
-    height: auto;
-    min-height: 0;
-    /* prevent horizontal scrollbar inside iframe */
+    min-height: 100vh;
     overflow-x: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: var(--sidebar-w);
+    min-width: var(--sidebar-w);
+    background: var(--white);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+  }
+
+  .sidebar-logo {
+    padding: 22px 18px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--brown);
+    line-height: 1;
+    margin-bottom: 2px;
+  }
+
+  .logo-arabic {
+    font-size: 14px;
+    color: var(--brown-light);
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .sidebar-subtitle {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .sidebar-subtitle-sub {
+    font-size: 10px;
+    color: var(--text-muted);
+  }
+
+  /* Nav steps */
+  .sidebar-nav { flex: 1; padding: 10px 0; overflow-y: auto; }
+
+  .nav-step {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background 0.15s;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+  }
+
+  .nav-step:hover { background: var(--cream); }
+
+  .nav-step.active {
+    background: var(--cream-mid);
+    border-left-color: var(--brown);
+  }
+
+  .nav-step-num {
+    font-size: 9.5px;
+    font-weight: 700;
+    color: var(--brown-light);
+    width: 16px;
+    flex-shrink: 0;
+  }
+
+  .nav-step.active .nav-step-num { color: var(--brown); }
+
+  .nav-step-body { flex: 1; min-width: 0; }
+
+  .nav-step-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-step.active .nav-step-name { color: var(--brown-dark); }
+
+  .nav-step-sub {
+    font-size: 9.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Hayyak tip at bottom */
+  .sidebar-tip {
+    margin: 10px 12px 16px;
+    background: var(--cream-mid);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 11px;
+  }
+
+  .sidebar-tip-label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 4px;
+  }
+
+  .sidebar-tip-label svg { width: 12px; height: 12px; }
+
+  .sidebar-tip-text {
+    font-size: 10px;
+    color: var(--text-mid);
+    line-height: 1.5;
   }
 
   /* ── MAIN ── */
   .main {
-    width: 100%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -49,13 +174,13 @@
   .content-area {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 280px;
     gap: 0;
-    padding: 28px 32px 28px 32px;
+    padding: 28px 28px 28px 28px;
   }
 
   /* ── LEFT COLUMN ── */
-  .left-col { padding-right: 28px; }
+  .left-col { padding-right: 24px; }
 
   .step-header {
     display: flex;
@@ -65,17 +190,17 @@
   }
 
   .step-icon-wrap {
-    width: 72px;
-    height: 72px;
+    width: 64px;
+    height: 64px;
     background: var(--brown);
-    border-radius: 16px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
   }
 
-  .step-icon-wrap svg { width: 38px; height: 38px; color: white; }
+  .step-icon-wrap svg { width: 32px; height: 32px; color: white; }
 
   .step-meta { flex: 1; }
 
@@ -85,22 +210,23 @@
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 3px 11px;
-    font-size: 10.5px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 700;
     color: var(--brown);
     margin-bottom: 5px;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   .step-title {
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     color: var(--text-dark);
     line-height: 1.15;
     margin-bottom: 4px;
   }
 
-  .step-desc { font-size: 12.5px; color: var(--text-muted); }
+  .step-desc { font-size: 12px; color: var(--text-muted); }
 
   /* Info bar */
   .info-bar {
@@ -114,61 +240,64 @@
 
   .info-cell {
     flex: 1;
-    padding: 12px 14px;
+    padding: 11px 13px;
     display: flex;
-    gap: 10px;
+    gap: 9px;
     align-items: flex-start;
     border-right: 1px solid var(--border);
   }
 
   .info-cell:last-child { border-right: none; }
-  .info-cell svg { width: 16px; height: 16px; color: var(--brown-light); flex-shrink: 0; margin-top: 1px; }
-  .info-label { font-size: 10.5px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
-  .info-val { font-size: 10.5px; color: var(--text-muted); }
+  .info-cell svg { width: 15px; height: 15px; color: var(--brown-light); flex-shrink: 0; margin-top: 1px; }
+  .info-label { font-size: 10px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+  .info-val { font-size: 10px; color: var(--text-muted); }
 
   /* Tasks */
   .section-heading {
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--brown);
-    margin-bottom: 12px;
+    margin-bottom: 11px;
   }
 
-  .tasks-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+  .tasks-list { display: flex; flex-direction: column; gap: 7px; margin-bottom: 16px; }
 
   .task-card {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 11px;
-    padding: 13px 14px;
+    padding: 12px 13px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 11px;
     cursor: pointer;
-    transition: box-shadow 0.15s;
+    transition: box-shadow 0.15s, border-color 0.15s;
   }
 
-  .task-card:hover { box-shadow: 0 2px 8px rgba(139,94,42,0.08); }
+  .task-card:hover {
+    box-shadow: 0 2px 8px rgba(139,94,42,0.1);
+    border-color: var(--brown-light);
+  }
 
   .task-num {
-    width: 28px;
-    height: 28px;
+    width: 26px;
+    height: 26px;
     background: var(--cream);
     border-radius: 7px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     color: var(--text-dark);
     flex-shrink: 0;
     border: 1px solid var(--border);
   }
 
-  .task-icon { width: 20px; height: 20px; color: var(--brown-light); flex-shrink: 0; }
+  .task-icon { width: 18px; height: 18px; color: var(--brown-light); flex-shrink: 0; }
   .task-body { flex: 1; }
-  .task-title { font-size: 12.5px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
-  .task-sub { font-size: 11px; color: var(--text-muted); }
+  .task-title { font-size: 12px; font-weight: 600; color: var(--text-dark); margin-bottom: 2px; }
+  .task-sub { font-size: 10.5px; color: var(--text-muted); }
   .task-arrow { color: var(--text-muted); font-size: 16px; }
 
   /* Pro tip */
@@ -176,17 +305,17 @@
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 11px;
-    padding: 14px 16px;
+    padding: 13px 15px;
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 13px;
     position: relative;
     overflow: hidden;
   }
 
   .tip-icon-box {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
     background: var(--cream);
     border-radius: 8px;
     display: flex;
@@ -196,88 +325,91 @@
     border: 1px solid var(--border);
   }
 
-  .tip-icon-box svg { width: 17px; height: 17px; color: var(--brown); }
+  .tip-icon-box svg { width: 16px; height: 16px; color: var(--brown); }
   .pro-tip-label { font-size: 11px; font-weight: 700; color: var(--brown); margin-bottom: 2px; }
-  .pro-tip-text { font-size: 11.5px; color: var(--text-mid); }
+  .pro-tip-text { font-size: 11px; color: var(--text-mid); }
 
   .plane-deco {
     position: absolute;
-    right: 16px;
-    bottom: 8px;
-    opacity: 0.2;
-    font-size: 36px;
+    right: 14px;
+    bottom: 6px;
+    opacity: 0.18;
+    font-size: 34px;
     transform: rotate(-15deg);
     color: var(--brown);
   }
 
   /* ── RIGHT COLUMN ── */
-  .right-col { display: flex; flex-direction: column; gap: 16px; }
+  .right-col { display: flex; flex-direction: column; gap: 14px; }
 
   .info-card {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 13px;
-    padding: 14px 14px 12px;
+    padding: 13px 13px 11px;
   }
 
   .card-heading {
     display: flex;
     align-items: center;
     gap: 7px;
-    font-size: 11px;
+    font-size: 10.5px;
     font-weight: 700;
     color: var(--brown);
     letter-spacing: 0.06em;
-    margin-bottom: 13px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
   }
 
-  .card-heading svg { width: 14px; height: 14px; }
+  .card-heading svg { width: 13px; height: 13px; }
 
   .info-row {
     display: flex;
     gap: 9px;
     align-items: flex-start;
-    margin-bottom: 11px;
+    margin-bottom: 10px;
   }
 
   .info-row:last-child { margin-bottom: 0; }
-  .info-row-icon { width: 26px; height: 26px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-  .info-row-icon svg { width: 16px; height: 16px; color: var(--brown-light); }
-  .info-row-text { font-size: 10.5px; color: var(--text-mid); line-height: 1.5; }
+  .info-row-icon { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+  .info-row-icon svg { width: 15px; height: 15px; color: var(--brown-light); }
+  .info-row-text { font-size: 10px; color: var(--text-mid); line-height: 1.5; }
 
   /* Official links */
   .links-card {
     background: var(--white);
     border: 1px solid var(--border);
     border-radius: 13px;
-    padding: 14px 14px 12px;
+    padding: 13px 13px 11px;
   }
 
   .links-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 11px;
   }
 
-  .links-label { font-size: 11px; font-weight: 700; color: var(--brown); letter-spacing: 0.06em; }
+  .links-label { font-size: 10.5px; font-weight: 700; color: var(--brown); letter-spacing: 0.06em; text-transform: uppercase; }
   .links-arrow { color: var(--brown); font-size: 14px; }
 
   .link-row {
     display: flex;
     align-items: center;
     gap: 9px;
-    padding: 9px 0;
+    padding: 8px 0;
     border-bottom: 1px solid var(--border);
     cursor: pointer;
     text-decoration: none;
+    transition: opacity 0.15s;
   }
 
+  .link-row:hover { opacity: 0.75; }
   .link-row:last-child { border-bottom: none; padding-bottom: 0; }
-  .link-globe { width: 16px; height: 16px; color: var(--brown-light); flex-shrink: 0; }
+  .link-globe { width: 15px; height: 15px; color: var(--brown-light); flex-shrink: 0; }
   .link-text { flex: 1; }
-  .link-name { font-size: 11.5px; font-weight: 600; color: var(--brown); }
-  .link-url { font-size: 10px; color: var(--text-muted); }
+  .link-name { font-size: 11px; font-weight: 600; color: var(--brown); }
+  .link-url { font-size: 9.5px; color: var(--text-muted); }
   .link-ext { font-size: 12px; color: var(--brown-light); }
 
   /* Skyline */
@@ -287,7 +419,154 @@
 </head>
 <body>
 
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-text">Hayyak</div>
+    <span class="logo-arabic">حياك</span>
+    <div class="sidebar-subtitle">Dubai Relocation Guide</div>
+    <div class="sidebar-subtitle-sub">Step-by-step journey</div>
+  </div>
 
+  <nav class="sidebar-nav">
+    <a class="nav-step active" href="#" data-step="1">
+      <span class="nav-step-num">01</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Visa &amp; Entry</div>
+        <div class="nav-step-sub">Residence route</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="2">
+      <span class="nav-step-num">02</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Medical Fitness</div>
+        <div class="nav-step-sub">Health check</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="3">
+      <span class="nav-step-num">03</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Emirates ID</div>
+        <div class="nav-step-sub">Identity card</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="4">
+      <span class="nav-step-num">04</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Housing Search</div>
+        <div class="nav-step-sub">Area &amp; budget</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="5">
+      <span class="nav-step-num">05</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Property Check</div>
+        <div class="nav-step-sub">Broker &amp; documents</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="6">
+      <span class="nav-step-num">06</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Tenancy Contract</div>
+        <div class="nav-step-sub">Rental agreement</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="7">
+      <span class="nav-step-num">07</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Ejari</div>
+        <div class="nav-step-sub">Rental registration</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="8">
+      <span class="nav-step-num">08</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">DEWA</div>
+        <div class="nav-step-sub">Electricity &amp; water</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="9">
+      <span class="nav-step-num">09</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Move-in Permit</div>
+        <div class="nav-step-sub">Building approval</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="10">
+      <span class="nav-step-num">10</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Internet</div>
+        <div class="nav-step-sub">Home broadband</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="11">
+      <span class="nav-step-num">11</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Mobile SIM</div>
+        <div class="nav-step-sub">Phone &amp; data</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="12">
+      <span class="nav-step-num">12</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Cooling / Chiller</div>
+        <div class="nav-step-sub">If separate</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="13">
+      <span class="nav-step-num">13</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Handover</div>
+        <div class="nav-step-sub">Inspect the unit</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="14">
+      <span class="nav-step-num">14</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Essentials</div>
+        <div class="nav-step-sub">Furniture &amp; supplies</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="15">
+      <span class="nav-step-num">15</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Banking</div>
+        <div class="nav-step-sub">Money setup</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="16">
+      <span class="nav-step-num">16</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Healthcare</div>
+        <div class="nav-step-sub">Insurance &amp; clinics</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="17">
+      <span class="nav-step-num">17</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Transport</div>
+        <div class="nav-step-sub">Driving &amp; commute</div>
+      </div>
+    </a>
+    <a class="nav-step" href="#" data-step="18">
+      <span class="nav-step-num">18</span>
+      <div class="nav-step-body">
+        <div class="nav-step-name">Docs Vault</div>
+        <div class="nav-step-sub">Save everything</div>
+      </div>
+    </a>
+  </nav>
+
+  <div class="sidebar-tip">
+    <div class="sidebar-tip-label">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      Hayyak Tip
+    </div>
+    <div class="sidebar-tip-text">Complete Ejari before DEWA to avoid delays.</div>
+  </div>
+</aside>
 
 <!-- MAIN CONTENT -->
 <main class="main">
@@ -306,7 +585,7 @@
           </svg>
         </div>
         <div class="step-meta">
-          <div class="step-badge">STEP 01 OF 18</div>
+          <div class="step-badge">Step 01 of 18</div>
           <div class="step-title">Visa &amp; Entry Setup</div>
           <div class="step-desc">Understand and complete your UAE entry and residency process.</div>
         </div>
@@ -432,7 +711,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
           </svg>
-          IMPORTANT TO KNOW
+          Important to Know
         </div>
 
         <div class="info-row">
@@ -465,7 +744,7 @@
 
       <div class="links-card">
         <div class="links-heading">
-          <span class="links-label">OFFICIAL LINKS</span>
+          <span class="links-label">Official Links</span>
           <span class="links-arrow">↗</span>
         </div>
 
@@ -541,6 +820,315 @@
     </div>
   </div>
 </main>
+
+<script>
+  // Step data - each step can have its own content
+  const stepData = {
+    1: {
+      badge: 'Step 01 of 18',
+      title: 'Visa &amp; Entry Setup',
+      desc: 'Understand and complete your UAE entry and residency process.',
+      timeline: '1–3 weeks',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Confirm your sponsorship type', sub: 'Check if your employer, family member, free zone, or yourself will sponsor the visa.' },
+        { title: 'Check your entry status', sub: 'Know whether you have an entry permit or are entering on a tourist/visit visa.' },
+        { title: 'Prepare required documents', sub: 'Passport copy, passport photos, employment or sponsorship documents.' },
+        { title: 'Apply for entry/residency', sub: 'Submit your application through the relevant UAE authority or sponsor.' },
+        { title: 'Track approval', sub: 'Monitor your application status until it is approved.' },
+        { title: 'Proceed to next steps', sub: 'Once approved, move to medical fitness and Emirates ID application.' },
+      ],
+      tip: 'Start your visa process early to avoid delays in your move-in timeline.',
+      tipLabel: 'Hayyak Tip: Complete Ejari before DEWA to avoid delays.',
+    },
+    2: {
+      badge: 'Step 02 of 18',
+      title: 'Medical Fitness',
+      desc: 'Complete your mandatory health check as part of the UAE residency process.',
+      timeline: '1–3 days',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Book your medical appointment', sub: 'Visit an approved health center such as HAAD or DHA.' },
+        { title: 'Complete blood tests & chest X-ray', sub: 'Standard tests required for all residency applicants.' },
+        { title: 'Receive fitness certificate', sub: 'Your certificate is linked digitally to your Emirates ID application.' },
+      ],
+      tip: 'Bring your original passport and entry permit to the medical center.',
+      tipLabel: 'Hayyak Tip: Some centers allow online booking to save time.',
+    },
+    3: {
+      badge: 'Step 03 of 18',
+      title: 'Emirates ID',
+      desc: 'Apply for your Emirates ID — your official identity card in the UAE.',
+      timeline: '1–2 weeks',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Submit Emirates ID application', sub: 'Apply via ICP (icp.gov.ae) or through your employer/sponsor.' },
+        { title: 'Biometrics appointment', sub: 'Visit an ICP center to submit fingerprints and photo.' },
+        { title: 'Collect your Emirates ID', sub: 'Delivered by Emirates Post or collected in person.' },
+      ],
+      tip: 'You need your Emirates ID before opening a bank account or signing contracts.',
+      tipLabel: 'Hayyak Tip: Track your ID status on the ICP app.',
+    },
+    4: {
+      badge: 'Step 04 of 18',
+      title: 'Housing Search',
+      desc: 'Research neighbourhoods, set your budget, and shortlist properties.',
+      timeline: '1–4 weeks',
+      difficulty: 'Medium',
+      tasks: [
+        { title: 'Research areas by lifestyle', sub: 'Consider proximity to work, schools, and amenities.' },
+        { title: 'Set a monthly budget', sub: 'Account for rent, chiller, service charges, and parking.' },
+        { title: 'Browse listings', sub: 'Use Bayut, Property Finder, or Dubizzle to explore options.' },
+        { title: 'Schedule viewings', sub: 'Visit shortlisted properties with a licensed broker.' },
+      ],
+      tip: 'Prices are negotiable — especially if you offer multiple cheques upfront.',
+      tipLabel: 'Hayyak Tip: Factor in chiller fees as they can add AED 500–1500/month.',
+    },
+    5: {
+      badge: 'Step 05 of 18',
+      title: 'Property Check',
+      desc: 'Verify the property and broker before committing.',
+      timeline: '1–3 days',
+      difficulty: 'Medium',
+      tasks: [
+        { title: 'Verify broker RERA license', sub: 'All brokers must be RERA-registered in Dubai.' },
+        { title: 'Check title deed and ownership', sub: 'Request a copy of the title deed from the landlord.' },
+        { title: 'Inspect the unit thoroughly', sub: 'Check for maintenance issues before signing anything.' },
+      ],
+      tip: 'Use the Dubai REST app to verify property ownership.',
+      tipLabel: 'Hayyak Tip: Never pay before viewing and verifying the property.',
+    },
+    6: {
+      badge: 'Step 06 of 18',
+      title: 'Tenancy Contract',
+      desc: 'Sign your rental agreement and secure your home.',
+      timeline: '1–2 days',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Review contract terms', sub: 'Check rent, payment schedule, notice periods, and renewal clauses.' },
+        { title: 'Sign and stamp the contract', sub: 'Ensure both parties sign; landlord may notarise.' },
+        { title: 'Issue post-dated cheques', sub: 'Prepare cheques as agreed (1, 2, 4, or 6 per year).' },
+      ],
+      tip: 'Read the maintenance clause carefully — who is responsible for what?',
+      tipLabel: 'Hayyak Tip: Keep a signed copy of your contract at all times.',
+    },
+    7: {
+      badge: 'Step 07 of 18',
+      title: 'Ejari Registration',
+      desc: 'Register your tenancy contract with the Dubai Land Department.',
+      timeline: '1–2 days',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Register on Ejari portal', sub: 'Go to ejari.gov.ae or use the Ejari app.' },
+        { title: 'Upload required documents', sub: 'Tenancy contract, Emirates IDs, and title deed.' },
+        { title: 'Receive Ejari certificate', sub: 'Your official rental registration document.' },
+      ],
+      tip: 'Ejari is required before connecting DEWA utilities.',
+      tipLabel: 'Hayyak Tip: Complete Ejari before DEWA to avoid delays.',
+    },
+    8: {
+      badge: 'Step 08 of 18',
+      title: 'DEWA Setup',
+      desc: 'Connect your electricity and water supply with DEWA.',
+      timeline: '2–5 days',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Create DEWA account', sub: 'Register at dewa.gov.ae or via the DEWA app.' },
+        { title: 'Submit connection request', sub: 'Upload Ejari certificate and Emirates ID.' },
+        { title: 'Pay activation deposit', sub: 'AED 2,000 for apartments, AED 4,000 for villas.' },
+      ],
+      tip: 'DEWA connection typically happens within 2 business days after approval.',
+      tipLabel: 'Hayyak Tip: The DEWA app makes bill payments and tracking easy.',
+    },
+    9: {
+      badge: 'Step 09 of 18',
+      title: 'Move-in Permit',
+      desc: 'Get building approval before moving furniture into your new home.',
+      timeline: '1–3 days',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Contact building management', sub: 'Request move-in procedure from your building\'s facilities team.' },
+        { title: 'Book the service elevator', sub: 'Reserve a time slot for moving furniture.' },
+        { title: 'Obtain move-in permit', sub: 'Some buildings require a formal written permit or deposit.' },
+      ],
+      tip: 'Moving on weekdays avoids the weekend rush and extra fees.',
+      tipLabel: 'Hayyak Tip: Confirm if parking for the moving truck needs pre-approval.',
+    },
+    10: {
+      badge: 'Step 10 of 18',
+      title: 'Internet Setup',
+      desc: 'Set up your home broadband connection.',
+      timeline: '3–7 days',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Choose a provider', sub: 'Etisalat (eLife) or du are the two options in the UAE.' },
+        { title: 'Submit your application', sub: 'Apply online or visit a store with your Emirates ID and Ejari.' },
+        { title: 'Schedule technician visit', sub: 'A technician will install your router and activate the connection.' },
+      ],
+      tip: 'Check coverage maps — some buildings are serviced by only one provider.',
+      tipLabel: 'Hayyak Tip: Bundle internet with TV and calls for better value.',
+    },
+    11: {
+      badge: 'Step 11 of 18',
+      title: 'Mobile SIM',
+      desc: 'Get a UAE mobile number for calls and data.',
+      timeline: '1 day',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Choose Etisalat or du', sub: 'Both offer prepaid and postpaid options.' },
+        { title: 'Visit a store or apply online', sub: 'Bring your passport and Emirates ID.' },
+        { title: 'Activate your SIM', sub: 'Postpaid requires Emirates ID; prepaid is immediate.' },
+      ],
+      tip: 'Postpaid plans often include data roaming across GCC countries.',
+      tipLabel: 'Hayyak Tip: Register your SIM with your Emirates ID for full features.',
+    },
+    12: {
+      badge: 'Step 12 of 18',
+      title: 'Cooling / Chiller',
+      desc: 'Set up district cooling if it\'s billed separately in your building.',
+      timeline: '2–5 days',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Check if chiller is included', sub: 'Ask your landlord if cooling is included in rent or separate.' },
+        { title: 'Register with provider', sub: 'Common providers: Emicool, Empower, Tabreed, Palm Utilities.' },
+        { title: 'Pay the connection deposit', sub: 'Typically AED 1,000–2,000 depending on the provider.' },
+      ],
+      tip: 'Chiller costs can be significant — factor this into your monthly budget.',
+      tipLabel: 'Hayyak Tip: Check your chiller bill on the provider\'s app monthly.',
+    },
+    13: {
+      badge: 'Step 13 of 18',
+      title: 'Handover Inspection',
+      desc: 'Inspect your unit thoroughly before officially accepting the keys.',
+      timeline: '1 day',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Walk through with landlord/agent', sub: 'Check all rooms, fixtures, and appliances.' },
+        { title: 'Document existing damage', sub: 'Take timestamped photos of any pre-existing issues.' },
+        { title: 'Sign handover checklist', sub: 'Get a written record of the unit\'s condition.' },
+      ],
+      tip: 'Test all lights, taps, AC units, and appliances during inspection.',
+      tipLabel: 'Hayyak Tip: Send photos via WhatsApp to the agent to create a record.',
+    },
+    14: {
+      badge: 'Step 14 of 18',
+      title: 'Essentials Setup',
+      desc: 'Furnish and stock your new home with everything you need.',
+      timeline: '1–2 weeks',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Prioritise essentials first', sub: 'Bed, kitchen basics, and bathroom supplies before decorating.' },
+        { title: 'Explore furniture options', sub: 'IKEA, Home Centre, and Danube Home are popular choices.' },
+        { title: 'Set up kitchen supplies', sub: 'Carrefour, Lulu, and Spinneys for everyday household items.' },
+      ],
+      tip: 'Facebook Marketplace and Dubizzle have great second-hand furniture deals.',
+      tipLabel: 'Hayyak Tip: IKEA Family card gives discounts on furniture and food.',
+    },
+    15: {
+      badge: 'Step 15 of 18',
+      title: 'Banking Setup',
+      desc: 'Open a UAE bank account for salary and expenses.',
+      timeline: '1–2 weeks',
+      difficulty: 'Medium',
+      tasks: [
+        { title: 'Choose a bank', sub: 'Emirates NBD, ADCB, Mashreq, FAB, or digital banks like Liv.' },
+        { title: 'Gather documents', sub: 'Emirates ID, passport, visa, salary certificate, and proof of address.' },
+        { title: 'Open your account', sub: 'Visit a branch or apply online with some banks.' },
+      ],
+      tip: 'Some banks offer instant account opening via app with just your Emirates ID.',
+      tipLabel: 'Hayyak Tip: Liv. by Emirates NBD is popular for expats with no minimum balance.',
+    },
+    16: {
+      badge: 'Step 16 of 18',
+      title: 'Healthcare',
+      desc: 'Set up your health insurance and find local clinics.',
+      timeline: '1–2 weeks',
+      difficulty: 'Medium',
+      tasks: [
+        { title: 'Confirm employer insurance', sub: 'Health insurance is mandatory — most employers provide it.' },
+        { title: 'Add dependants if needed', sub: 'Sponsor family members through your insurer or DHA.' },
+        { title: 'Find nearby clinics', sub: 'Register with a clinic on your insurance network.' },
+      ],
+      tip: 'Dubai residents must have DHA-approved health insurance by law.',
+      tipLabel: 'Hayyak Tip: Use the insurer app to find in-network clinics quickly.',
+    },
+    17: {
+      badge: 'Step 17 of 18',
+      title: 'Transport',
+      desc: 'Sort out how you\'ll get around Dubai.',
+      timeline: '1–4 weeks',
+      difficulty: 'Medium',
+      tasks: [
+        { title: 'Get a Nol card', sub: 'Use the Nol card for Metro, buses, trams, and RTA ferries.' },
+        { title: 'Consider a UAE driving licence', sub: 'Convert your home country licence or take lessons.' },
+        { title: 'Explore car options', sub: 'Buy, lease, or use ride-hailing apps like Uber or Careem.' },
+      ],
+      tip: 'If your home country qualifies, licence conversion can be done in one visit.',
+      tipLabel: 'Hayyak Tip: The RTA app covers Nol top-up and taxi booking in one place.',
+    },
+    18: {
+      badge: 'Step 18 of 18',
+      title: 'Docs Vault',
+      desc: 'Organise and back up all your important documents.',
+      timeline: 'Ongoing',
+      difficulty: 'Easy',
+      tasks: [
+        { title: 'Scan all key documents', sub: 'Passport, visa, Emirates ID, tenancy contract, Ejari.' },
+        { title: 'Store in a secure cloud folder', sub: 'Google Drive, iCloud, or a password-protected service.' },
+        { title: 'Share access with a trusted person', sub: 'In case of emergency, someone should have access.' },
+      ],
+      tip: 'Keep physical originals in a fireproof folder at home.',
+      tipLabel: 'Hayyak Tip: Update your vault every time a document renews.',
+    },
+  };
+
+  // Nav click handler
+  document.querySelectorAll('.nav-step').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const step = parseInt(this.dataset.step);
+
+      // Update active state
+      document.querySelectorAll('.nav-step').forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+
+      const data = stepData[step];
+      if (!data) return;
+
+      // Update badge and title
+      document.querySelector('.step-badge').innerHTML = data.badge;
+      document.querySelector('.step-title').innerHTML = data.title;
+      document.querySelector('.step-desc').textContent = data.desc;
+
+      // Update info bar
+      const infoCells = document.querySelectorAll('.info-cell .info-val');
+      infoCells[0].textContent = data.timeline;
+      infoCells[2].textContent = data.difficulty;
+
+      // Update tasks
+      const tasksList = document.querySelector('.tasks-list');
+      tasksList.innerHTML = data.tasks.map((t, i) => `
+        <div class="task-card">
+          <div class="task-num">${i + 1}</div>
+          <svg class="task-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+          </svg>
+          <div class="task-body">
+            <div class="task-title">${t.title}</div>
+            <div class="task-sub">${t.sub}</div>
+          </div>
+          <span class="task-arrow">›</span>
+        </div>
+      `).join('');
+
+      // Update pro tip
+      document.querySelector('.pro-tip-text').textContent = data.tip;
+
+      // Update sidebar tip
+      document.querySelector('.sidebar-tip-text').textContent = data.tipLabel;
+    });
+  });
+</script>
 
 </body>
 </html>
