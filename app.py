@@ -228,7 +228,7 @@ if "recommendations" in st.session_state:
                 <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
                 <ul>{reasons_html}</ul>
                 {caution_block}
-                <p><strong>Possible downside:</strong> {rec.get("downside")}</p>
+                <p><strong>Possible downside:</strong> {rec.get("downside", "").replace("<p>", "").replace("</p>", "").replace("<strong>Possible downside:</strong>", "").strip()}</p>
             </div>
             """,
             unsafe_allow_html=True,
