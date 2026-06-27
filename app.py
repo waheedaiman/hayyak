@@ -121,6 +121,8 @@ with st.form("hayyak_quiz"):
     col1, col2 = st.columns(2)
 
     with col1:
+        # Slider inside a matching box
+        st.markdown('<div class="slider-box">', unsafe_allow_html=True)
         monthly_budget_aed = st.slider(
             "Monthly rent budget in AED",
             min_value=3000,
@@ -128,6 +130,7 @@ with st.form("hayyak_quiz"):
             value=7500,
             step=500,
         )
+        st.markdown('</div>', unsafe_allow_html=True)
 
         commute_target = st.selectbox(
             "Where will you commute most often?",
@@ -159,9 +162,7 @@ with st.form("hayyak_quiz"):
         )
 
     submitted = st.form_submit_button("Find my neighbourhoods")
-
-st.markdown("</div>", unsafe_allow_html=True)
-
+    
 
 if submitted:
     user_profile = {
