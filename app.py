@@ -46,13 +46,19 @@ st.markdown(
     }
 
     /* Give the slider a matching card/box look */
-    .slider-box {
-        border: 1px solid #e0e0e0;
-        border-radius: 0.5rem;
-        padding: 0.75rem 1rem 0.25rem 1rem;
-        margin-bottom: 1rem;
-        background: var(--secondary-background-color, #f8f9fa);
-    }
+    with col1:
+    st.markdown(
+        '<div class="slider-box" style="display:block; min-height:60px;">',
+        unsafe_allow_html=True
+    )
+    monthly_budget_aed = st.slider(
+        "Monthly rent budget in AED",
+        min_value=3000,
+        max_value=25000,
+        value=7500,
+        step=500,
+    )
+    st.markdown('</div>', unsafe_allow_html=True)
 
     /* Optional: make the slider value label look consistent */
     .slider-box .stSlider {
