@@ -177,8 +177,6 @@ if submitted:
 
 # ---------------- RESULTS ----------------
 
-# ---------------- RESULTS ----------------
-
 if "recommendations" in st.session_state:
     profile = st.session_state["user_profile"]
     recommendations = st.session_state["recommendations"]
@@ -200,45 +198,39 @@ if "recommendations" in st.session_state:
         reasons = rec.get("reasons", [])
         cautions = rec.get("cautions", [])
 
-        reasons_html = "".join(
-            [f"<li>{reason.capitalize()}.</li>" for reason in reasons[:3]]
-        ) or "<li>This area is a possible match, but more detail would improve the recommendation.</li>"
-
-        cautions_html = "".join(
-            [f"<li>{caution.capitalize()}.</li>" for caution in cautions[:2]]
-        )
-
-        caution_block = ""
-        if cautions_html:
-            caution_block = f"""
-            <p style="margin:.7rem 0 .25rem 0;"><strong>Cautions</strong></p>
-            <ul>{cautions_html}</ul>
-            """
-
         raw_downside = rec.get("downside", "")
         downside_text = re.sub(r"<[^>]+>", "", str(raw_downside))
         downside_text = downside_text.replace("Possible downside:", "").strip()
 
-        st.markdown(
-            f"""
-            <div class="result-card">
-                <div class="result-topline">
-                    <h3 class="result-title">{rank}. {rec.get("name")}</h3>
-                    <span class="match-pill">{rec.get("match_percent")}% match</span>
-                </div>
+        st.markdown('<div class="result-card">', unsafe_allow_html=True)
 
-                <p class="muted-text">{rec.get("summary")}</p>
+        top_col, pill_col = st.columns([4, 1])
 
-                <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
-                <ul>{reasons_html}</ul>
+        with top_col:
+            st.markdown(f"### {rank}. {rec.get('name')}")
 
-                {caution_block}
+        with pill_col:
+            st.markdown(
+                f"""
+                <div class="match-pill">{rec.get("match_percent")}% match</div>
+                """,
+                unsafe_allow_html=True,
+            )
 
-                <p><strong>Possible downside:</strong> {downside_text}</p>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
+        st.markdown(rec.get("summary", ""))
+
+        st.markdown("**Why it fits**")
+        for reason in reasons[:3]:
+            st.markdown(f"- {reason.capitalize()}.")
+
+        if cautions:
+            st.markdown("**Cautions**")
+            for caution in cautions[:2]:
+                st.markdown(f"- {caution.capitalize()}.")
+
+        st.markdown(f"**Possible downside:** {downside_text}")
+
+        st.markdown("</div>", unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
