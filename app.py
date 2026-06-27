@@ -34,21 +34,10 @@ apply_hayyak_theme()
 
 st.markdown("""
 <style>
-/* Hide Streamlit's top black header */
 header[data-testid="stHeader"] {
     display: none !important;
 }
 
-/* Remove the blank space left behind */
-div[data-testid="stAppViewContainer"] {
-    padding-top: 0 !important;
-}
-
-section.main > div {
-    padding-top: 0 !important;
-}
-
-/* Hide Streamlit menu and footer */
 #MainMenu {
     visibility: hidden !important;
 }
@@ -56,11 +45,24 @@ section.main > div {
 footer {
     visibility: hidden !important;
 }
+
+/* Pull nav background rectangle down */
+.nav-shell,
+.nav-container,
+.nav-wrap,
+.hayyak-nav,
+.navbar {
+    margin-top: 0 !important;
+    transform: translateY(38px) !important;
+}
+
+.block-container {
+    padding-top: 1rem !important;
+}
 </style>
 """, unsafe_allow_html=True)
 
 render_nav(active="home")
-
 
 @st.dialog("Your Hayyak relocation brief")
 def show_ai_result_modal(ai_text):
