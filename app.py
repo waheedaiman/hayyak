@@ -31,7 +31,7 @@ apply_hayyak_theme()
 
 st.markdown(
     """
-        <style>
+    <style>
     header[data-testid="stHeader"] {
         display: none !important;
     }
@@ -45,26 +45,34 @@ st.markdown(
         padding-top: 1rem !important;
     }
 
-    /* Give the slider a matching card/box look */
-    with col1:
-    st.markdown(
-        '<div class="slider-box" style="display:block; min-height:60px;">',
-        unsafe_allow_html=True
-    )
-    monthly_budget_aed = st.slider(
-        "Monthly rent budget in AED",
-        min_value=3000,
-        max_value=25000,
-        value=7500,
-        step=500,
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    /* Optional: make the slider value label look consistent */
-    .slider-box .stSlider {
-        padding-bottom: 0.5rem;
+/* Give the slider the same boxed look as other inputs */
+    div.stSlider {
+        border: 1px solid #e0d6c8 !important;
+        border-radius: 0.5rem !important;
+        padding: 0.75rem 1rem 0.25rem 1rem !important;
+        margin-bottom: 1rem !important;
+        background: #fff9f0 !important;
     }
-        </style>
+
+    /* Make label and value text match the default color */
+    div.stSlider label,
+    div.stSlider .stSliderValue {
+        color: #333 !important;
+    }
+
+    /* Optional: accent color for thumb/track */
+    div.stSlider .stSliderTrack {
+        background-color: #0066cc !important;
+    }
+    div.stSlider .stSliderThumb {
+        background-color: #0066cc !important;
+    }
+    /* Force background on the slider's outer container */
+    div.stSlider > div {
+        background: #fff9f0 !important;
+        border-radius: 0.5rem !important;
+    }
+    </style>
     """,
     unsafe_allow_html=True,
 )
@@ -138,8 +146,6 @@ with st.form("hayyak_quiz"):
     col1, col2 = st.columns(2)
 
     with col1:
-        # Slider inside a matching box
-        st.markdown('<div class="slider-box">', unsafe_allow_html=True)
         monthly_budget_aed = st.slider(
             "Monthly rent budget in AED",
             min_value=3000,
@@ -147,7 +153,6 @@ with st.form("hayyak_quiz"):
             value=7500,
             step=500,
         )
-        st.markdown('</div>', unsafe_allow_html=True)
 
         commute_target = st.selectbox(
             "Where will you commute most often?",
