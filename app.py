@@ -5,6 +5,7 @@ Run with:
 """
 
 import re
+import html
 
 import streamlit as st
 
@@ -28,37 +29,31 @@ st.set_page_config(
 
 apply_hayyak_theme()
 
-st.markdown("""
-<style>
-header[data-testid="stHeader"] {
-    display: none !important;
-}
+st.markdown(
+    """
+    <style>
+    header[data-testid="stHeader"] {
+        display: none !important;
+    }
 
-#MainMenu {
-    visibility: hidden !important;
-}
+    #MainMenu {
+        visibility: hidden !important;
+    }
 
-footer {
-    visibility: hidden !important;
-}
+    footer {
+        visibility: hidden !important;
+    }
 
-/* Pull nav background rectangle down */
-.nav-shell,
-.nav-container,
-.nav-wrap,
-.hayyak-nav,
-.navbar {
-    margin-top: 0 !important;
-    transform: translateY(38px) !important;
-}
-
-.block-container {
-    padding-top: 1rem !important;
-}
-</style>
-""", unsafe_allow_html=True)
+    .block-container {
+        padding-top: 1rem !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
 render_nav(active="home")
+
 
 @st.dialog("Your Hayyak relocation brief")
 def show_ai_result_modal(ai_text):
@@ -81,6 +76,13 @@ def show_ai_result_modal(ai_text):
         "Note: Always verify official housing, tenancy, visa, and utility setup details "
         "through the relevant UAE or Dubai authority."
     )
+
+
+def clean_text(value):
+    """Remove accidental HTML tags and keep safe plain text."""
+    value = "" if value is None else str(value)
+    value = re.sub(r"<[^>]+>", "", value)
+    return html.escape(value.strip())
 
 
 # ---------------- HERO IMAGE ----------------
@@ -198,39 +200,44 @@ if "recommendations" in st.session_state:
         reasons = rec.get("reasons", [])
         cautions = rec.get("cautions", [])
 
+        reasons_html = "".join(
+            f"<li>{clean_text(reason).capitalize()}.</li>" for reason in reasons[:3]
+        ) or "<li>This area is a possible match, but more detail would improve the recommendation.</li>"
+
+        cautions_html = "".join(
+            f"<li>{clean_text(caution).capitalize()}.</li>" for caution in cautions[:2]
+        )
+
+        caution_block = ""
+        if cautions_html:
+            caution_block = f"""
+            <p style="margin:.7rem 0 .25rem 0;"><strong>Cautions</strong></p>
+            <ul>{cautions_html}</ul>
+            """
+
         raw_downside = rec.get("downside", "")
-        downside_text = re.sub(r"<[^>]+>", "", str(raw_downside))
+        downside_text = clean_text(raw_downside)
         downside_text = downside_text.replace("Possible downside:", "").strip()
 
-        st.markdown('<div class="result-card">', unsafe_allow_html=True)
+        card_html = f"""
+        <div class="result-card">
+            <div class="result-topline">
+                <h3 class="result-title">{rank}. {clean_text(rec.get("name", ""))}</h3>
+                <span class="match-pill">{clean_text(rec.get("match_percent", ""))}% match</span>
+            </div>
 
-        top_col, pill_col = st.columns([4, 1])
+            <p class="muted-text">{clean_text(rec.get("summary", ""))}</p>
 
-        with top_col:
-            st.markdown(f"### {rank}. {rec.get('name')}")
+            <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
+            <ul>{reasons_html}</ul>
 
-        with pill_col:
-            st.markdown(
-                f"""
-                <div class="match-pill">{rec.get("match_percent")}% match</div>
-                """,
-                unsafe_allow_html=True,
-            )
+            {caution_block}
 
-        st.markdown(rec.get("summary", ""))
+            <p><strong>Possible downside:</strong> {downside_text}</p>
+        </div>
+        """
 
-        st.markdown("**Why it fits**")
-        for reason in reasons[:3]:
-            st.markdown(f"- {reason.capitalize()}.")
-
-        if cautions:
-            st.markdown("**Cautions**")
-            for caution in cautions[:2]:
-                st.markdown(f"- {caution.capitalize()}.")
-
-        st.markdown(f"**Possible downside:** {downside_text}")
-
-        st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown(card_html, unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
 
