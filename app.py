@@ -198,41 +198,44 @@ if "recommendations" in st.session_state:
         unsafe_allow_html=True,
     )
 
-    for rank, rec in enumerate(recommendations, start=1):
-        reasons = rec.get("reasons", [])
-        cautions = rec.get("cautions", [])
+for rank, rec in enumerate(recommendations, start=1):
+    reasons = rec.get("reasons", [])
+    cautions = rec.get("cautions", [])
 
-        reasons_html = "".join(
-            [f"<li>{reason.capitalize()}.</li>" for reason in reasons[:3]]
-        ) or "<li>This area is a possible match, but more detail would improve the recommendation.</li>"
+    reasons_html = "".join(
+        [f"<li>{reason.capitalize()}.</li>" for reason in reasons[:3]]
+    ) or "<li>This area is a possible match, but more detail would improve the recommendation.</li>"
 
-        cautions_html = "".join(
-            [f"<li>{caution.capitalize()}.</li>" for caution in cautions[:2]]
-        )
+    cautions_html = "".join(
+        [f"<li>{caution.capitalize()}.</li>" for caution in cautions[:2]]
+    )
 
-        caution_block = ""
-        if cautions_html:
-            caution_block = f"""
-            <p style="margin:.7rem 0 .25rem 0;"><strong>Cautions</strong></p>
-            <ul>{cautions_html}</ul>
-            """
+    caution_block = ""
+    if cautions_html:
+        caution_block = f"""
+        <p style="margin:.7rem 0 .25rem 0;"><strong>Cautions</strong></p>
+        <ul>{cautions_html}</ul>
+        """
 
-        st.markdown(
-            f"""
-            <div class="result-card">
-                <div class="result-topline">
-                    <h3 class="result-title">{rank}. {rec.get("name")}</h3>
-                    <span class="match-pill">{rec.get("match_percent")}% match</span>
-                </div>
-                <p class="muted-text">{rec.get("summary")}</p>
-                <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
-                <ul>{reasons_html}</ul>
-                {caution_block}
-                <p><strong>Possible downside:</strong> {rec.get("downside", "").replace("<p>", "").replace("</p>", "").replace("<strong>Possible downside:</strong>", "").strip()}</p>
+    raw_downside = rec.get("downside", "")
+    downside_text = re.sub(r"<[^>]+>", "", raw_downside).replace("Possible downside:", "").strip()
+
+    st.markdown(
+        f"""
+        <div class="result-card">
+            <div class="result-topline">
+                <h3 class="result-title">{rank}. {rec.get("name")}</h3>
+                <span class="match-pill">{rec.get("match_percent")}% match</span>
             </div>
-            """,
-            unsafe_allow_html=True,
-        )
+            <p class="muted-text">{rec.get("summary")}</p>
+            <p style="margin:.7rem 0 .25rem 0;"><strong>Why it fits</strong></p>
+            <ul>{reasons_html}</ul>
+            {caution_block}
+            <p><strong>Possible downside:</strong> {downside_text}</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     st.markdown("</div>", unsafe_allow_html=True)
 
